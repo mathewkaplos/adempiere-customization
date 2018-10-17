@@ -122,7 +122,7 @@ public class IssueSupplement extends SvrProcess
 		String sql = "UPDATE adempiere.m_storage SET qtyonhand = 0  WHERE qtyonhand<0 ";
 		DB.executeUpdate(sql, get_TrxName());
 	}
-
+//git 
 	private void newSupplemnt()
 	{
 		X_hms_supplement hms_supplement = new X_hms_supplement(getCtx(), 0, get_TrxName());
