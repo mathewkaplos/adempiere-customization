@@ -8,5 +8,9 @@ public class TestGitClass
 		//NEVER TODO Auto-generated method stub
 
 	}
+	
+	private void myMethod() {
+		
+	}
 
 }
