@@ -458,7 +458,7 @@ public class EditDrug extends JDialog
 		if (vDate.getValue() != null)
 		{
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
-			bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
+			//bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
 		}
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 		if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))

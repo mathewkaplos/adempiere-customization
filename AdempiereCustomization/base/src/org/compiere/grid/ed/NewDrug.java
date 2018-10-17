@@ -445,7 +445,7 @@ public class NewDrug extends JDialog implements ActionListener
 		if (vDate.getValue() != null)
 		{
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
-			bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
+			//bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
 		}
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 
