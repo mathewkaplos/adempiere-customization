@@ -19,10 +19,11 @@ import zenith.model.X_hms_supplement;
 
 public class IssueSupplement extends SvrProcess
 {
-	
+
 	int M_Product_ID = 0;
 	BigDecimal Qty = Env.ZERO;
 	private String Name = "";
+	private String reason = "";
 
 	@Override
 	protected void prepare()
@@ -43,9 +44,10 @@ public class IssueSupplement extends SvrProcess
 			} else if (name.equals("Name"))
 			{
 				Name = para[i].getParameterAsString();
-			}
-
-			else
+			} else if (name.equals("reason"))
+			{
+				reason = para[i].getParameterAsString();
+			} else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
 	}
@@ -115,13 +117,13 @@ public class IssueSupplement extends SvrProcess
 				null);
 	}
 
-	void run()
+	private void run()
 	{
 		String sql = "UPDATE adempiere.m_storage SET qtyonhand = 0  WHERE qtyonhand<0 ";
 		DB.executeUpdate(sql, get_TrxName());
 	}
 
-	void newSupplemnt()
+	private void newSupplemnt()
 	{
 		X_hms_supplement hms_supplement = new X_hms_supplement(getCtx(), 0, get_TrxName());
 		hms_supplement.setM_Product_ID(M_Product_ID);
