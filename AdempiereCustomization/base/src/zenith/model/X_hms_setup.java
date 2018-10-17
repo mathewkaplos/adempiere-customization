@@ -33,7 +33,7 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20181009L;
+	private static final long serialVersionUID = 20181017L;
 
     /** Standard Constructor */
     public X_hms_setup (Properties ctx, int hms_setup_ID, String trxName)
@@ -43,15 +43,26 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
         {
 			setallow_billing_after_service (false);
 			setallow_price_change (false);
-			setdiagnosis_before_prescription (false);
+			setcalculate_rebate_automatically (false);
+// N
+			setdiagnosis_before_prescription (true);
+// Y
+			setdisplay_all_patient_treatments (false);
 // N
 			setdrug_issued_once_prescribed (false);
 // N
 			sethms_setup_ID (0);
+			setinpatient_realltime (false);
+// N
 			setis_get_alerts (false);
 			setissue_negative (false);
 // N
+			setpharmacy_combined (false);
+// N
 			setpharmacy_show_stock (false);
+// N
+			setrequest_service_before_done (true);
+// Y
 			setreserve_drugs (false);
 // N
 			settriage_before_consoltation (false);
@@ -205,15 +216,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_contact);
 	}
 
-	/** Set Diagnosis Before Prescription.
-		@param diagnosis_before_prescription Diagnosis Before Prescription	  */
+	/** Set Enter Diagnosis Before Prescription.
+		@param diagnosis_before_prescription Enter Diagnosis Before Prescription	  */
 	public void setdiagnosis_before_prescription (boolean diagnosis_before_prescription)
 	{
 		set_Value (COLUMNNAME_diagnosis_before_prescription, Boolean.valueOf(diagnosis_before_prescription));
 	}
 
-	/** Get Diagnosis Before Prescription.
-		@return Diagnosis Before Prescription	  */
+	/** Get Enter Diagnosis Before Prescription.
+		@return Enter Diagnosis Before Prescription	  */
 	public boolean isdiagnosis_before_prescription () 
 	{
 		Object oo = get_Value(COLUMNNAME_diagnosis_before_prescription);
@@ -226,18 +237,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Display All Patient Treatments From other visits.
-		@param display_all_patient_treatments 
-		Display All Patient Treatments From other visits
-	  */
+	/** Set Display All Patient Treatments.
+		@param display_all_patient_treatments Display All Patient Treatments	  */
 	public void setdisplay_all_patient_treatments (boolean display_all_patient_treatments)
 	{
 		set_Value (COLUMNNAME_display_all_patient_treatments, Boolean.valueOf(display_all_patient_treatments));
 	}
 
-	/** Get Display All Patient Treatments From other visits.
-		@return Display All Patient Treatments From other visits
-	  */
+	/** Get Display All Patient Treatments.
+		@return Display All Patient Treatments	  */
 	public boolean isdisplay_all_patient_treatments () 
 	{
 		Object oo = get_Value(COLUMNNAME_display_all_patient_treatments);
@@ -339,6 +347,27 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_hospital_prefix);
 	}
 
+	/** Set Inpatient Reall-time.
+		@param inpatient_realltime Inpatient Reall-time	  */
+	public void setinpatient_realltime (boolean inpatient_realltime)
+	{
+		set_Value (COLUMNNAME_inpatient_realltime, Boolean.valueOf(inpatient_realltime));
+	}
+
+	/** Get Inpatient Reall-time.
+		@return Inpatient Reall-time	  */
+	public boolean isinpatient_realltime () 
+	{
+		Object oo = get_Value(COLUMNNAME_inpatient_realltime);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set is_get_alerts.
 		@param is_get_alerts is_get_alerts	  */
 	public void setis_get_alerts (boolean is_get_alerts)
@@ -360,15 +389,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Issue when system stock is less than requested.
-		@param issue_negative Issue when system stock is less than requested	  */
+	/** Set Issue Negative Stock.
+		@param issue_negative Issue Negative Stock	  */
 	public void setissue_negative (boolean issue_negative)
 	{
 		set_Value (COLUMNNAME_issue_negative, Boolean.valueOf(issue_negative));
 	}
 
-	/** Get Issue when system stock is less than requested.
-		@return Issue when system stock is less than requested	  */
+	/** Get Issue Negative Stock.
+		@return Issue Negative Stock	  */
 	public boolean issue_negative () 
 	{
 		Object oo = get_Value(COLUMNNAME_issue_negative);
@@ -429,15 +458,18 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set maximize_forms.
-		@param maximize_forms maximize_forms	  */
+	/** Set Maximize Forms.
+		@param maximize_forms 
+		Maximize User Forms in Treatment Windows
+	  */
 	public void setmaximize_forms (boolean maximize_forms)
 	{
 		set_Value (COLUMNNAME_maximize_forms, Boolean.valueOf(maximize_forms));
 	}
 
-	/** Get maximize_forms.
-		@return maximize_forms	  */
+	/** Get Maximize Forms.
+		@return Maximize User Forms in Treatment Windows
+	  */
 	public boolean ismaximize_forms () 
 	{
 		Object oo = get_Value(COLUMNNAME_maximize_forms);
@@ -516,14 +548,17 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	}
 
 	/** Set Overwrite Inpatient Number.
-		@param overwrite_inpatient_no Overwrite Inpatient Number	  */
+		@param overwrite_inpatient_no 
+		Whether a new inpatient number is assigned to the patient when he/she is admitted, or retain an existing inpatient number.
+	  */
 	public void setoverwrite_inpatient_no (boolean overwrite_inpatient_no)
 	{
 		set_Value (COLUMNNAME_overwrite_inpatient_no, Boolean.valueOf(overwrite_inpatient_no));
 	}
 
 	/** Get Overwrite Inpatient Number.
-		@return Overwrite Inpatient Number	  */
+		@return Whether a new inpatient number is assigned to the patient when he/she is admitted, or retain an existing inpatient number.
+	  */
 	public boolean isoverwrite_inpatient_no () 
 	{
 		Object oo = get_Value(COLUMNNAME_overwrite_inpatient_no);
@@ -536,15 +571,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Outpatient and Inpatient Pharmacy Combined.
-		@param pharmacy_combined Outpatient and Inpatient Pharmacy Combined	  */
+	/** Set Pharmacy Combined.
+		@param pharmacy_combined Pharmacy Combined	  */
 	public void setpharmacy_combined (boolean pharmacy_combined)
 	{
 		set_Value (COLUMNNAME_pharmacy_combined, Boolean.valueOf(pharmacy_combined));
 	}
 
-	/** Get Outpatient and Inpatient Pharmacy Combined.
-		@return Outpatient and Inpatient Pharmacy Combined	  */
+	/** Get Pharmacy Combined.
+		@return Pharmacy Combined	  */
 	public boolean ispharmacy_combined () 
 	{
 		Object oo = get_Value(COLUMNNAME_pharmacy_combined);
@@ -557,15 +592,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Show Stock In Pharmacy.
-		@param pharmacy_show_stock Show Stock In Pharmacy	  */
+	/** Set Pharmacy Show Stock.
+		@param pharmacy_show_stock Pharmacy Show Stock	  */
 	public void setpharmacy_show_stock (boolean pharmacy_show_stock)
 	{
 		set_Value (COLUMNNAME_pharmacy_show_stock, Boolean.valueOf(pharmacy_show_stock));
 	}
 
-	/** Get Show Stock In Pharmacy.
-		@return Show Stock In Pharmacy	  */
+	/** Get Pharmacy Show Stock.
+		@return Pharmacy Show Stock	  */
 	public boolean ispharmacy_show_stock () 
 	{
 		Object oo = get_Value(COLUMNNAME_pharmacy_show_stock);
@@ -606,15 +641,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_postal_code);
 	}
 
-	/** Set Normal Rebooking interval(hours).
-		@param rebooking_interval Normal Rebooking interval(hours)	  */
+	/** Set Normal Rebooking Interval(hours).
+		@param rebooking_interval Normal Rebooking Interval(hours)	  */
 	public void setrebooking_interval (int rebooking_interval)
 	{
 		set_Value (COLUMNNAME_rebooking_interval, Integer.valueOf(rebooking_interval));
 	}
 
-	/** Get Normal Rebooking interval(hours).
-		@return Normal Rebooking interval(hours)	  */
+	/** Get Normal Rebooking Interval(hours).
+		@return Normal Rebooking Interval(hours)	  */
 	public int getrebooking_interval () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_rebooking_interval);
@@ -640,15 +675,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return bd;
 	}
 
-	/** Set Request Service before another is done.
-		@param request_service_before_done Request Service before another is done	  */
+	/** Set Request Service Before Done.
+		@param request_service_before_done Request Service Before Done	  */
 	public void setrequest_service_before_done (boolean request_service_before_done)
 	{
 		set_Value (COLUMNNAME_request_service_before_done, Boolean.valueOf(request_service_before_done));
 	}
 
-	/** Get Request Service before another is done.
-		@return Request Service before another is done	  */
+	/** Get Request Service Before Done.
+		@return Request Service Before Done	  */
 	public boolean isrequest_service_before_done () 
 	{
 		Object oo = get_Value(COLUMNNAME_request_service_before_done);

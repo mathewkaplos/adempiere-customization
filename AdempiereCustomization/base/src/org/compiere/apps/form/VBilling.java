@@ -335,7 +335,8 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 	private boolean editable(int recordID)
 	{
 		MBilling bill = new MBilling(Env.getCtx(), recordID, null);
-		if (bill.ispaid() || (bill.issued() && !HmsSetup.getSetup().isdrug_issued_once_prescribed())
+		if (bill.ispaid()
+				|| (bill.issued() && !(HmsSetup.getSetup().isdrug_issued_once_prescribed() || bill.isadmitted()))
 				|| bill.isinvoiced())
 			return false;
 		// if

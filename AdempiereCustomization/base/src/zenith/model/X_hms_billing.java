@@ -33,7 +33,7 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180726L;
+	private static final long serialVersionUID = 20181017L;
 
     /** Standard Constructor */
     public X_hms_billing (Properties ctx, int hms_billing_ID, String trxName)
@@ -41,6 +41,8 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
       super (ctx, hms_billing_ID, trxName);
       /** if (hms_billing_ID == 0)
         {
+			setadmitted (false);
+// N
 			sethms_billing_ID (0);
         } */
     }
@@ -72,6 +74,27 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** Set Admitted.
+		@param admitted Admitted	  */
+	public void setadmitted (boolean admitted)
+	{
+		set_Value (COLUMNNAME_admitted, Boolean.valueOf(admitted));
+	}
+
+	/** Get Admitted.
+		@return Admitted	  */
+	public boolean isadmitted () 
+	{
+		Object oo = get_Value(COLUMNNAME_admitted);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
 
 	/** Set Balance.
 		@param Balance Balance	  */
@@ -122,17 +145,14 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 	}
 
 	/** Set Bill Mode.
-		@param bill_mode 
-		Bill Mode ..Either Cash or Insurance
-	  */
+		@param bill_mode Bill Mode	  */
 	public void setbill_mode (int bill_mode)
 	{
 		set_Value (COLUMNNAME_bill_mode, Integer.valueOf(bill_mode));
 	}
 
 	/** Get Bill Mode.
-		@return Bill Mode ..Either Cash or Insurance
-	  */
+		@return Bill Mode	  */
 	public int getbill_mode () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_bill_mode);
@@ -141,25 +161,18 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set btn_edit.
-		@param btn_edit btn_edit	  */
-	public void setbtn_edit (boolean btn_edit)
+	/** Set EDIT.
+		@param btn_edit EDIT	  */
+	public void setbtn_edit (String btn_edit)
 	{
-		set_Value (COLUMNNAME_btn_edit, Boolean.valueOf(btn_edit));
+		set_Value (COLUMNNAME_btn_edit, btn_edit);
 	}
 
-	/** Get btn_edit.
-		@return btn_edit	  */
-	public boolean isbtn_edit () 
+	/** Get EDIT.
+		@return EDIT	  */
+	public String getbtn_edit () 
 	{
-		Object oo = get_Value(COLUMNNAME_btn_edit);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_btn_edit);
 	}
 
 	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException
@@ -219,14 +232,17 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 	}
 
 	/** Set Cash Amount.
-		@param cashAmt Cash Amount	  */
+		@param cashAmt 
+		Amount being paid
+	  */
 	public void setcashAmt (BigDecimal cashAmt)
 	{
 		set_Value (COLUMNNAME_cashAmt, cashAmt);
 	}
 
 	/** Get Cash Amount.
-		@return Cash Amount	  */
+		@return Amount being paid
+	  */
 	public BigDecimal getcashAmt () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cashAmt);
@@ -252,18 +268,21 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set deductiontamount.
-		@param deductiontamount deductiontamount	  */
-	public void setdeductiontamount (BigDecimal deductiontamount)
+	/** Set Deduction Amount.
+		@param DeductiontAmount 
+		Amount in a defined currency
+	  */
+	public void setDeductiontAmount (BigDecimal DeductiontAmount)
 	{
-		set_Value (COLUMNNAME_deductiontamount, deductiontamount);
+		set_Value (COLUMNNAME_DeductiontAmount, DeductiontAmount);
 	}
 
-	/** Get deductiontamount.
-		@return deductiontamount	  */
-	public BigDecimal getdeductiontamount () 
+	/** Get Deduction Amount.
+		@return Amount in a defined currency
+	  */
+	public BigDecimal getDeductiontAmount () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_deductiontamount);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_DeductiontAmount);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
@@ -762,14 +781,17 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 	}
 
 	/** Set MPesa Amount.
-		@param mpesaAmt MPesa Amount	  */
+		@param mpesaAmt 
+		Amount being paid
+	  */
 	public void setmpesaAmt (BigDecimal mpesaAmt)
 	{
 		set_Value (COLUMNNAME_mpesaAmt, mpesaAmt);
 	}
 
 	/** Get MPesa Amount.
-		@return MPesa Amount	  */
+		@return Amount being paid
+	  */
 	public BigDecimal getmpesaAmt () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_mpesaAmt);
@@ -837,15 +859,15 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 		return false;
 	}
 
-	/** Set pay_after.
-		@param pay_after pay_after	  */
+	/** Set Pay After.
+		@param pay_after Pay After	  */
 	public void setpay_after (boolean pay_after)
 	{
 		set_Value (COLUMNNAME_pay_after, Boolean.valueOf(pay_after));
 	}
 
-	/** Get pay_after.
-		@return pay_after	  */
+	/** Get Pay After.
+		@return Pay After	  */
 	public boolean ispay_after () 
 	{
 		Object oo = get_Value(COLUMNNAME_pay_after);
@@ -858,29 +880,29 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 		return false;
 	}
 
-	/** Set Payment Date.
-		@param pay_date Payment Date	  */
+	/** Set Pay Date.
+		@param pay_date Pay Date	  */
 	public void setpay_date (Timestamp pay_date)
 	{
 		set_Value (COLUMNNAME_pay_date, pay_date);
 	}
 
-	/** Get Payment Date.
-		@return Payment Date	  */
+	/** Get Pay Date.
+		@return Pay Date	  */
 	public Timestamp getpay_date () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_pay_date);
 	}
 
-	/** Set previous_balance.
-		@param previous_balance previous_balance	  */
+	/** Set Previous Balance.
+		@param previous_balance Previous Balance	  */
 	public void setprevious_balance (BigDecimal previous_balance)
 	{
 		set_Value (COLUMNNAME_previous_balance, previous_balance);
 	}
 
-	/** Get previous_balance.
-		@return previous_balance	  */
+	/** Get Previous Balance.
+		@return Previous Balance	  */
 	public BigDecimal getprevious_balance () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_previous_balance);
@@ -927,20 +949,6 @@ public class X_hms_billing extends PO implements I_hms_billing, I_Persistent
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
-	}
-
-	/** Set Product Category.
-		@param product_cat Product Category	  */
-	public void setproduct_cat (String product_cat)
-	{
-		set_Value (COLUMNNAME_product_cat, product_cat);
-	}
-
-	/** Get Product Category.
-		@return Product Category	  */
-	public String getproduct_cat () 
-	{
-		return (String)get_Value(COLUMNNAME_product_cat);
 	}
 
 	/** Set Quantity.

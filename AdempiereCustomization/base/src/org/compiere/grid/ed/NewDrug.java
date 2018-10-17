@@ -32,6 +32,7 @@ import org.zenith.util.Stock;
 
 import net.miginfocom.swing.*;
 import zenith.model.MBilling;
+import zenith.model.MSetup;
 import zenith.model.MTreatmentDoc;
 import zenith.process.CreateHospitalDefaults;
 import zenith.util.DateUtil;
@@ -57,6 +58,14 @@ public class NewDrug extends JDialog implements ActionListener
 	Stock stockPharm = null;
 	Stock stockMain = null;
 	BigDecimal availableStock = Env.ZERO;
+	MTreatmentDoc doc = null;
+	private boolean allowNegativeStock = false;
+	private boolean isService = false;
+	private boolean drugsIssuedOncePrescribed = false;
+	private boolean reserveDrugs = false;
+	private boolean inPatientReallTime = false;
+	
+	private boolean admitted =false;
 
 	/**
 	 * @param Frame
@@ -72,6 +81,15 @@ public class NewDrug extends JDialog implements ActionListener
 		validateFields();
 		addListeners();
 		addListeners2();
+
+		doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), null);
+		MSetup setup = HmsSetup.getSetup();
+		allowNegativeStock = setup.isallow_negative_stock();
+		drugsIssuedOncePrescribed = setup.isdrug_issued_once_prescribed();
+		reserveDrugs = setup.isreserve_drugs();
+		inPatientReallTime = setup.isinpatient_realltime();
+		
+		admitted = doc.isadmitted();
 	}
 
 	/**
@@ -138,6 +156,8 @@ public class NewDrug extends JDialog implements ActionListener
 							availableStock = stockPharm.getQtyAvailable();
 							textAreaInfo.setText("");
 							textAreaInfo.append(stockPharm.getStockInformation());
+
+							isService = isService(M_Product_ID);
 
 						}
 				} catch (Exception e1)
@@ -341,10 +361,8 @@ public class NewDrug extends JDialog implements ActionListener
 
 			BigDecimal totalDose = new BigDecimal(textFieldDosage.getText());
 			BigDecimal diffQty = availableStock.subtract(totalDose);
-			MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), null);
 
-			if (diffQty.signum() == -1 && !isService(M_Product_ID) && !HmsSetup.allowNegativeStock()
-					&& !doc.isadmitted())
+			if (diffQty.signum() == -1 && !isService && !allowNegativeStock)
 			{
 				JOptionPane
 						.showMessageDialog(null,
@@ -415,7 +433,7 @@ public class NewDrug extends JDialog implements ActionListener
 		bill.setdosage(Integer.parseInt(textFieldDosage.getText()));
 		bill.setDescription(textFieldUnits.getText());
 		bill.setdosage_description(textFieldDosageDescription.getText());
-		if (!isService(M_Product_ID))// not service
+		if (!isService)// not service
 		{
 			bill.setto_pharm(true);
 			bill.setbill_group(3);
@@ -431,14 +449,16 @@ public class NewDrug extends JDialog implements ActionListener
 		}
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 
-		if (HmsSetup.getSetup().isdrug_issued_once_prescribed())
+		if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))
 		{
 			stockPharm.updateStock(bill.getQty()).updateQtyOnHand();
 			bill.setissued(true);
-		} else if (HmsSetup.getSetup().isreserve_drugs())
+		} else if (reserveDrugs)
 		{
 			stockPharm.updateStock(bill.getQty()).updateQtyReserved();
 		}
+		if (admitted)
+			bill.setadmitted(true);
 		bill.save();
 
 		setBillMode(bill);

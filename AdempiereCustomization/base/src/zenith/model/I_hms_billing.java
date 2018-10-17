@@ -53,15 +53,24 @@ public interface I_hms_billing
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
-	/** Set Department.
+	/** Set Organization.
 	  * Organizational entity within client
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
-	/** Get Department.
+	/** Get Organization.
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
+
+    /** Column name admitted */
+    public static final String COLUMNNAME_admitted = "admitted";
+
+	/** Set Admitted	  */
+	public void setadmitted (boolean admitted);
+
+	/** Get Admitted	  */
+	public boolean isadmitted();
 
     /** Column name Balance */
     public static final String COLUMNNAME_Balance = "Balance";
@@ -93,24 +102,20 @@ public interface I_hms_billing
     /** Column name bill_mode */
     public static final String COLUMNNAME_bill_mode = "bill_mode";
 
-	/** Set Bill Mode.
-	  * Bill Mode ..Either Cash or Insurance
-	  */
+	/** Set Bill Mode	  */
 	public void setbill_mode (int bill_mode);
 
-	/** Get Bill Mode.
-	  * Bill Mode ..Either Cash or Insurance
-	  */
+	/** Get Bill Mode	  */
 	public int getbill_mode();
 
     /** Column name btn_edit */
     public static final String COLUMNNAME_btn_edit = "btn_edit";
 
-	/** Set btn_edit	  */
-	public void setbtn_edit (boolean btn_edit);
+	/** Set EDIT	  */
+	public void setbtn_edit (String btn_edit);
 
-	/** Get btn_edit	  */
-	public boolean isbtn_edit();
+	/** Get EDIT	  */
+	public String getbtn_edit();
 
     /** Column name C_BPartner_ID */
     public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
@@ -145,10 +150,14 @@ public interface I_hms_billing
     /** Column name cashAmt */
     public static final String COLUMNNAME_cashAmt = "cashAmt";
 
-	/** Set Cash Amount	  */
+	/** Set Cash Amount.
+	  * Amount being paid
+	  */
 	public void setcashAmt (BigDecimal cashAmt);
 
-	/** Get Cash Amount	  */
+	/** Get Cash Amount.
+	  * Amount being paid
+	  */
 	public BigDecimal getcashAmt();
 
     /** Column name Created */
@@ -176,14 +185,18 @@ public interface I_hms_billing
 	/** Get Days	  */
 	public int getdays();
 
-    /** Column name deductiontamount */
-    public static final String COLUMNNAME_deductiontamount = "deductiontamount";
+    /** Column name DeductiontAmount */
+    public static final String COLUMNNAME_DeductiontAmount = "DeductiontAmount";
 
-	/** Set deductiontamount	  */
-	public void setdeductiontamount (BigDecimal deductiontamount);
+	/** Set Deduction Amount.
+	  * Amount in a defined currency
+	  */
+	public void setDeductiontAmount (BigDecimal DeductiontAmount);
 
-	/** Get deductiontamount	  */
-	public BigDecimal getdeductiontamount();
+	/** Get Deduction Amount.
+	  * Amount in a defined currency
+	  */
+	public BigDecimal getDeductiontAmount();
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
@@ -449,10 +462,14 @@ public interface I_hms_billing
     /** Column name mpesaAmt */
     public static final String COLUMNNAME_mpesaAmt = "mpesaAmt";
 
-	/** Set MPesa Amount	  */
+	/** Set MPesa Amount.
+	  * Amount being paid
+	  */
 	public void setmpesaAmt (BigDecimal mpesaAmt);
 
-	/** Get MPesa Amount	  */
+	/** Get MPesa Amount.
+	  * Amount being paid
+	  */
 	public BigDecimal getmpesaAmt();
 
     /** Column name paid */
@@ -485,28 +502,28 @@ public interface I_hms_billing
     /** Column name pay_after */
     public static final String COLUMNNAME_pay_after = "pay_after";
 
-	/** Set pay_after	  */
+	/** Set Pay After	  */
 	public void setpay_after (boolean pay_after);
 
-	/** Get pay_after	  */
+	/** Get Pay After	  */
 	public boolean ispay_after();
 
     /** Column name pay_date */
     public static final String COLUMNNAME_pay_date = "pay_date";
 
-	/** Set Payment Date	  */
+	/** Set Pay Date	  */
 	public void setpay_date (Timestamp pay_date);
 
-	/** Get Payment Date	  */
+	/** Get Pay Date	  */
 	public Timestamp getpay_date();
 
     /** Column name previous_balance */
     public static final String COLUMNNAME_previous_balance = "previous_balance";
 
-	/** Set previous_balance	  */
+	/** Set Previous Balance	  */
 	public void setprevious_balance (BigDecimal previous_balance);
 
-	/** Get previous_balance	  */
+	/** Get Previous Balance	  */
 	public BigDecimal getprevious_balance();
 
     /** Column name Price */
@@ -534,15 +551,6 @@ public interface I_hms_billing
 	  * Actual Price 
 	  */
 	public BigDecimal getPriceActual();
-
-    /** Column name product_cat */
-    public static final String COLUMNNAME_product_cat = "product_cat";
-
-	/** Set Product Category	  */
-	public void setproduct_cat (String product_cat);
-
-	/** Get Product Category	  */
-	public String getproduct_cat();
 
     /** Column name Qty */
     public static final String COLUMNNAME_Qty = "Qty";
