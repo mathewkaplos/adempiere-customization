@@ -1,0 +1,15 @@
+*** 2018-07-02 18:26:28.415 Adempiere Log (CLogFile) ***
+18:26:28.414 Setup.<init>: ADempiere(r) Release 3.8.0.1_2017-03-01 -Zenith ERP- (c) 1999-2017 Zenith(r); Implementation: ADempiere - Supported by ADempiere community [1]
+18:26:28.553 ConfigurationData.load: Defaults [1]
+18:26:30.343 Config.test: OK: JavaHome=C:\Program Files\Java\jdk1.8.0_171 [20]
+18:26:30.343 Config.test: OK: Version=1.8.0_171 [20]
+18:26:30.343 ConfigurationData.testAdempiere: OK: AdempiereHome = E:\380\adempiere-customization\template-master [20]
+18:26:30.345 KeyStoreMgt.<init>: E:\380\adempiere-customization\template-master\keystore\myKeystore [20]
+18:26:30.348 KeyStoreMgt.createCertificate:  [20]
+18:26:31.513 KeyStoreMgt.keytool: keytool -genkey -keyalg rsa -alias adempiere -dname "CN=DESKTOP-48SVKPS, OU=mathe, O=AdempiereUser, L=MyTown, C=US" -keypass myPassword -validity 999 -keystore E:\380\adempiere-customization\template-master\keystore\myKeystore -storepass myPassword [20]
+18:26:31.514 KeyStoreMgt.keytool: keytool -selfcert -alias adempiere -dname "CN=DESKTOP-48SVKPS, OU=mathe, O=AdempiereUser, L=MyTown, C=US" -keypass myPassword -validity 999 -keystore E:\380\adempiere-customization\template-master\keystore\myKeystore -storepass myPassword [20]
+-----------> ConfigurationData.test: No Key Store [20]
+===========> ConfigurationPanel$1.finished: KeyStore Password 
+(No Key Store) [16]
+
+*** 2018-07-02 18:36:13.179 Adempiere Log (CLogFile) ***

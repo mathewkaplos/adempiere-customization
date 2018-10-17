@@ -1,0 +1,291 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_131" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+			"$rowConstraints": "[][][][25][][][25][][25][][][][][][][25][][25][][25][][25][][][][][][][]"
+		} ) {
+			name: "this"
+			"title": "Frame"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[][][][][][][][][][][][][][][][]"
+			} ) {
+				name: "panel2"
+				"border": new javax.swing.border.TitledBorder( "Patient Info" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "System Number"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0 2 3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtSystemNumber"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "Old Patient No"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 1"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtOldPatientNumber"
+					"minimumSize": &Dimension0 new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "Patient No."
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtPatientNo"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 3"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "Inpatient No"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtInpatientNo"
+					"minimumSize": #Dimension0
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 3"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Patient Name"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 5"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtPatientName"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 5"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label6"
+					"text": "Date of Registration"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 5"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label7"
+					"text": "Patient Group"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 7"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label8"
+					"text": "Gender"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 7"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label9"
+					"text": "National ID No"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 9"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtNationalID"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 9"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label10"
+					"text": "Telephone"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 9"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtTelephone"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 9"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label11"
+					"text": "Date of Birth"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 10"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label12"
+					"text": "Age"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 10"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtAge"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 10"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label13"
+					"text": "Patient Last Visit"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 11"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtLastVisit"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 11"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label14"
+					"text": "Period Since Last Visit"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 11"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtPeriodSinceLastVisit"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 11"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "contributesToNHIF"
+					"text": "Contibutes to NHIF"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 12"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label16"
+					"text": "NHIF No"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 12"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtNHIFNo"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 12"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "isSelfEmployed"
+					"text": "Is Self Emplyed"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 13"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label18"
+					"text": "Company/Emplyee"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 13"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "isPhotoAttached"
+					"text": "Photo Attached"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 14"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label20"
+					"text": "Open Balance"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 14"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtOpenBalance"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 14"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label21"
+					"text": "Patient Priority"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 15"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label22"
+					"text": "Next Location"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 15"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "txtNextLocation"
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"editable": false
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 9 15"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[][][][]"
+			} ) {
+				name: "panel1"
+				"border": new javax.swing.border.TitledBorder( "" )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnEdit"
+					"text": "EDIT"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnEditActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnUpdate"
+					"text": "UPDATE"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnUpdateActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnCancel"
+					"text": "CANCEL"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnCancelActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnSave"
+					"text": "SAVE NEW RECORD"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnSaveActionPerformed", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "btnBook"
+					"text": "BOOK PATIENT"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 12 1"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 5 12 6"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 25 )
+			"size": new java.awt.Dimension( 860, 845 )
+		} )
+	}
+}
