@@ -284,7 +284,7 @@ public class BookPatient extends SvrProcess
 		BigDecimal amount = Env.ZERO;
 		if (!no_consultation_fee)
 		{
-			price = new Price(M_Product_ID, doc.get_ID());
+			price = new Price(M_Product_ID, C_BP_Group_ID, get_TrxName());
 			amount = price.getPrice();
 		}
 		if (!no_consultation_fee)

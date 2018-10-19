@@ -45,6 +45,15 @@ public class Stock
 		return new BigDecimal(qty.stripTrailingZeros().toPlainString());
 	}
 
+	/*
+	 * 
+	 */
+	public BigDecimal getQtyAvailableMainStore()
+	{
+		BigDecimal qty = MStorage.getQtyAvailable(1000004, 1000024, M_Product_ID, 0, null);
+		return new BigDecimal(qty.stripTrailingZeros().toPlainString());
+	}
+
 	public String getStockInformation()
 	{
 		StringBuilder info = new StringBuilder();
@@ -55,7 +64,8 @@ public class Stock
 			info.append("Reserved:     " + getQtyReserved() + "\n");
 		}
 		info.append("Available:      " + getQtyAvailable() + "\n");
-		info.append(getExpiryDateAsString());
+		info.append(getExpiryDateAsString() + "\n");
+		info.append("Main Store:    " + getQtyAvailableMainStore());
 		return info.toString();
 	}
 

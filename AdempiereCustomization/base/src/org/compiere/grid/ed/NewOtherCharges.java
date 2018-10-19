@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -177,14 +178,16 @@ public class NewOtherCharges extends JDialog implements ActionListener
 		{
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
 			bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
+		} else
+		{
+			bill.setbill_date(new Timestamp(System.currentTimeMillis()));
 		}
 		bill.save();
 
 		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), treatID, null);
 		doc.updateTotalOpenBalance(bill.getLineNetAmt());
 		doc.save();
-		
-		
+
 		setBillMode(bill);
 		VOtherCharge oc = new VOtherCharge();
 		oc.loadBPartner();
@@ -243,8 +246,8 @@ public class NewOtherCharges extends JDialog implements ActionListener
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

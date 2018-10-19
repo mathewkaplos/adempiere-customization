@@ -10,10 +10,15 @@ import org.compiere.model.MProduct;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
+import zenith.model.MTreatmentDoc;
+
 public class Price
 {
-	private int M_Product_ID;
-	private int hms_treatment_doc_id;
+	private int M_Product_ID = 0;
+	private int hms_treatment_doc_id = 0;
+	private int C_BP_Group_ID = 0;
+
+	private String _trxName = null;
 
 	public Price(int M_Product_ID, int hms_treatment_doc_id)
 	{
@@ -21,11 +26,21 @@ public class Price
 		this.hms_treatment_doc_id = hms_treatment_doc_id;
 	}
 
+	public Price(int M_Product_ID, int C_BP_Group_ID, String trxName)
+	{
+		this.M_Product_ID = M_Product_ID;
+		this.C_BP_Group_ID = C_BP_Group_ID;
+		this._trxName = trxName;
+	}
+
 	public BigDecimal getPrice()
 	{
-
+		int M_Pricelist_ID = 0;
 		BigDecimal amount = Env.ZERO;
-		int M_Pricelist_ID = getPriceListID(getC_BP_Group_ID(hms_treatment_doc_id));
+		if (C_BP_Group_ID > 0)
+			M_Pricelist_ID = getPriceListID(C_BP_Group_ID);
+		else
+			M_Pricelist_ID = getPriceListID(getC_BP_Group_ID(hms_treatment_doc_id));
 		if (M_Pricelist_ID != 0)
 		{
 			int M_Pricelist_version_ID = getPriceListVersionID(M_Pricelist_ID);
@@ -51,10 +66,8 @@ public class Price
 
 	private int getC_BP_Group_ID(int hms_treatment_doc_id)
 	{
-
-		String sql = "select C_BP_Group_ID FROM hms_treatment_doc WHERE hms_treatment_doc_id =" + hms_treatment_doc_id;
-		int C_BP_Group_ID = DB.getSQLValue(get_TrxName(), sql);
-		return C_BP_Group_ID;
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), hms_treatment_doc_id, null);
+		return doc.getC_BP_Group_ID();
 	}
 
 	private int getPriceListID(int C_BP_Group_ID)
@@ -67,7 +80,7 @@ public class Price
 
 	private String get_TrxName()
 	{
-		return null;
+		return _trxName;
 	}
 
 	private int getPriceListVersionID(int M_Pricelist_ID)

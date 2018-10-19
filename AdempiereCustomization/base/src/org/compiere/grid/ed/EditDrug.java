@@ -7,6 +7,8 @@ package org.compiere.grid.ed;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -458,8 +460,9 @@ public class EditDrug extends JDialog
 		if (vDate.getValue() != null)
 		{
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
-			//bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
-		}
+			// bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
+		} else
+			bill.setbill_date(new Timestamp(System.currentTimeMillis()));
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 		if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))
 		{

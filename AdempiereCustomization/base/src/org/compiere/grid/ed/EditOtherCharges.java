@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -147,6 +148,8 @@ public class EditOtherCharges extends JDialog implements ActionListener
 		bill.setbill_group(4);
 		if (vDate.getValue() != null)
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
+		else
+			bill.setbill_date(new Timestamp(System.currentTimeMillis()));
 		bill.save();
 
 		updateDoc(bill.getLineNetAmt().subtract(currentAmount));
@@ -230,8 +233,8 @@ public class EditOtherCharges extends JDialog implements ActionListener
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

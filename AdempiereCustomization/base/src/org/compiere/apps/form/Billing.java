@@ -31,12 +31,12 @@ public class Billing
 	{
 		Vector<Vector<Object>> data = new Vector();
 
-		String sql = "select b.hms_billing_id, b.created , u.name , pr.name ,b.qty,b.price,"
+		String sql = "select b.hms_billing_id, b.bill_date , u.name , pr.name ,b.qty,b.price,"
 				+ " b.linenetamt,b.dosage_description,b.paid, b.issued from adempiere.hms_billing b "
 				+ " inner join adempiere.ad_user u on u.ad_user_id =b.createdby "
 				+ " inner join adempiere.hms_treatment_doc doc ON doc.hms_treatment_doc_ID = b.hms_treatment_doc_id"
 				+ " inner join adempiere.m_product pr on pr.m_product_id = b.m_product_id " + whereClause
-				+ " AND b.is_prescription='Y' ORDER BY b.created DESC";
+				+ " AND b.is_prescription='Y' ORDER BY b.bill_date DESC";
 		PreparedStatement pstmt = null;
 		// pstmt.setInt(1, m_C_BPartner_ID);
 		ResultSet rs = null;
@@ -84,7 +84,7 @@ public class Billing
 	{
 		Vector<String> columnNames = new Vector();
 		columnNames.add(Msg.getMsg(Env.getCtx(), "Select"));
-		columnNames.add("Created On");
+		columnNames.add("Bill Date");
 		columnNames.add("Staff");
 		columnNames.add("Product Name");
 		columnNames.add("Quantity ");

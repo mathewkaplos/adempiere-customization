@@ -24,7 +24,7 @@ public class AdjustStock extends SvrProcess
 	private String Lot = "";
 	private Timestamp GuaranteeDate = null;
 	private BigDecimal QtyOnHand = Env.ZERO;
-	private String Description ="";
+	private String Description = "";
 
 	@Override
 	protected void prepare()
@@ -55,12 +55,11 @@ public class AdjustStock extends SvrProcess
 				GuaranteeDate = para[i].getParameterToAsTimestamp();
 			} else if (name.equals("QtyOnHand"))
 			{
-				QtyOnHand = ((BigDecimal) para[i].getParameter()).setScale(0);
-			} 
-			else if (name.equals("Description"))
+				QtyOnHand = ((BigDecimal) para[i].getParameter()).setScale(0, BigDecimal.ROUND_HALF_DOWN);
+			} else if (name.equals("Description"))
 			{
 				Description = para[i].getParameterAsString();
-			}else
+			} else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
 		// NEVER TODO Auto-generated method stub
@@ -107,7 +106,7 @@ public class AdjustStock extends SvrProcess
 				storage.save();
 			}
 		} catch (Exception e)
-		{    
+		{
 
 		}
 

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -64,8 +65,8 @@ public class NewDrug extends JDialog implements ActionListener
 	private boolean drugsIssuedOncePrescribed = false;
 	private boolean reserveDrugs = false;
 	private boolean inPatientReallTime = false;
-	
-	private boolean admitted =false;
+
+	private boolean admitted = false;
 
 	/**
 	 * @param Frame
@@ -88,7 +89,7 @@ public class NewDrug extends JDialog implements ActionListener
 		drugsIssuedOncePrescribed = setup.isdrug_issued_once_prescribed();
 		reserveDrugs = setup.isreserve_drugs();
 		inPatientReallTime = setup.isinpatient_realltime();
-		
+
 		admitted = doc.isadmitted();
 	}
 
@@ -445,8 +446,9 @@ public class NewDrug extends JDialog implements ActionListener
 		if (vDate.getValue() != null)
 		{
 			bill.setbill_date(DateUtil.getTimestamp(vDate.getValue()));
-			//bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
-		}
+			// bill.setCreated(DateUtil.getTimestamp(vDate.getValue()));
+		} else
+			bill.setbill_date(new Timestamp(System.currentTimeMillis()));
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 
 		if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))

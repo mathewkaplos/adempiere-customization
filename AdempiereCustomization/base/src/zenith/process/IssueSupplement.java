@@ -19,7 +19,7 @@ import zenith.model.X_hms_supplement;
 
 public class IssueSupplement extends SvrProcess
 {
-
+	
 	int M_Product_ID = 0;
 	BigDecimal Qty = Env.ZERO;
 	private String Name = "";
@@ -129,6 +129,7 @@ public class IssueSupplement extends SvrProcess
 		hms_supplement.setM_Product_ID(M_Product_ID);
 		hms_supplement.setQty(Qty);
 		hms_supplement.setName(Name);
+		hms_supplement.setreason(reason);
 		hms_supplement.save();
 	}
 }

@@ -89,6 +89,8 @@ public final class Discharge extends SvrProcess
 		billing.setis_inpatient_service(true);
 		billing.setBalance(amount);
 
+		billing.setbill_date(doc.getcheck_out_date());
+
 		billing.save();
 
 		updateWard(doc);

@@ -142,6 +142,9 @@ public class LabDocument implements Serializable
 		{
 			billing.setCreated(billDate);
 			billing.setbill_date(billDate);
+		} else
+		{
+			billing.setbill_date(new Timestamp(System.currentTimeMillis()));
 		}
 		billing.save();
 		// update open balance for the instance
