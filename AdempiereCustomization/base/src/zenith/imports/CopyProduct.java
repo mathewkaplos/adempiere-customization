@@ -36,7 +36,7 @@ public class CopyProduct extends SvrProcess
 	{
 		String sql = "SELECT * from M_Product_Category ";
 		PreparedStatement stm = null;
-		try
+		try 
 		{
 			stm = DB.prepareStatement(sql, get_TrxName());
 			ResultSet rs = stm.executeQuery();
