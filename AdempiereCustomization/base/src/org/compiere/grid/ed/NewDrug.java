@@ -362,7 +362,7 @@ public class NewDrug extends JDialog implements ActionListener
 		{
 			if (admitted && !realtime_updateStock)
 			{
-				prescribe();
+				prescribe(); 
 			} else
 			{
 
