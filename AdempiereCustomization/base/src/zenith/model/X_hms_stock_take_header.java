@@ -30,7 +30,7 @@ public class X_hms_stock_take_header extends PO implements I_hms_stock_take_head
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20171010L;
+	private static final long serialVersionUID = 20181031L;
 
     /** Standard Constructor */
     public X_hms_stock_take_header (Properties ctx, int hms_stock_take_header_ID, String trxName)
@@ -38,6 +38,12 @@ public class X_hms_stock_take_header extends PO implements I_hms_stock_take_head
       super (ctx, hms_stock_take_header_ID, trxName);
       /** if (hms_stock_take_header_ID == 0)
         {
+			setbtn_create_item (null);
+// N
+			setcompleted (false);
+// N
+			setdisp01 (false);
+// N
 			sethms_stock_take_header_ID (0);
         } */
     }
@@ -70,6 +76,34 @@ public class X_hms_stock_take_header extends PO implements I_hms_stock_take_head
       return sb.toString();
     }
 
+	/** Set COMPLETE.
+		@param btn_complete COMPLETE	  */
+	public void setbtn_complete (String btn_complete)
+	{
+		set_Value (COLUMNNAME_btn_complete, btn_complete);
+	}
+
+	/** Get COMPLETE.
+		@return COMPLETE	  */
+	public String getbtn_complete () 
+	{
+		return (String)get_Value(COLUMNNAME_btn_complete);
+	}
+
+	/** Set CREATE ITEM LINE.
+		@param btn_create_item CREATE ITEM LINE	  */
+	public void setbtn_create_item (String btn_create_item)
+	{
+		set_Value (COLUMNNAME_btn_create_item, btn_create_item);
+	}
+
+	/** Get CREATE ITEM LINE.
+		@return CREATE ITEM LINE	  */
+	public String getbtn_create_item () 
+	{
+		return (String)get_Value(COLUMNNAME_btn_create_item);
+	}
+
 	/** Set btn_createlines.
 		@param btn_createlines btn_createlines	  */
 	public void setbtn_createlines (String btn_createlines)
@@ -96,6 +130,62 @@ public class X_hms_stock_take_header extends PO implements I_hms_stock_take_head
 	public String getbtn_update_stock () 
 	{
 		return (String)get_Value(COLUMNNAME_btn_update_stock);
+	}
+
+	/** Set Comment.
+		@param comment Comment	  */
+	public void setcomment (String comment)
+	{
+		set_Value (COLUMNNAME_comment, comment);
+	}
+
+	/** Get Comment.
+		@return Comment	  */
+	public String getcomment () 
+	{
+		return (String)get_Value(COLUMNNAME_comment);
+	}
+
+	/** Set Completed.
+		@param completed Completed	  */
+	public void setcompleted (boolean completed)
+	{
+		set_Value (COLUMNNAME_completed, Boolean.valueOf(completed));
+	}
+
+	/** Get Completed.
+		@return Completed	  */
+	public boolean iscompleted () 
+	{
+		Object oo = get_Value(COLUMNNAME_completed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set disp01.
+		@param disp01 disp01	  */
+	public void setdisp01 (boolean disp01)
+	{
+		set_Value (COLUMNNAME_disp01, Boolean.valueOf(disp01));
+	}
+
+	/** Get disp01.
+		@return disp01	  */
+	public boolean isdisp01 () 
+	{
+		Object oo = get_Value(COLUMNNAME_disp01);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set hms_stock_take_header ID.

@@ -2,54 +2,49 @@ package zenith.process;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+
 import org.compiere.model.MStorage;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
-import zenith.model.X_hms_stock_take_header;
 import zenith.model.hms_stock_take;
 
-public class CreateStockTakeLines extends SvrProcess
+//Stock take for a single product
+public class CreateStockTakeLine extends SvrProcess
 {
 
-	int headerID = 0;
+	private int M_Product_ID;
+	private int headerID = 0;
 
 	@Override
 	protected void prepare()
 	{
-		X_hms_stock_take_header head = new X_hms_stock_take_header(getCtx(), getRecord_ID(), get_TrxName());
-		headerID = head.gethms_stock_take_header_ID();
+
+		ProcessInfoParameter[] para = getParameter();
+		for (int i = 0; i < para.length; i++)
+		{
+			String name = para[i].getParameterName();
+			if (para[i].getParameterName() == null)
+				;
+			else if (name.equals("M_Product_ID"))
+			{
+				M_Product_ID = para[i].getParameterAsInt();
+			} else
+				log.log(Level.SEVERE, "Unknown Parameter: " + name);
+		}
+		headerID = getRecord_ID();
+
 	}
 
 	@Override
 	protected String doIt() throws Exception
 	{
-		String sql = "SELECT M_Product_ID FROM adempiere.M_Product WHERE producttype='I' ORDER BY name ";
-		PreparedStatement stm = null;
-		ResultSet rs = null;
-		try
-		{
-			stm = DB.prepareStatement(sql, get_TrxName());
-			rs = stm.executeQuery();
-			while (rs.next())
-			{
-				int M_Product_ID = rs.getInt(1);
-				getStorage(M_Product_ID);
-			}
-
-		} catch (Exception ex)
-		{
-
-		} finally
-		{
-			stm.close();
-			rs.close();
-			stm = null;
-			rs = null;
-		}
+		getStorage();
 		return null;
 	}
 
-	private void getStorage(int M_Product_ID) throws Exception
+	private void getStorage()
 	{
 
 		String sql = "SELECT * FROM adempiere.M_Storage WHERE M_Product_ID =" + M_Product_ID;
@@ -67,13 +62,7 @@ public class CreateStockTakeLines extends SvrProcess
 
 		} catch (Exception ex)
 		{
-			ex.printStackTrace();
-		} finally
-		{
-			stm.close();
-			rs.close();
-			stm = null;
-			rs = null;
+
 		}
 	}
 

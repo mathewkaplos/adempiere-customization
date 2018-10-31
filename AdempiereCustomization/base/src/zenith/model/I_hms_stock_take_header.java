@@ -53,15 +53,33 @@ public interface I_hms_stock_take_header
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
-	/** Set Department.
+	/** Set Organization.
 	  * Organizational entity within client
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
-	/** Get Department.
+	/** Get Organization.
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
+
+    /** Column name btn_complete */
+    public static final String COLUMNNAME_btn_complete = "btn_complete";
+
+	/** Set COMPLETE	  */
+	public void setbtn_complete (String btn_complete);
+
+	/** Get COMPLETE	  */
+	public String getbtn_complete();
+
+    /** Column name btn_create_item */
+    public static final String COLUMNNAME_btn_create_item = "btn_create_item";
+
+	/** Set CREATE ITEM LINE	  */
+	public void setbtn_create_item (String btn_create_item);
+
+	/** Get CREATE ITEM LINE	  */
+	public String getbtn_create_item();
 
     /** Column name btn_createlines */
     public static final String COLUMNNAME_btn_createlines = "btn_createlines";
@@ -81,6 +99,24 @@ public interface I_hms_stock_take_header
 	/** Get btn_update_stock	  */
 	public String getbtn_update_stock();
 
+    /** Column name comment */
+    public static final String COLUMNNAME_comment = "comment";
+
+	/** Set Comment	  */
+	public void setcomment (String comment);
+
+	/** Get Comment	  */
+	public String getcomment();
+
+    /** Column name completed */
+    public static final String COLUMNNAME_completed = "completed";
+
+	/** Set Completed	  */
+	public void setcompleted (boolean completed);
+
+	/** Get Completed	  */
+	public boolean iscompleted();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -96,6 +132,15 @@ public interface I_hms_stock_take_header
 	  * User who created this records
 	  */
 	public int getCreatedBy();
+
+    /** Column name disp01 */
+    public static final String COLUMNNAME_disp01 = "disp01";
+
+	/** Set disp01	  */
+	public void setdisp01 (boolean disp01);
+
+	/** Get disp01	  */
+	public boolean isdisp01();
 
     /** Column name hms_stock_take_header_ID */
     public static final String COLUMNNAME_hms_stock_take_header_ID = "hms_stock_take_header_ID";
