@@ -66,6 +66,7 @@ public class EditDrug extends JDialog
 	private boolean drugsIssuedOncePrescribed = false;
 	private boolean reserveDrugs = false;
 	private boolean inPatientReallTime = false;
+	private boolean realtime_updateStock = false;
 
 	private boolean admitted = false;
 
@@ -92,6 +93,7 @@ public class EditDrug extends JDialog
 		drugsIssuedOncePrescribed = setup.isdrug_issued_once_prescribed();
 		reserveDrugs = setup.isreserve_drugs();
 		inPatientReallTime = setup.isinpatient_realltime();
+		realtime_updateStock = setup.isrealtime_update_stock();
 
 		admitted = doc.isadmitted();
 
@@ -375,38 +377,43 @@ public class EditDrug extends JDialog
 		int M_Product_ID = (int) mProduct_ID.getValue();
 		if (M_Product_ID > 0)
 		{
-
-			BigDecimal totalDose = new BigDecimal(textFieldDosage.getText());
-			BigDecimal diffQty = availableStock.subtract(totalDose);
-
-			if (diffQty.signum() == -1 && !isService && !allowNegativeStock)
+			if (admitted && !realtime_updateStock)
 			{
-				JOptionPane
-						.showMessageDialog(null,
-								new JLabel("<html><h1><font color='red'>No Available Stock! <br>" + " Available: "
-										+ availableStock + " </br> <br>" + "Requested: " + totalDose
-										+ "</br></font></h1></html>"),
-								"Not Prescribed!", JOptionPane.ERROR_MESSAGE);
-
+				prescribe();
 			} else
 			{
+				BigDecimal totalDose = new BigDecimal(textFieldDosage.getText());
+				BigDecimal diffQty = availableStock.subtract(totalDose);
 
-				// check if days exceeds days to expiry... to prevent killing
-				// someone
-				if (drugExpires())
+				if (diffQty.signum() == -1 && !isService && !allowNegativeStock)
 				{
-					final int x = yesnocancel(
-							"The selected product is expired or will expire before the dosage is completed. Do you want to continue?");
-					if (x == 0)
-					{
+					JOptionPane.showMessageDialog(null,
+							new JLabel("<html><h1><font color='red'>No Available Stock! <br>" + " Available: "
+									+ availableStock + " </br> <br>" + "Requested: " + totalDose
+									+ "</br></font></h1></html>"),
+							"Not Prescribed!", JOptionPane.ERROR_MESSAGE);
 
-					} else
+				} else
+				{
+
+					// check if days exceeds days to expiry... to prevent
+					// killing
+					// someone
+					if (drugExpires())
 					{
-						JOptionPane.showMessageDialog(null, "Cancelled..!", "Information Message", 1);
-						return;
+						final int x = yesnocancel(
+								"The selected product is expired or will expire before the dosage is completed. Do you want to continue?");
+						if (x == 0)
+						{
+
+						} else
+						{
+							JOptionPane.showMessageDialog(null, "Cancelled..!", "Information Message", 1);
+							return;
+						}
 					}
+					prescribe();
 				}
-				prescribe();
 			}
 		}
 	}
@@ -466,8 +473,11 @@ public class EditDrug extends JDialog
 		bill.setis_discharge_drug(checkBoxDischargeDrug.isSelected());
 		if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))
 		{
-			BigDecimal qty = bill.getQty().subtract(currentQty);
-			stockPharm.updateStock(qty).updateQtyOnHand();
+			if (realtime_updateStock)
+			{
+				BigDecimal qty = bill.getQty().subtract(currentQty);
+				stockPharm.updateStock(qty).updateQtyOnHand();
+			}
 			bill.setissued(true);
 		} else if (reserveDrugs)
 		{
@@ -512,7 +522,8 @@ public class EditDrug extends JDialog
 			updateDoc(currentAmount.negate());
 			if (drugsIssuedOncePrescribed || (inPatientReallTime && admitted))
 			{
-				stockPharm.updateStock(currentQty.negate()).updateQtyOnHand();
+				if (realtime_updateStock)
+					stockPharm.updateStock(currentQty.negate()).updateQtyOnHand();
 			} else if (reserveDrugs)
 			{
 				stockPharm.updateStock(currentQty.negate()).updateQtyReserved();

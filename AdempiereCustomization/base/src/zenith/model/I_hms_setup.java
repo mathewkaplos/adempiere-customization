@@ -207,10 +207,10 @@ public interface I_hms_setup
     /** Column name inpatient_realltime */
     public static final String COLUMNNAME_inpatient_realltime = "inpatient_realltime";
 
-	/** Set Inpatient Reall-time	  */
+	/** Set Inpatient Real-time	  */
 	public void setinpatient_realltime (boolean inpatient_realltime);
 
-	/** Get Inpatient Reall-time	  */
+	/** Get Inpatient Real-time	  */
 	public boolean isinpatient_realltime();
 
     /** Column name is_get_alerts */
@@ -368,6 +368,15 @@ public interface I_hms_setup
 
 	/** Get postal_code	  */
 	public String getpostal_code();
+
+    /** Column name realtime_update_stock */
+    public static final String COLUMNNAME_realtime_update_stock = "realtime_update_stock";
+
+	/** Set Real Time Update Stock	  */
+	public void setrealtime_update_stock (boolean realtime_update_stock);
+
+	/** Get Real Time Update Stock	  */
+	public boolean isrealtime_update_stock();
 
     /** Column name rebooking_interval */
     public static final String COLUMNNAME_rebooking_interval = "rebooking_interval";

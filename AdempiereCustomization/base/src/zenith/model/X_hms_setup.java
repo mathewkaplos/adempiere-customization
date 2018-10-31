@@ -33,7 +33,7 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20181017L;
+	private static final long serialVersionUID = 20181031L;
 
     /** Standard Constructor */
     public X_hms_setup (Properties ctx, int hms_setup_ID, String trxName)
@@ -60,6 +60,8 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 			setpharmacy_combined (false);
 // N
 			setpharmacy_show_stock (false);
+// N
+			setrealtime_update_stock (false);
 // N
 			setrequest_service_before_done (true);
 // Y
@@ -347,15 +349,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_hospital_prefix);
 	}
 
-	/** Set Inpatient Reall-time.
-		@param inpatient_realltime Inpatient Reall-time	  */
+	/** Set Inpatient Real-time.
+		@param inpatient_realltime Inpatient Real-time	  */
 	public void setinpatient_realltime (boolean inpatient_realltime)
 	{
 		set_Value (COLUMNNAME_inpatient_realltime, Boolean.valueOf(inpatient_realltime));
 	}
 
-	/** Get Inpatient Reall-time.
-		@return Inpatient Reall-time	  */
+	/** Get Inpatient Real-time.
+		@return Inpatient Real-time	  */
 	public boolean isinpatient_realltime () 
 	{
 		Object oo = get_Value(COLUMNNAME_inpatient_realltime);
@@ -639,6 +641,27 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	public String getpostal_code () 
 	{
 		return (String)get_Value(COLUMNNAME_postal_code);
+	}
+
+	/** Set Real Time Update Stock.
+		@param realtime_update_stock Real Time Update Stock	  */
+	public void setrealtime_update_stock (boolean realtime_update_stock)
+	{
+		set_Value (COLUMNNAME_realtime_update_stock, Boolean.valueOf(realtime_update_stock));
+	}
+
+	/** Get Real Time Update Stock.
+		@return Real Time Update Stock	  */
+	public boolean isrealtime_update_stock () 
+	{
+		Object oo = get_Value(COLUMNNAME_realtime_update_stock);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set Normal Rebooking Interval(hours).
