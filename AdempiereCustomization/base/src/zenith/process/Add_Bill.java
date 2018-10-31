@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.logging.Level;
 
-import javax.swing.JOptionPane;
-
-import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MProduct;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;

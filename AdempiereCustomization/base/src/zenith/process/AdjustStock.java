@@ -84,7 +84,7 @@ public class AdjustStock extends SvrProcess
 		line.setGuaranteeDate(GuaranteeDate);
 		line.setM_Locator_ID(M_Locator_ID);
 		line.setDescription(Description);
-		line.save();
+		//line.save();  ///commented 
 	}
 
 	void updateStorage()
