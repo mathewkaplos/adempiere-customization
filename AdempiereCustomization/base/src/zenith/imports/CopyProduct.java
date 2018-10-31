@@ -3,9 +3,7 @@ package zenith.imports;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.compiere.model.MProduct;
@@ -13,7 +11,6 @@ import org.compiere.model.MProductCategory;
 import org.compiere.model.MProductPrice;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
-import org.compiere.util.Env;
 
 public class CopyProduct extends SvrProcess
 {

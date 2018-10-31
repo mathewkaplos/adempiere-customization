@@ -136,7 +136,7 @@ public class LabDocument implements Serializable
 		billing.setBalance(price);
 		billing.setitem_type("LAB");
 		billing.setis_lab(true);
-		billing.setbill_group(4);
+		billing.setbill_group(2);
 		// bill date[
 		if (billDate != null)
 		{
