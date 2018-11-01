@@ -2,6 +2,9 @@ package zenith.process;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
@@ -13,6 +16,7 @@ import zenith.model.X_hms_ward_order;
 public class CompleteWardOrder extends SvrProcess
 {
 	private int orderID = 0;
+	WardOrderLine[] WardOrderLines = null;
 
 	@Override
 	protected void prepare()
@@ -26,6 +30,7 @@ public class CompleteWardOrder extends SvrProcess
 	protected String doIt() throws Exception
 	{
 		updateStorage();
+		update();
 		complete();
 		return null;
 	}
@@ -38,8 +43,9 @@ public class CompleteWardOrder extends SvrProcess
 
 	}
 
-	private void updateStorage() throws Exception
+	private void updateStorage()
 	{
+		List<WardOrderLine> list = new ArrayList<>();
 		String sql = "SELECT * FROM adempiere.hms_ward_orderline WHERE issued='Y' AND hms_ward_order_ID= " + orderID;
 		PreparedStatement stm = null;
 		ResultSet rs = null;
@@ -50,24 +56,35 @@ public class CompleteWardOrder extends SvrProcess
 			while (rs.next())
 			{
 				WardOrderLine ol = new WardOrderLine(getCtx(), rs, get_TrxName());
-				update(ol);
+				list.add(ol);
 			}
 		} catch (Exception e)
 		{
 
 		} finally
 		{
-			stm.close();
-			rs.close();
-			stm = null;
-			rs = null;
-		}
+			try
+			{
+				stm.close();
+				rs.close();
+				stm = null;
+				rs = null;
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 
+		}
+		WardOrderLines = list.toArray(new WardOrderLine[list.size()]);
 	}
 
-	private void update(WardOrderLine ol)
+	private void update()
 	{
-		Stock stock = new Stock(1000007, 1000007, ol.getM_Product_ID());
-		stock.updateStock(ol.getQty()).updateQtyOnHand();
+		for (int i = 0; i < WardOrderLines.length; i++)
+		{
+			WardOrderLine ol = WardOrderLines[i];
+			Stock stock = new Stock(1000007, 1000007, ol.getM_Product_ID());
+			stock.updateStock(ol.getQty()).updateQtyOnHand();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package org.zenith.util;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -153,10 +154,11 @@ public class Stock
 		String sql = "select m_attributesetinstance_id,qtyonhand from adempiere.m_storage where m_product_id= "
 				+ M_Product_ID + " and m_locator_id = " + M_Locator_ID + " ORDER BY qtyonhand DESC";
 		PreparedStatement stm = null;
+		ResultSet rs = null;
 		try
 		{
 			stm = DB.prepareStatement(sql, null);
-			ResultSet rs = stm.executeQuery();
+			rs = stm.executeQuery();
 			while (rs.next())
 			{
 				int m_attributesetinstance_id = rs.getInt(1);
@@ -167,6 +169,19 @@ public class Stock
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+		} finally
+		{
+			try
+			{
+				stm.close();
+				rs.close();
+				stm = null;
+				rs = null;
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+
 		}
 		return this;
 	}
