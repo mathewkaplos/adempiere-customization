@@ -40,7 +40,7 @@ public class CompleteWardOrder extends SvrProcess
 
 	private void updateStorage() throws Exception
 	{
-		String sql = "SELECT * FROM adempiere.hms_ward_orderline WHERE hms_ward_order_ID= " + orderID;
+		String sql = "SELECT * FROM adempiere.hms_ward_orderline WHERE issued='Y' AND hms_ward_order_ID= " + orderID;
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 		try
