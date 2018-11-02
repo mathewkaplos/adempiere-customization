@@ -132,31 +132,31 @@ public interface I_hms_treatment_doc
 	/** Get Book Date	  */
 	public Timestamp getbooking_date();
 
-    /** Column name btn_add_bill */
-    public static final String COLUMNNAME_btn_add_bill = "btn_add_bill";
+    /** Column name btn_Add_Bill */
+    public static final String COLUMNNAME_btn_Add_Bill = "btn_Add_Bill";
 
-	/** Set btn_add_bill	  */
-	public void setbtn_add_bill (boolean btn_add_bill);
+	/** Set ADD BILL	  */
+	public void setbtn_Add_Bill (String btn_Add_Bill);
 
-	/** Get btn_add_bill	  */
-	public boolean isbtn_add_bill();
+	/** Get ADD BILL	  */
+	public String getbtn_Add_Bill();
 
-    /** Column name btn_add_vital */
-    public static final String COLUMNNAME_btn_add_vital = "btn_add_vital";
+    /** Column name btn_Add_vital */
+    public static final String COLUMNNAME_btn_Add_vital = "btn_Add_vital";
 
-	/** Set btn_add_vital	  */
-	public void setbtn_add_vital (boolean btn_add_vital);
+	/** Set ADD VITAL	  */
+	public void setbtn_Add_vital (String btn_Add_vital);
 
-	/** Get btn_add_vital	  */
-	public boolean isbtn_add_vital();
+	/** Get ADD VITAL	  */
+	public String getbtn_Add_vital();
 
     /** Column name btn_adjust_treatment_terms */
     public static final String COLUMNNAME_btn_adjust_treatment_terms = "btn_adjust_treatment_terms";
 
-	/** Set ADJUDT TREATMENT TERMS	  */
+	/** Set ADJUST TREATMENT TERMS	  */
 	public void setbtn_adjust_treatment_terms (String btn_adjust_treatment_terms);
 
-	/** Get ADJUDT TREATMENT TERMS	  */
+	/** Get ADJUST TREATMENT TERMS	  */
 	public String getbtn_adjust_treatment_terms();
 
     /** Column name btn_admit */
@@ -208,12 +208,12 @@ public interface I_hms_treatment_doc
     public static final String COLUMNNAME_btn_consolidate_invoice = "btn_consolidate_invoice";
 
 	/** Set GENERATE INVOICE.
-	  * CONSOLIDATE BILLS ALL THE BILLS TO ONE INVOICE
+	  * CONSOLIDATE ALL THE BILLS TO ONE INVOICE
 	  */
 	public void setbtn_consolidate_invoice (String btn_consolidate_invoice);
 
 	/** Get GENERATE INVOICE.
-	  * CONSOLIDATE BILLS ALL THE BILLS TO ONE INVOICE
+	  * CONSOLIDATE ALL THE BILLS TO ONE INVOICE
 	  */
 	public String getbtn_consolidate_invoice();
 
@@ -229,19 +229,19 @@ public interface I_hms_treatment_doc
     /** Column name btn_enter_departmental_results */
     public static final String COLUMNNAME_btn_enter_departmental_results = "btn_enter_departmental_results";
 
-	/** Set ENTER RESULTS	  */
+	/** Set REQUESTS	  */
 	public void setbtn_enter_departmental_results (String btn_enter_departmental_results);
 
-	/** Get ENTER RESULTS	  */
+	/** Get REQUESTS	  */
 	public String getbtn_enter_departmental_results();
 
     /** Column name btn_exit */
     public static final String COLUMNNAME_btn_exit = "btn_exit";
 
-	/** Set btn_exit	  */
+	/** Set EXIT	  */
 	public void setbtn_exit (String btn_exit);
 
-	/** Get btn_exit	  */
+	/** Get EXIT	  */
 	public String getbtn_exit();
 
     /** Column name btn_lab_done */
@@ -257,10 +257,19 @@ public interface I_hms_treatment_doc
     public static final String COLUMNNAME_btn_othercharges = "btn_othercharges";
 
 	/** Set btn_othercharges	  */
-	public void setbtn_othercharges (String btn_othercharges);
+	public void setbtn_othercharges (boolean btn_othercharges);
 
 	/** Get btn_othercharges	  */
-	public String getbtn_othercharges();
+	public boolean isbtn_othercharges();
+
+    /** Column name btn_patient_history */
+    public static final String COLUMNNAME_btn_patient_history = "btn_patient_history";
+
+	/** Set PATIENT HISTORY	  */
+	public void setbtn_patient_history (String btn_patient_history);
+
+	/** Get PATIENT HISTORY	  */
+	public String getbtn_patient_history();
 
     /** Column name btn_preview_invoice */
     public static final String COLUMNNAME_btn_preview_invoice = "btn_preview_invoice";
@@ -280,6 +289,24 @@ public interface I_hms_treatment_doc
 	/** Get PREVIEW STATEMENT	  */
 	public String getbtn_preview_satement();
 
+    /** Column name btn_print_lab2 */
+    public static final String COLUMNNAME_btn_print_lab2 = "btn_print_lab2";
+
+	/** Set btn_print_lab2	  */
+	public void setbtn_print_lab2 (String btn_print_lab2);
+
+	/** Get btn_print_lab2	  */
+	public String getbtn_print_lab2();
+
+    /** Column name btn_print_statement */
+    public static final String COLUMNNAME_btn_print_statement = "btn_print_statement";
+
+	/** Set PRINT STATEMENT	  */
+	public void setbtn_print_statement (String btn_print_statement);
+
+	/** Get PRINT STATEMENT	  */
+	public String getbtn_print_statement();
+
     /** Column name btn_print_ultrasound */
     public static final String COLUMNNAME_btn_print_ultrasound = "btn_print_ultrasound";
 
@@ -292,10 +319,10 @@ public interface I_hms_treatment_doc
     /** Column name btn_readmit */
     public static final String COLUMNNAME_btn_readmit = "btn_readmit";
 
-	/** Set RE-ADMIT	  */
+	/** Set RE-ADMIT PATIENT	  */
 	public void setbtn_readmit (String btn_readmit);
 
-	/** Get RE-ADMIT	  */
+	/** Get RE-ADMIT PATIENT	  */
 	public String getbtn_readmit();
 
     /** Column name btn_treatment_done */
@@ -377,12 +404,10 @@ public interface I_hms_treatment_doc
     public static final String COLUMNNAME_casier_orders_amt = "casier_orders_amt";
 
 	/** Set casier_orders_amt	  */
-	public void setcasier_orders_amt (int casier_orders_amt);
+	public void setcasier_orders_amt (BigDecimal casier_orders_amt);
 
 	/** Get casier_orders_amt	  */
-	public int getcasier_orders_amt();
-
-	public I_C_ValidCombination getcasier_orders_() throws RuntimeException;
+	public BigDecimal getcasier_orders_amt();
 
     /** Column name change_doctor */
     public static final String COLUMNNAME_change_doctor = "change_doctor";
@@ -454,15 +479,6 @@ public interface I_hms_treatment_doc
 	  */
 	public Timestamp getCreated();
 
-    /** Column name created_time */
-    public static final String COLUMNNAME_created_time = "created_time";
-
-	/** Set Time	  */
-	public void setcreated_time (String created_time);
-
-	/** Get Time	  */
-	public String getcreated_time();
-
     /** Column name CreatedBy */
     public static final String COLUMNNAME_CreatedBy = "CreatedBy";
 
@@ -480,22 +496,22 @@ public interface I_hms_treatment_doc
 	/** Get Days Admitted	  */
 	public String getdays_admitted();
 
-    /** Column name departmentCode */
-    public static final String COLUMNNAME_departmentCode = "departmentCode";
+    /** Column name departmentcode */
+    public static final String COLUMNNAME_departmentcode = "departmentcode";
 
-	/** Set Departments Requested	  */
-	public void setdepartmentCode (String departmentCode);
+	/** Set Department Code	  */
+	public void setdepartmentcode (String departmentcode);
 
-	/** Get Departments Requested	  */
-	public String getdepartmentCode();
+	/** Get Department Code	  */
+	public String getdepartmentcode();
 
     /** Column name diagnosis */
     public static final String COLUMNNAME_diagnosis = "diagnosis";
 
-	/** Set Diagnosis	  */
+	/** Set diagnosis	  */
 	public void setdiagnosis (String diagnosis);
 
-	/** Get Diagnosis	  */
+	/** Get diagnosis	  */
 	public String getdiagnosis();
 
     /** Column name discharge_date */
@@ -582,10 +598,10 @@ public interface I_hms_treatment_doc
     /** Column name doctor_ID */
     public static final String COLUMNNAME_doctor_ID = "doctor_ID";
 
-	/** Set doctor_ID	  */
+	/** Set Doctor	  */
 	public void setdoctor_ID (int doctor_ID);
 
-	/** Get doctor_ID	  */
+	/** Get Doctor	  */
 	public int getdoctor_ID();
 
 	public org.compiere.model.I_AD_User getdoctor() throws RuntimeException;
@@ -635,6 +651,8 @@ public interface I_hms_treatment_doc
 	/** Get Diagnosis	  */
 	public int gethms_diagnosis_ID();
 
+	public I_hms_diagnosis gethms_diagnosis() throws RuntimeException;
+
     /** Column name hms_insco_ID */
     public static final String COLUMNNAME_hms_insco_ID = "hms_insco_ID";
 
@@ -649,10 +667,14 @@ public interface I_hms_treatment_doc
     /** Column name hms_insuredco_ID */
     public static final String COLUMNNAME_hms_insuredco_ID = "hms_insuredco_ID";
 
-	/** Set Insured Company	  */
+	/** Set Insured Company.
+	  * Insured Company
+	  */
 	public void sethms_insuredco_ID (int hms_insuredco_ID);
 
-	/** Get Insured Company	  */
+	/** Get Insured Company.
+	  * Insured Company
+	  */
 	public int gethms_insuredco_ID();
 
 	public I_hms_insuredco gethms_insuredco() throws RuntimeException;
@@ -717,6 +739,15 @@ public interface I_hms_treatment_doc
 	/** Get Instance Type	  */
 	public String getinstance_type();
 
+    /** Column name is_direct_sale */
+    public static final String COLUMNNAME_is_direct_sale = "is_direct_sale";
+
+	/** Set Is Direct Sale	  */
+	public void setis_direct_sale (boolean is_direct_sale);
+
+	/** Get Is Direct Sale	  */
+	public boolean is_direct_sale();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -773,10 +804,10 @@ public interface I_hms_treatment_doc
     /** Column name open_balance */
     public static final String COLUMNNAME_open_balance = "open_balance";
 
-	/** Set Open Balance for this instance	  */
+	/** Set Open Balance	  */
 	public void setopen_balance (BigDecimal open_balance);
 
-	/** Get Open Balance for this instance	  */
+	/** Get Open Balance	  */
 	public BigDecimal getopen_balance();
 
     /** Column name orders_not_issued */
@@ -894,19 +925,27 @@ public interface I_hms_treatment_doc
     /** Column name state */
     public static final String COLUMNNAME_state = "state";
 
-	/** Set state	  */
+	/** Set State.
+	  * Color coding statement in treatment windows
+	  */
 	public void setstate (String state);
 
-	/** Get state	  */
+	/** Get State.
+	  * Color coding statement in treatment windows
+	  */
 	public String getstate();
 
     /** Column name state2 */
     public static final String COLUMNNAME_state2 = "state2";
 
-	/** Set state2	  */
+	/** Set State 2.
+	  * Color coding state in lab
+	  */
 	public void setstate2 (String state2);
 
-	/** Get state2	  */
+	/** Get State 2.
+	  * Color coding state in lab
+	  */
 	public String getstate2();
 
     /** Column name to_cashier */
@@ -1117,6 +1156,15 @@ public interface I_hms_treatment_doc
 
 	/** Get DRUG ORDERS	  */
 	public String getzoom_billing();
+
+    /** Column name zoom_billing_ward */
+    public static final String COLUMNNAME_zoom_billing_ward = "zoom_billing_ward";
+
+	/** Set DRUG ORDERS-ward	  */
+	public void setzoom_billing_ward (String zoom_billing_ward);
+
+	/** Get DRUG ORDERS-ward	  */
+	public String getzoom_billing_ward();
 
     /** Column name zoom_departmental_request */
     public static final String COLUMNNAME_zoom_departmental_request = "zoom_departmental_request";

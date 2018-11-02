@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +44,7 @@ import net.miginfocom.swing.*;
 import zenith.model.LabDocument;
 import zenith.model.MTreatmentDoc;
 import zenith.model.X_hms_department;
+import zenith.util.DateUtil;
 
 /**
  * @author Mathew Kipchumba
@@ -290,7 +292,7 @@ public class NewRequest extends JDialog implements TableModelListener
 	{
 		String trxName = Trx.createTrxName();
 		int departID = (int) mDepartment_ID.getValue();
-		// Timestamp billDate = DateUtil.getTimestamp(vDate.getValue());
+		Timestamp billDate = DateUtil.getTimestamp(vDate.getValue());
 
 		Integer[] keys = set.toArray(new Integer[set.size()]);
 		for (int i = 0; i < keys.length; i++)
@@ -310,7 +312,7 @@ public class NewRequest extends JDialog implements TableModelListener
 			}
 
 			LabDocument ld = new LabDocument(Env.getCtx());
-			ld.newRequest(bpID, testID, treatID, false, departID, doc, null, trxName);
+			ld.newRequest(bpID, testID, treatID, false, departID, doc, billDate, trxName);
 		}
 		if (keys.length > 0)
 		{

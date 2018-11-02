@@ -3,6 +3,7 @@ package zenith.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -91,5 +92,8 @@ public class MSpecimenRequest extends X_hms_specimen_requests
 	{
 		return requestLines;
 	}
-
+	public void setCreated(Timestamp timestamp)
+	{
+		set_Value(COLUMNNAME_Created, timestamp);
+	}
 }

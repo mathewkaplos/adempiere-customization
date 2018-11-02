@@ -2,9 +2,7 @@ package zenith.process;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
+import java.time.Period;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -50,12 +48,14 @@ public final class Discharge extends SvrProcess
 			daysAdmitted = BigDecimal.valueOf(x);
 			rebateDays = BigDecimal.valueOf(x);
 		}
+
 		doc.save();
-		if (HmsSetup.getSetup().iscalculate_rebate_automatically())
-		{
-			doc.setrebate_amount(rebateDays.multiply(HmsSetup.getInpatientNHIFRebateAmt()));
-			doc.save();
-		}
+		// if (doc.getC_BP_Group_ID() ==
+		// CreateHospitalDefaults.PATIENT_GROUP_ID_NHIF)
+		// {
+		doc.setrebate_amount(rebateDays.multiply(HmsSetup.getInpatientNHIFRebateAmt()));
+		// doc.save();
+		// }
 
 		MBed bed = new MBed(getCtx(), doc.gethms_ward_bed1_ID(), get_TrxName());
 		// billing_rule
@@ -88,9 +88,7 @@ public final class Discharge extends SvrProcess
 		billing.setitem_type("BED");
 		billing.setis_inpatient_service(true);
 		billing.setBalance(amount);
-
 		billing.setbill_date(doc.getcheck_out_date());
-
 		billing.save();
 
 		updateWard(doc);
@@ -98,10 +96,11 @@ public final class Discharge extends SvrProcess
 		return "PATIENT DISCHARGED SUCCESSFULLY..";
 	}
 
-	public static long getDifferenceDays(Date d1, Date d2)
+	// M_Product_ID=1004259 --Bed Charges
+	public static long getDifferenceDays(Timestamp d1, Timestamp d2)
 	{
-		long diff = d2.getTime() - d1.getTime();
-		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		Period time = Period.between(d1.toLocalDateTime().toLocalDate(), d2.toLocalDateTime().toLocalDate());
+		return time.getDays();
 	}
 
 	void updateWard(MTreatmentDoc doc)
@@ -112,5 +111,4 @@ public final class Discharge extends SvrProcess
 		DB.executeUpdate(sql, get_TrxName());
 
 	}
-
 }

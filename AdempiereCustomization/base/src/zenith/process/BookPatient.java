@@ -60,7 +60,7 @@ public class BookPatient extends SvrProcess
 
 	private boolean self_request = false;
 
-	private boolean direct_sale = false;
+	private boolean is_direct_sale = false;
 
 	int hms_billing_ID = 0;
 	/** Static Logger */
@@ -154,8 +154,8 @@ public class BookPatient extends SvrProcess
 				no_consultation_fee = para[i].getParameterAsBoolean();
 			else if (name.equals("self_request"))
 				self_request = para[i].getParameterAsBoolean();
-			else if (name.equals("direct_sale"))
-				direct_sale = para[i].getParameterAsBoolean();
+			else if (name.equals("is_direct_sale"))
+				is_direct_sale = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -216,7 +216,7 @@ public class BookPatient extends SvrProcess
 		{
 			return newSelfRequest();
 		}
-		if (direct_sale)
+		if (is_direct_sale)
 		{
 			return newDirectSale();
 		}
@@ -428,6 +428,7 @@ public class BookPatient extends SvrProcess
 		this.doc.sethms_insco_ID(bp.getInsuranceCompany_ID());
 		this.doc.setreferred_in(refered_in);
 		this.doc.setreferred_from(reffered_from);
+		this.doc.setis_direct_sale(is_direct_sale);
 		this.doc.save();
 
 	}

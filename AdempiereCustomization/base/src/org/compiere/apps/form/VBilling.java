@@ -49,6 +49,8 @@ import org.zenith.util.HmsSetup;
 import org.zenith.util.ZEnv;
 
 import zenith.model.MBilling;
+import zenith.model.MTreatmentDoc;
+
 import org.compiere.grid.ed.EditDrug;
 import org.compiere.grid.ed.NewDrug;
 
@@ -254,26 +256,8 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 
 	private boolean isDirectSale()
 	{
-		// check if it is the first prescription,,maybe the instance is for
-		// direct sale, then skip this validation
-
-		String sql = "SELECT * FROM adempiere.hms_billing WHERE is_prescription ='Y' AND hms_treatment_doc_ID = "
-				+ ZEnv.getHms_treatment_doc_ID();
-		PreparedStatement stm = null;
-		ResultSet rs = null;
-		try
-		{
-			stm = DB.prepareStatement(sql, null);
-			rs = stm.executeQuery();
-			if (rs.next())
-			{
-				return true;
-			}
-		} catch (Exception e)
-		{
-
-		}
-		return false;
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), ZEnv.getHms_treatment_doc_ID(), null);
+		return doc.is_direct_sale();
 	}
 
 	private boolean diagnosisEntered()

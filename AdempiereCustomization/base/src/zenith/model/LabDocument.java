@@ -32,7 +32,6 @@ public class LabDocument implements Serializable
 	Price _price = null;
 	MTest test = null;
 	SaveParameters saveParameters = null;
-	Timestamp billDate = null;
 
 	public LabDocument(Properties _ctx)
 	{
@@ -56,7 +55,6 @@ public class LabDocument implements Serializable
 	{
 
 		trxName = Trx.createTrxName();
-		billDate = _billDate;
 		department = new HMSDepartment(Env.getCtx(), departID, trxName);
 		if (_doc == null)
 		{
@@ -74,6 +72,12 @@ public class LabDocument implements Serializable
 		request.setC_BPartner_ID(C_BPartner_ID);
 		request.sethms_test_ID(hms_test_ID);
 		request.sethms_treatment_doc_ID(treatID);
+
+		// bill date[
+		if (_billDate != null)
+		{
+			request.setCreated(_billDate);
+		}
 		request.save();
 
 		request.setadmitted(isAdmitted(doc));
@@ -88,7 +92,7 @@ public class LabDocument implements Serializable
 		request.setdepartmentCode(code);
 		request.save();
 
-		String docCode = doc.getdepartmentCode();
+		String docCode = doc.getdepartmentcode();
 
 		if (docCode != null && docCode.contains(code))
 		{
@@ -98,7 +102,7 @@ public class LabDocument implements Serializable
 			docCode = docCode + "," + code;
 		}
 
-		doc.setdepartmentCode(docCode);
+		doc.setdepartmentcode(docCode);
 		doc.setbooking_date(doc.getCreated());
 		doc.setstate2("h");
 		doc.save();
@@ -138,10 +142,10 @@ public class LabDocument implements Serializable
 		billing.setis_lab(true);
 		billing.setbill_group(2);
 		// bill date[
-		if (billDate != null)
+		if (_billDate != null)
 		{
-			billing.setCreated(billDate);
-			billing.setbill_date(billDate);
+			billing.setCreated(_billDate);
+			billing.setbill_date(_billDate);
 		} else
 		{
 			billing.setbill_date(new Timestamp(System.currentTimeMillis()));

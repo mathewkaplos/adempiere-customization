@@ -478,7 +478,8 @@ public class EditDrug extends JDialog
 				BigDecimal qty = bill.getQty().subtract(currentQty);
 				stockPharm.updateStock(qty).updateQtyOnHand();
 			}
-			bill.setissued(true);
+			if (!checkBoxDischargeDrug.isSelected())
+				bill.setissued(true);
 		} else if (reserveDrugs)
 		{
 			BigDecimal qty = bill.getQty().subtract(currentQty);

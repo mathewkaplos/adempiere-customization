@@ -362,7 +362,7 @@ public class NewDrug extends JDialog implements ActionListener
 		{
 			if (admitted && !realtime_updateStock)
 			{
-				prescribe(); 
+				prescribe();
 			} else
 			{
 
@@ -463,7 +463,8 @@ public class NewDrug extends JDialog implements ActionListener
 		{
 			if (realtime_updateStock)
 				stockPharm.updateStock(bill.getQty()).updateQtyOnHand();
-			bill.setissued(true);
+			if (!checkBoxDischargeDrug.isSelected())
+				bill.setissued(true);
 		} else if (reserveDrugs)
 		{
 			stockPharm.updateStock(bill.getQty()).updateQtyReserved();

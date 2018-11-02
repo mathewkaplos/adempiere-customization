@@ -34,7 +34,7 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20181009L;
+	private static final long serialVersionUID = 20181102L;
 
     /** Standard Constructor */
     public X_hms_treatment_doc (Properties ctx, int hms_treatment_doc_ID, String trxName)
@@ -44,6 +44,12 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
         {
 			setC_BPartner_ID (0);
 			sethms_treatment_doc_ID (0);
+			setis_direct_sale (false);
+// N
+			setreferred_in (false);
+// N
+			setreferred_out (false);
+// N
         } */
     }
 
@@ -203,57 +209,43 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (Timestamp)get_Value(COLUMNNAME_booking_date);
 	}
 
-	/** Set btn_add_bill.
-		@param btn_add_bill btn_add_bill	  */
-	public void setbtn_add_bill (boolean btn_add_bill)
+	/** Set ADD BILL.
+		@param btn_Add_Bill ADD BILL	  */
+	public void setbtn_Add_Bill (String btn_Add_Bill)
 	{
-		set_Value (COLUMNNAME_btn_add_bill, Boolean.valueOf(btn_add_bill));
+		set_Value (COLUMNNAME_btn_Add_Bill, btn_Add_Bill);
 	}
 
-	/** Get btn_add_bill.
-		@return btn_add_bill	  */
-	public boolean isbtn_add_bill () 
+	/** Get ADD BILL.
+		@return ADD BILL	  */
+	public String getbtn_Add_Bill () 
 	{
-		Object oo = get_Value(COLUMNNAME_btn_add_bill);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_btn_Add_Bill);
 	}
 
-	/** Set btn_add_vital.
-		@param btn_add_vital btn_add_vital	  */
-	public void setbtn_add_vital (boolean btn_add_vital)
+	/** Set ADD VITAL.
+		@param btn_Add_vital ADD VITAL	  */
+	public void setbtn_Add_vital (String btn_Add_vital)
 	{
-		set_Value (COLUMNNAME_btn_add_vital, Boolean.valueOf(btn_add_vital));
+		set_Value (COLUMNNAME_btn_Add_vital, btn_Add_vital);
 	}
 
-	/** Get btn_add_vital.
-		@return btn_add_vital	  */
-	public boolean isbtn_add_vital () 
+	/** Get ADD VITAL.
+		@return ADD VITAL	  */
+	public String getbtn_Add_vital () 
 	{
-		Object oo = get_Value(COLUMNNAME_btn_add_vital);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_btn_Add_vital);
 	}
 
-	/** Set ADJUDT TREATMENT TERMS.
-		@param btn_adjust_treatment_terms ADJUDT TREATMENT TERMS	  */
+	/** Set ADJUST TREATMENT TERMS.
+		@param btn_adjust_treatment_terms ADJUST TREATMENT TERMS	  */
 	public void setbtn_adjust_treatment_terms (String btn_adjust_treatment_terms)
 	{
 		set_Value (COLUMNNAME_btn_adjust_treatment_terms, btn_adjust_treatment_terms);
 	}
 
-	/** Get ADJUDT TREATMENT TERMS.
-		@return ADJUDT TREATMENT TERMS	  */
+	/** Get ADJUST TREATMENT TERMS.
+		@return ADJUST TREATMENT TERMS	  */
 	public String getbtn_adjust_treatment_terms () 
 	{
 		return (String)get_Value(COLUMNNAME_btn_adjust_treatment_terms);
@@ -331,7 +323,7 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 
 	/** Set GENERATE INVOICE.
 		@param btn_consolidate_invoice 
-		CONSOLIDATE BILLS ALL THE BILLS TO ONE INVOICE
+		CONSOLIDATE ALL THE BILLS TO ONE INVOICE
 	  */
 	public void setbtn_consolidate_invoice (String btn_consolidate_invoice)
 	{
@@ -339,7 +331,7 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 	}
 
 	/** Get GENERATE INVOICE.
-		@return CONSOLIDATE BILLS ALL THE BILLS TO ONE INVOICE
+		@return CONSOLIDATE ALL THE BILLS TO ONE INVOICE
 	  */
 	public String getbtn_consolidate_invoice () 
 	{
@@ -360,29 +352,29 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_btn_discharge);
 	}
 
-	/** Set ENTER RESULTS.
-		@param btn_enter_departmental_results ENTER RESULTS	  */
+	/** Set REQUESTS.
+		@param btn_enter_departmental_results REQUESTS	  */
 	public void setbtn_enter_departmental_results (String btn_enter_departmental_results)
 	{
 		set_Value (COLUMNNAME_btn_enter_departmental_results, btn_enter_departmental_results);
 	}
 
-	/** Get ENTER RESULTS.
-		@return ENTER RESULTS	  */
+	/** Get REQUESTS.
+		@return REQUESTS	  */
 	public String getbtn_enter_departmental_results () 
 	{
 		return (String)get_Value(COLUMNNAME_btn_enter_departmental_results);
 	}
 
-	/** Set btn_exit.
-		@param btn_exit btn_exit	  */
+	/** Set EXIT.
+		@param btn_exit EXIT	  */
 	public void setbtn_exit (String btn_exit)
 	{
 		set_Value (COLUMNNAME_btn_exit, btn_exit);
 	}
 
-	/** Get btn_exit.
-		@return btn_exit	  */
+	/** Get EXIT.
+		@return EXIT	  */
 	public String getbtn_exit () 
 	{
 		return (String)get_Value(COLUMNNAME_btn_exit);
@@ -404,16 +396,37 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 
 	/** Set btn_othercharges.
 		@param btn_othercharges btn_othercharges	  */
-	public void setbtn_othercharges (String btn_othercharges)
+	public void setbtn_othercharges (boolean btn_othercharges)
 	{
-		set_Value (COLUMNNAME_btn_othercharges, btn_othercharges);
+		set_Value (COLUMNNAME_btn_othercharges, Boolean.valueOf(btn_othercharges));
 	}
 
 	/** Get btn_othercharges.
 		@return btn_othercharges	  */
-	public String getbtn_othercharges () 
+	public boolean isbtn_othercharges () 
 	{
-		return (String)get_Value(COLUMNNAME_btn_othercharges);
+		Object oo = get_Value(COLUMNNAME_btn_othercharges);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set PATIENT HISTORY.
+		@param btn_patient_history PATIENT HISTORY	  */
+	public void setbtn_patient_history (String btn_patient_history)
+	{
+		set_Value (COLUMNNAME_btn_patient_history, btn_patient_history);
+	}
+
+	/** Get PATIENT HISTORY.
+		@return PATIENT HISTORY	  */
+	public String getbtn_patient_history () 
+	{
+		return (String)get_Value(COLUMNNAME_btn_patient_history);
 	}
 
 	/** Set PREVIEW INVOICE.
@@ -444,6 +457,34 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_btn_preview_satement);
 	}
 
+	/** Set btn_print_lab2.
+		@param btn_print_lab2 btn_print_lab2	  */
+	public void setbtn_print_lab2 (String btn_print_lab2)
+	{
+		set_Value (COLUMNNAME_btn_print_lab2, btn_print_lab2);
+	}
+
+	/** Get btn_print_lab2.
+		@return btn_print_lab2	  */
+	public String getbtn_print_lab2 () 
+	{
+		return (String)get_Value(COLUMNNAME_btn_print_lab2);
+	}
+
+	/** Set PRINT STATEMENT.
+		@param btn_print_statement PRINT STATEMENT	  */
+	public void setbtn_print_statement (String btn_print_statement)
+	{
+		set_Value (COLUMNNAME_btn_print_statement, btn_print_statement);
+	}
+
+	/** Get PRINT STATEMENT.
+		@return PRINT STATEMENT	  */
+	public String getbtn_print_statement () 
+	{
+		return (String)get_Value(COLUMNNAME_btn_print_statement);
+	}
+
 	/** Set PRINT ULTRASOUND.
 		@param btn_print_ultrasound PRINT ULTRASOUND	  */
 	public void setbtn_print_ultrasound (String btn_print_ultrasound)
@@ -458,15 +499,15 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_btn_print_ultrasound);
 	}
 
-	/** Set RE-ADMIT.
-		@param btn_readmit RE-ADMIT	  */
+	/** Set RE-ADMIT PATIENT.
+		@param btn_readmit RE-ADMIT PATIENT	  */
 	public void setbtn_readmit (String btn_readmit)
 	{
 		set_Value (COLUMNNAME_btn_readmit, btn_readmit);
 	}
 
-	/** Get RE-ADMIT.
-		@return RE-ADMIT	  */
+	/** Get RE-ADMIT PATIENT.
+		@return RE-ADMIT PATIENT	  */
 	public String getbtn_readmit () 
 	{
 		return (String)get_Value(COLUMNNAME_btn_readmit);
@@ -601,26 +642,21 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return bd;
 	}
 
-	public I_C_ValidCombination getcasier_orders_() throws RuntimeException
-    {
-		return (I_C_ValidCombination)MTable.get(getCtx(), I_C_ValidCombination.Table_Name)
-			.getPO(getcasier_orders_amt(), get_TrxName());	}
-
 	/** Set casier_orders_amt.
 		@param casier_orders_amt casier_orders_amt	  */
-	public void setcasier_orders_amt (int casier_orders_amt)
+	public void setcasier_orders_amt (BigDecimal casier_orders_amt)
 	{
-		set_Value (COLUMNNAME_casier_orders_amt, Integer.valueOf(casier_orders_amt));
+		set_Value (COLUMNNAME_casier_orders_amt, casier_orders_amt);
 	}
 
 	/** Get casier_orders_amt.
 		@return casier_orders_amt	  */
-	public int getcasier_orders_amt () 
+	public BigDecimal getcasier_orders_amt () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_casier_orders_amt);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_casier_orders_amt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set change_doctor.
@@ -730,19 +766,6 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return bd;
 	}
 
-	/** Set Time.
-		@param created_time Time	  */
-	public void setcreated_time (String created_time)
-	{
-		throw new IllegalArgumentException ("created_time is virtual column");	}
-
-	/** Get Time.
-		@return Time	  */
-	public String getcreated_time () 
-	{
-		return (String)get_Value(COLUMNNAME_created_time);
-	}
-
 	/** Set Days Admitted.
 		@param days_admitted Days Admitted	  */
 	public void setdays_admitted (String days_admitted)
@@ -757,29 +780,29 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_days_admitted);
 	}
 
-	/** Set Departments Requested.
-		@param departmentCode Departments Requested	  */
-	public void setdepartmentCode (String departmentCode)
+	/** Set Department Code.
+		@param departmentcode Department Code	  */
+	public void setdepartmentcode (String departmentcode)
 	{
-		set_Value (COLUMNNAME_departmentCode, departmentCode);
+		set_Value (COLUMNNAME_departmentcode, departmentcode);
 	}
 
-	/** Get Departments Requested.
-		@return Departments Requested	  */
-	public String getdepartmentCode () 
+	/** Get Department Code.
+		@return Department Code	  */
+	public String getdepartmentcode () 
 	{
-		return (String)get_Value(COLUMNNAME_departmentCode);
+		return (String)get_Value(COLUMNNAME_departmentcode);
 	}
 
-	/** Set Diagnosis.
-		@param diagnosis Diagnosis	  */
+	/** Set diagnosis.
+		@param diagnosis diagnosis	  */
 	public void setdiagnosis (String diagnosis)
 	{
 		set_Value (COLUMNNAME_diagnosis, diagnosis);
 	}
 
-	/** Get Diagnosis.
-		@return Diagnosis	  */
+	/** Get diagnosis.
+		@return diagnosis	  */
 	public String getdiagnosis () 
 	{
 		return (String)get_Value(COLUMNNAME_diagnosis);
@@ -972,8 +995,8 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (org.compiere.model.I_AD_User)MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
 			.getPO(getdoctor_ID(), get_TrxName());	}
 
-	/** Set doctor_ID.
-		@param doctor_ID doctor_ID	  */
+	/** Set Doctor.
+		@param doctor_ID Doctor	  */
 	public void setdoctor_ID (int doctor_ID)
 	{
 		if (doctor_ID < 1) 
@@ -982,8 +1005,8 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 			set_Value (COLUMNNAME_doctor_ID, Integer.valueOf(doctor_ID));
 	}
 
-	/** Get doctor_ID.
-		@return doctor_ID	  */
+	/** Get Doctor.
+		@return Doctor	  */
 	public int getdoctor_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_doctor_ID);
@@ -1056,6 +1079,11 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_Gender);
 	}
 
+	public I_hms_diagnosis gethms_diagnosis() throws RuntimeException
+    {
+		return (I_hms_diagnosis)MTable.get(getCtx(), I_hms_diagnosis.Table_Name)
+			.getPO(gethms_diagnosis_ID(), get_TrxName());	}
+
 	/** Set Diagnosis.
 		@param hms_diagnosis_ID Diagnosis	  */
 	public void sethms_diagnosis_ID (int hms_diagnosis_ID)
@@ -1107,7 +1135,9 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 			.getPO(gethms_insuredco_ID(), get_TrxName());	}
 
 	/** Set Insured Company.
-		@param hms_insuredco_ID Insured Company	  */
+		@param hms_insuredco_ID 
+		Insured Company
+	  */
 	public void sethms_insuredco_ID (int hms_insuredco_ID)
 	{
 		if (hms_insuredco_ID < 1) 
@@ -1117,7 +1147,8 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 	}
 
 	/** Get Insured Company.
-		@return Insured Company	  */
+		@return Insured Company
+	  */
 	public int gethms_insuredco_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_hms_insuredco_ID);
@@ -1248,6 +1279,27 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_instance_type);
 	}
 
+	/** Set Is Direct Sale.
+		@param is_direct_sale Is Direct Sale	  */
+	public void setis_direct_sale (boolean is_direct_sale)
+	{
+		set_Value (COLUMNNAME_is_direct_sale, Boolean.valueOf(is_direct_sale));
+	}
+
+	/** Get Is Direct Sale.
+		@return Is Direct Sale	  */
+	public boolean is_direct_sale () 
+	{
+		Object oo = get_Value(COLUMNNAME_is_direct_sale);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Lab Done.
 		@param lab_done Lab Done	  */
 	public void setlab_done (boolean lab_done)
@@ -1336,15 +1388,15 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
         return new KeyNamePair(get_ID(), getName());
     }
 
-	/** Set Open Balance for this instance.
-		@param open_balance Open Balance for this instance	  */
+	/** Set Open Balance.
+		@param open_balance Open Balance	  */
 	public void setopen_balance (BigDecimal open_balance)
 	{
 		set_Value (COLUMNNAME_open_balance, open_balance);
 	}
 
-	/** Get Open Balance for this instance.
-		@return Open Balance for this instance	  */
+	/** Get Open Balance.
+		@return Open Balance	  */
 	public BigDecimal getopen_balance () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_open_balance);
@@ -1550,29 +1602,35 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 		return (String)get_Value(COLUMNNAME_referred_to);
 	}
 
-	/** Set state.
-		@param state state	  */
+	/** Set State.
+		@param state 
+		Color coding statement in treatment windows
+	  */
 	public void setstate (String state)
 	{
 		set_Value (COLUMNNAME_state, state);
 	}
 
-	/** Get state.
-		@return state	  */
+	/** Get State.
+		@return Color coding statement in treatment windows
+	  */
 	public String getstate () 
 	{
 		return (String)get_Value(COLUMNNAME_state);
 	}
 
-	/** Set state2.
-		@param state2 state2	  */
+	/** Set State 2.
+		@param state2 
+		Color coding state in lab
+	  */
 	public void setstate2 (String state2)
 	{
 		set_Value (COLUMNNAME_state2, state2);
 	}
 
-	/** Get state2.
-		@return state2	  */
+	/** Get State 2.
+		@return Color coding state in lab
+	  */
 	public String getstate2 () 
 	{
 		return (String)get_Value(COLUMNNAME_state2);
@@ -1808,8 +1866,7 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 	  */
 	public void setTotalOpenBalance (BigDecimal TotalOpenBalance)
 	{
-		set_ValueNoCheck (COLUMNNAME_TotalOpenBalance, TotalOpenBalance);
-	}
+		throw new IllegalArgumentException ("TotalOpenBalance is virtual column");	}
 
 	/** Get Open Balance.
 		@return Total Open Balance Amount in primary Accounting Currency
@@ -1980,6 +2037,20 @@ public class X_hms_treatment_doc extends PO implements I_hms_treatment_doc, I_Pe
 	public String getzoom_billing () 
 	{
 		return (String)get_Value(COLUMNNAME_zoom_billing);
+	}
+
+	/** Set DRUG ORDERS-ward.
+		@param zoom_billing_ward DRUG ORDERS-ward	  */
+	public void setzoom_billing_ward (String zoom_billing_ward)
+	{
+		set_Value (COLUMNNAME_zoom_billing_ward, zoom_billing_ward);
+	}
+
+	/** Get DRUG ORDERS-ward.
+		@return DRUG ORDERS-ward	  */
+	public String getzoom_billing_ward () 
+	{
+		return (String)get_Value(COLUMNNAME_zoom_billing_ward);
 	}
 
 	/** Set DEPARTMENTAL REQUEST.
