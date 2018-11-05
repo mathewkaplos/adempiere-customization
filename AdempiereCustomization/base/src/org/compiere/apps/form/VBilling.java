@@ -142,7 +142,7 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 
 	private static void calculate()
 	{
-
+// to 
 	}
 
 	private void jbInit()
