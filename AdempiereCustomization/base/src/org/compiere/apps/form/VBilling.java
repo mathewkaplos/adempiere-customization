@@ -142,7 +142,7 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 
 	private static void calculate()
 	{
-// to 
+		// to
 	}
 
 	private void jbInit()
@@ -208,8 +208,6 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 	@Override
 	public void vetoableChange(PropertyChangeEvent evt) throws PropertyVetoException
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

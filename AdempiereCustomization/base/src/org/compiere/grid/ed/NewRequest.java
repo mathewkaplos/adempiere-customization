@@ -57,7 +57,7 @@ public class NewRequest extends JDialog implements TableModelListener
 	 */
 	private static final long serialVersionUID = -7080714450859916407L;
 	private ZLookup mDepartment_ID;
-	private VDate vDate;
+	private VDate vDate = null;
 	private int treatID;
 	private int bpID;
 	MTreatmentDoc doc = null;
@@ -292,7 +292,10 @@ public class NewRequest extends JDialog implements TableModelListener
 	{
 		String trxName = Trx.createTrxName();
 		int departID = (int) mDepartment_ID.getValue();
-		Timestamp billDate = DateUtil.getTimestamp(vDate.getValue());
+
+		Timestamp billDate = null;
+		if (vDate != null)
+			billDate = DateUtil.getTimestamp(vDate.getValue());
 
 		Integer[] keys = set.toArray(new Integer[set.size()]);
 		for (int i = 0; i < keys.length; i++)

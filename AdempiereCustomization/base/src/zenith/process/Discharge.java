@@ -97,7 +97,7 @@ public final class Discharge extends SvrProcess
 	}
 
 	// M_Product_ID=1004259 --Bed Charges
-	public static long getDifferenceDays(Timestamp d1, Timestamp d2)
+	private static long getDifferenceDays(Timestamp d1, Timestamp d2)
 	{
 		Period time = Period.between(d1.toLocalDateTime().toLocalDate(), d2.toLocalDateTime().toLocalDate());
 		return time.getDays();
