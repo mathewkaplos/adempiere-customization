@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductPrice;
+import org.compiere.model.MStorage;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
@@ -17,7 +18,8 @@ public class AddProduct extends SvrProcess
 	private int M_Product_Category_ID = 0;
 	private BigDecimal price1 = Env.ZERO;
 	private BigDecimal price2 = Env.ZERO;
-	private BigDecimal price3 = Env.ZERO;
+	private BigDecimal Qty = Env.ZERO;
+	// private BigDecimal price3 = Env.ZERO;
 
 	// zenith.process.AddProduct
 	@Override
@@ -42,9 +44,9 @@ public class AddProduct extends SvrProcess
 			} else if (name.equals("price2"))
 			{
 				price2 = (BigDecimal) para[i].getParameter();
-			} else if (name.equals("price3"))
+			} else if (name.equals("Qty"))
 			{
-				price3 = (BigDecimal) para[i].getParameter();
+				Qty = (BigDecimal) para[i].getParameter();
 			} else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -54,9 +56,9 @@ public class AddProduct extends SvrProcess
 	@Override
 	protected String doIt() throws Exception
 	{
-	//	price3 = (price1.add(price2)).divide(BigDecimal.valueOf(2));
+		// price3 = (price1.add(price2)).divide(BigDecimal.valueOf(2));
 		addProduct();
-		JOptionPane.showMessageDialog(null, Name+ " Added Successfully...", "Information Message", 1);
+		JOptionPane.showMessageDialog(null, Name + " Added Successfully...", "Information Message", 1);
 
 		return null;
 	}
@@ -97,9 +99,16 @@ public class AddProduct extends SvrProcess
 		MProductPrice productPrice3 = new MProductPrice(getCtx(), 0, get_TrxName());
 		productPrice3.setM_Product_ID(product.get_ID());
 		productPrice3.setM_PriceList_Version_ID(1000006);
-		productPrice3.setPriceList(price3);
-		productPrice3.setPriceStd(price3);
-		productPrice3.setPriceLimit(price3);
+		productPrice3.setPriceList(price2);
+		productPrice3.setPriceStd(price2);
+		productPrice3.setPriceLimit(price2);
 		productPrice3.saveEx(get_TrxName());
+
+		addStock(product.get_ID());
+	}
+
+	private void addStock(int M_Product_ID)
+	{
+		MStorage.add(getCtx(), 1000007, 1000007, M_Product_ID, 0, 0, Qty, Env.ZERO, Env.ZERO, get_TrxName());
 	}
 }

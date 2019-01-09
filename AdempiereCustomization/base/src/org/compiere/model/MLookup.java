@@ -97,7 +97,7 @@ public final class MLookup extends Lookup implements Serializable
 	/** Inactive Marker End */
 	public static final String INACTIVE_E = "~";
 	/** Number of max rows to load */
-	private static final int MAX_ROWS = 10000;
+	private static final int MAX_ROWS = 1000000;
 	/** Indicator for Null */
 	private static Integer MINUS_ONE = new Integer(-1);
 

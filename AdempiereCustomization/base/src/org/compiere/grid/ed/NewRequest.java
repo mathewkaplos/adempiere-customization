@@ -310,7 +310,7 @@ public class NewRequest extends JDialog implements TableModelListener
 				{
 					javax.swing.JOptionPane.showMessageDialog(null,
 							"Service Already Requested and not done.Please Try again.");
-					return;
+					 return;
 				}
 			}
 
