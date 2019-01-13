@@ -113,12 +113,9 @@ public class Price
 		BigDecimal price = Env.ZERO;
 		String sql = "SELECT MAX(pricelist) FROM adempiere.M_Productprice WHERE M_Product_ID=" + M_Product_ID;
 		price = DB.getSQLValueBD(get_TrxName(), sql);
-		if (price == null || price.compareTo(Env.ZERO) == 0)
+		if (price == null )
 		{
-			String m_processMsg = "Product/Service: " + MProduct.get(Env.getCtx(), M_Product_ID).getName().toUpperCase()
-					+ "  is not in valid price list!. " + failMsg;
-			JOptionPane.showMessageDialog(null, m_processMsg, "Error Message", JOptionPane.ERROR_MESSAGE);
-			throw new AdempiereException(m_processMsg);
+			return Env.ZERO;
 		}
 		return price.setScale(2, RoundingMode.CEILING);
 	}

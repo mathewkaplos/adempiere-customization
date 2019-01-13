@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -30,6 +33,7 @@ import org.zenith.util.Price;
 import zenith.model.InsuranceCompany;
 import zenith.model.MBilling;
 import zenith.model.MTreatmentDoc;
+import zenith.util.DateUtil;
 
 public class BookPatient extends SvrProcess
 {
@@ -249,6 +253,12 @@ public class BookPatient extends SvrProcess
 	private String newDirectSale()
 	{
 		newBooking();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm a");
+		Date date = new Date();
+		String time = dateFormat.format(date);
+		doc.setName(doc.getName() + " " + time);
+		doc.save();
+
 		JOptionPane.showMessageDialog(null, "Direct Sale booked successfully...go to ORDERS");
 		return null;
 	}
@@ -289,8 +299,11 @@ public class BookPatient extends SvrProcess
 		}
 		if (!no_consultation_fee)
 		{
-			createBilling(amount, M_Product_ID, 1);
-			createCopayBilling();
+			if (amount != Env.ZERO)
+			{
+				createBilling(amount, M_Product_ID, 1);
+				createCopayBilling();
+			}
 		}
 
 		// registration fee
@@ -430,6 +443,10 @@ public class BookPatient extends SvrProcess
 		this.doc.setreferred_from(reffered_from);
 		this.doc.setis_direct_sale(is_direct_sale);
 		this.doc.save();
+
+		// Ref ID
+		doc.settreat_ref_ID(doc.get_ID());
+		doc.save();
 
 	}
 
