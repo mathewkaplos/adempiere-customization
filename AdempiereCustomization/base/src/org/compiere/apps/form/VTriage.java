@@ -16,6 +16,8 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -38,6 +40,7 @@ import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.plaf.CompiereColor;
 import org.compiere.swing.CPanel;
+import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.zenith.util.HmsSetup;
@@ -211,9 +214,14 @@ public class VTriage extends Triage implements FormPanel, ActionListener, TableM
 
 		if (e.getSource().equals(newButton))
 		{
-			NewVitals wewVitals = new NewVitals((Frame) null, ZEnv.getHms_treatment_doc_ID());
-			AEnv.showCenterScreen(wewVitals);
+			newVitalsWindow();
 		}
+	}
+
+	private void newVitalsWindow()
+	{
+		NewVitals wewVitals = new NewVitals((Frame) null, ZEnv.getHms_treatment_doc_ID());
+		AEnv.showCenterScreen(wewVitals);
 	}
 
 	private void doubleClick()
@@ -283,6 +291,7 @@ public class VTriage extends Triage implements FormPanel, ActionListener, TableM
 		else
 			whereClause = " WHERE v.hms_treatment_doc_ID=" + ZEnv.getHms_treatment_doc_ID();
 
+		
 		Vector<Vector<Object>> data = getVitalsData(whereClause);
 		Vector<String> columnNames = getVitalsColumnNames();
 		// Remove previous listeners2

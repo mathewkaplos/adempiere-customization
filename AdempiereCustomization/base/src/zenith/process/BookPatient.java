@@ -66,6 +66,8 @@ public class BookPatient extends SvrProcess
 
 	private boolean is_direct_sale = false;
 
+	int AD_Org_ID = 0;
+
 	int hms_billing_ID = 0;
 	/** Static Logger */
 	private static CLogger s_log = CLogger.getCLogger(BookPatient.class);
@@ -149,6 +151,9 @@ public class BookPatient extends SvrProcess
 				patient_priority = (String) para[i].getParameter();
 			else if (name.equals("AD_User_ID"))
 				AD_User_ID = para[i].getParameterAsInt();
+			// AD_Org_ID
+			else if (name.equals("AD_Org_ID"))
+				AD_Org_ID = para[i].getParameterAsInt();
 			// copay
 			else if (name.equals("copay"))
 				copay = para[i].getParameterAsBigDecimal();
@@ -238,7 +243,7 @@ public class BookPatient extends SvrProcess
 		{
 			this.book();
 		}
-
+		// refreshVisitTypes();
 		return bp.getName() + " booked successfuly...";
 	}
 
@@ -253,7 +258,7 @@ public class BookPatient extends SvrProcess
 	private String newDirectSale()
 	{
 		newBooking();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm a");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss.SSS");
 		Date date = new Date();
 		String time = dateFormat.format(date);
 		doc.setName(doc.getName() + " " + time);
@@ -312,14 +317,18 @@ public class BookPatient extends SvrProcess
 
 		if (HmsSetup.getSetup().istriage_before_consoltation())
 		{
-			final int x = yesnocancel("Booked Successfully.....do you want to enter vital signs? ");
-			if (x == 0)
+			// 1000005
+			if (AD_Org_ID == 1000005)
 			{
-				NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
-				AEnv.showCenterScreen(wewVitals);
-			} else
-			{
+				final int x = yesnocancel("Booked Successfully.....do you want to enter vital signs? ");
+				if (x == 0)
+				{
+					NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
+					AEnv.showCenterScreen(wewVitals);
+				} else
+				{
 
+				}
 			}
 		} else
 		{
@@ -475,5 +484,90 @@ public class BookPatient extends SvrProcess
 		MBilling billing = createBilling(HmsSetup.getRegistrationFee(), CreateHospitalDefaults.registrationFeeID, 4);
 		billing.setis_othercharges(true);
 		billing.save();
+	}
+
+	private void refreshVisitTypes12()
+	{
+		String sql = "SELECT * FROM adempiere.C_BPartner ";
+		PreparedStatement stm = null;
+		ResultSet rs = null;
+		try
+		{
+			int x = 1;
+			stm = DB.prepareStatement(sql, get_TrxName());
+			rs = stm.executeQuery();
+			while (rs.next())
+			{
+
+				MBPartner partner = new MBPartner(getCtx(), rs, get_TrxName());
+				System.out.println(partner.getName());
+			}
+
+		} catch (Exception e)
+		{
+
+		} finally
+		{
+			try
+			{
+				if (stm != null)
+				{
+					stm.close();
+					stm = null;
+				}
+				if (rs != null)
+				{
+					rs.close();
+					rs = null;
+				}
+
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String getVisitType(int C_BPartner_ID)
+	{
+		String sql = "SELECT * FROM adempiere.hms_treatment_doc WHERE C_BPartner_ID =" + C_BPartner_ID
+				+ " ORDER BY created DESC ";
+		PreparedStatement stm = null;
+		ResultSet rs = null;
+		try
+		{
+			stm = DB.prepareStatement(sql, get_TrxName());
+			rs = stm.executeQuery();
+			if (rs.next())
+			{
+
+				MBPartner partner = new MBPartner(getCtx(), rs, get_TrxName());
+				System.out.println(partner.getName());
+			}
+
+		} catch (Exception e)
+		{
+
+		} finally
+		{
+			try
+			{
+				if (stm != null)
+				{
+					stm.close();
+					stm = null;
+				}
+				if (rs != null)
+				{
+					rs.close();
+					rs = null;
+				}
+
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return "N";
 	}
 }

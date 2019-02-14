@@ -54,6 +54,7 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		initComponents();
 		validateFields();
 		addBMIListeners();
+		doc = new MTreatmentDoc(Env.getCtx(), Hms_treatment_doc_ID, null);
 	}
 
 	public NewVitals(Frame owner, MTreatmentDoc doc, MBPartner bp)
@@ -113,6 +114,8 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 			bp.setNotes("Vitals entered on: " + s);
 			bp.save();
 		}
+		doc.settriage_done(true);
+		doc.save();
 		String message = "Vitals Saved Successfully...";
 		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.INFORMATION_MESSAGE);
 		this.dispose();
@@ -163,8 +166,8 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane
-					.setBorder(new javax.swing.border.CompoundBorder(
+			dialogPane.setBorder(
+					new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

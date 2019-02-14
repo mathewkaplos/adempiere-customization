@@ -248,8 +248,26 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 
 	private void newOrderWindow()
 	{
+		if (!vitalsEntered())
+		{
+			final int x = yesnocancel("No vitals Entered. Do you want to continue?");
+			if (x == 0)
+			{
+
+			} else
+			{
+				JOptionPane.showMessageDialog(null, "Cancelled..!", "Information Message", 1);
+				return;
+			}
+		}
 		NewDrug newDrug = new NewDrug((Frame) null);
 		AEnv.showCenterScreen(newDrug);
+	}
+
+	private static int yesnocancel(final String theMessage)
+	{
+		final int result = JOptionPane.showConfirmDialog(null, theMessage, "Alert", 1);
+		return result;
 	}
 
 	private boolean isDirectSale()
@@ -354,6 +372,7 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 			whereClause = " WHERE doc.hms_treatment_doc_ID=" + ZEnv.getHms_treatment_doc_ID();
 		Vector<Vector<Object>> data = getBillingsData(whereClause);
 		Vector<String> columnNames = getVitalsColumnNames();
+		System.out.println(whereClause);
 
 		// Remove previous listeners2
 		orderTable.getModel().removeTableModelListener(this);
@@ -406,4 +425,28 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 		});
 
 	}
+
+	private boolean vitalsEntered()
+	{
+		// check if vitals is entered
+
+		String sql = "SELECT * FROM adempiere.hms_vital_signss WHERE hms_treatment_doc_ID ="
+				+ ZEnv.getHms_treatment_doc_ID();
+		PreparedStatement stm = null;
+		ResultSet rs = null;
+		try
+		{
+			stm = DB.prepareStatement(sql, null);
+			rs = stm.executeQuery();
+			if (rs.next())
+			{
+				return true;
+			}
+		} catch (Exception e)
+		{
+
+		}
+		return false;
+	}
+
 }
