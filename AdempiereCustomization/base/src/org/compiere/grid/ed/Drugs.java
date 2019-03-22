@@ -27,6 +27,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import org.compiere.apps.form.VPharmacy;
+import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MLocator;
 import org.compiere.model.MStorage;
@@ -55,6 +56,8 @@ public class Drugs extends JDialog implements TableModelListener
 	private static boolean showStock = false;
 	private boolean issueNegatives = false;
 
+	private boolean isPayAfter = false;
+
 	public Drugs(Frame owner, int treatID, Dispense _dispense)
 	{
 		super(owner, true);
@@ -62,12 +65,28 @@ public class Drugs extends JDialog implements TableModelListener
 		dispense = _dispense;
 		showStock = HmsSetup.getSetup().ispharmacy_show_stock();
 		setLocatorDetails();
+		setIsPayAfter();
 		initComponents();
 		initData();
 		this.setTitle("Issue Drugs : " + getPatientName());
 		// addEscapeListener(this);
 		addEscapeListenerLamda(this);
 
+	}
+
+	private void setIsPayAfter()
+	{
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, null);
+		int C_BP_Group_ID = doc.getC_BP_Group_ID();
+		String br = getBillingRule(C_BP_Group_ID);
+		if (br.equals("PA"))
+			isPayAfter = true;
+	}
+
+	private String getBillingRule(int C_BP_Group_ID)
+	{
+		String sql = "SELECT billing_rule FROM adempiere.C_BP_Group WHERE C_BP_Group_ID=" + C_BP_Group_ID;
+		return DB.getSQLValueString(null, sql);
 	}
 
 	public Drugs(Dialog owner)
@@ -411,8 +430,8 @@ public class Drugs extends JDialog implements TableModelListener
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane
-					.setBorder(new javax.swing.border.CompoundBorder(
+			dialogPane.setBorder(
+					new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,
@@ -508,7 +527,7 @@ public class Drugs extends JDialog implements TableModelListener
 			Boolean paid = (Boolean) model.getValueAt(row, paidColummn);
 			Boolean invoiced = (Boolean) model.getValueAt(row, invoicedColummn);
 			Integer id = (Integer) model.getValueAt(row, 0);
-			if ((paid || invoiced) && checked)
+			if ((paid || invoiced || isPayAfter) && checked)
 			{
 				if (issueNegatives)
 				{
@@ -517,14 +536,15 @@ public class Drugs extends JDialog implements TableModelListener
 				{
 					int hms_billing_ID = (int) model.getValueAt(row, 0);
 					BigDecimal qty = (BigDecimal) model.getValueAt(row, 4);
-					
+
 					int M_Product_ID = getM_ProductID(hms_billing_ID);
 					BigDecimal qtyAvailable = getQuantity(M_Product_ID);
-					if(qtyAvailable.compareTo(qty)<0)
+					if (qtyAvailable.compareTo(qty) < 0)
 						JOptionPane.showMessageDialog(null,
 								new JLabel("<html><h1><font color='red'>Stock not available!</font></h1></html>"),
 								"Not Issued!", JOptionPane.ERROR_MESSAGE);
-					else {
+					else
+					{
 						set.add(id);
 					}
 				}

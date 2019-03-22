@@ -47,19 +47,26 @@ public class Price
 			if (M_Pricelist_version_ID != 0)
 			{
 				BigDecimal price = getProductPrice(M_Product_ID, M_Pricelist_version_ID);
-				if (price != null && price.compareTo(Env.ZERO) != 0)
-					amount = price;
-				else
-					amount = getAnyPrice(M_Product_ID, "( The Price for the Pricelist Version is ZERO (0). )");
+				if (price == null)
+				{
+					returnNoPrice("( The Patient Group has no active Price for this product!. )");
+				}
+				amount = price;
 
 			} else
 			{
-				amount = getAnyPrice(M_Product_ID, "( The Pricelist has no active Pricelist Version. )");
+				// amount = getAnyPrice(M_Product_ID, "( The Pricelist has no
+				// active Pricelist Version. )");
+				returnNoPrice("( The Pricelist has no active Pricelist Version. )");
+				return null;
 			}
 
 		} else
 		{
-			amount = getAnyPrice(M_Product_ID, "( The Patient Group has no pricelist defined. )");
+			returnNoPrice("( The Patient Group has no pricelist defined.. )");
+			// amount = getAnyPrice(M_Product_ID, "( The Patient Group has no
+			// pricelist defined. )");
+			return null;
 		}
 		return new BigDecimal(amount.stripTrailingZeros().toPlainString());
 	}
@@ -110,14 +117,20 @@ public class Price
 
 	private BigDecimal getAnyPrice(int M_Product_ID, String failMsg)
 	{
+
 		BigDecimal price = Env.ZERO;
 		String sql = "SELECT MAX(pricelist) FROM adempiere.M_Productprice WHERE M_Product_ID=" + M_Product_ID;
 		price = DB.getSQLValueBD(get_TrxName(), sql);
-		if (price == null )
+		if (price == null)
 		{
 			return Env.ZERO;
 		}
 		return price.setScale(2, RoundingMode.CEILING);
+	}
+
+	private void returnNoPrice(String msg)
+	{
+		JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

@@ -141,7 +141,7 @@ public class EnterRequestResults extends JDialog
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Math Ew
+		// Generated using JFormDesigner Evaluation license - mathew2
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		label1 = new JLabel();
@@ -153,51 +153,61 @@ public class EnterRequestResults extends JDialog
 		okButton = new JButton();
 		doneButton = new JButton();
 
-		// ======== this ========
+		//======== this ========
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
-		// ======== dialogPane ========
+		//======== dialogPane ========
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
-							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-									javax.swing.border.TitledBorder.BOTTOM,
-									new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), java.awt.Color.red),
-							dialogPane.getBorder()));
-			dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-				public void propertyChange(java.beans.PropertyChangeEvent e)
-				{
-					if ("border".equals(e.getPropertyName()))
-						throw new RuntimeException();
-				}
-			});
+			dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+					java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			dialogPane.setLayout(new BorderLayout());
 
-			// ======== contentPanel ========
+			//======== contentPanel ========
 			{
-				contentPanel.setLayout(new MigLayout("insets dialog,hidemode 3",
-						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[fill]" + "[fill]" + "[fill]" + "[fill]",
-						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+				contentPanel.setLayout(new MigLayout(
+					"insets dialog,hidemode 3",
+					// columns
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]",
+					// rows
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]"));
 
-				// ---- label1 ----
+				//---- label1 ----
 				label1.setText("text");
 				label1.setFont(new Font("Tahoma", Font.ITALIC, 14));
 				label1.setForeground(Color.blue);
 				contentPanel.add(label1, "cell 2 1");
 
-				// ======== scrollPane1 ========
+				//======== scrollPane1 ========
 				{
 
-					// ---- table1 ----
-					table1.setBorder(new CompoundBorder(new TitledBorder("ZZZZZ"), new EmptyBorder(5, 5, 5, 5)));
+					//---- table1 ----
+					table1.setBorder(new CompoundBorder(
+						new TitledBorder("ZZZZZ"),
+						new EmptyBorder(5, 5, 5, 5)));
 					table1.setPreferredScrollableViewportSize(new Dimension(600, 400));
 					scrollPane1.setViewportView(table1);
 				}
@@ -205,34 +215,57 @@ public class EnterRequestResults extends JDialog
 			}
 			dialogPane.add(contentPanel, BorderLayout.WEST);
 
-			// ======== buttonBar ========
+			//======== buttonBar ========
 			{
 				buttonBar.setMinimumSize(new Dimension(100, 66));
 				buttonBar.setOpaque(false);
 				buttonBar.setPreferredSize(new Dimension(100, 126));
-				buttonBar.setLayout(new MigLayout("insets dialog,alignx right",
-						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[button,fill]" + "[button,fill]" + "[button,fill]",
-						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+				buttonBar.setLayout(new MigLayout(
+					"insets dialog,alignx right",
+					// columns
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[button,fill]" +
+					"[button,fill]" +
+					"[button,fill]",
+					// rows
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]"));
 
-				// ---- positiveCheckBox ----
+				//---- positiveCheckBox ----
 				positiveCheckBox.setText("Positive");
 				buttonBar.add(positiveCheckBox, "cell 1 1");
 
-				// ---- btnDelete ----
+				//---- btnDelete ----
 				btnDelete.setText("CLOSE");
 				btnDelete.addActionListener(e -> btnDeleteActionPerformed(e));
 				buttonBar.add(btnDelete, "cell 1 5");
 
-				// ---- okButton ----
+				//---- okButton ----
 				okButton.setText("SAVE");
 				okButton.addActionListener(e -> okButtonActionPerformed(e));
 				buttonBar.add(okButton, "cell 9 5");
 
-				// ---- doneButton ----
+				//---- doneButton ----
 				doneButton.setText("DONE");
 				doneButton.addActionListener(e -> doneButtonActionPerformed(e));
 				buttonBar.add(doneButton, "cell 13 5");
@@ -247,7 +280,7 @@ public class EnterRequestResults extends JDialog
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Math Ew
+	// Generated using JFormDesigner Evaluation license - mathew2
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JLabel label1;

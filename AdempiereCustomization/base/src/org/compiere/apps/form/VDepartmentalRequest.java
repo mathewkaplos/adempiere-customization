@@ -88,6 +88,7 @@ public class VDepartmentalRequest extends DepartmentalRequest
 		m_WindowNo = WindowNo;
 		m_frame = frame;
 
+		System.out.println("request");
 		try
 		{
 			if (HmsSetup.maximizeForms())

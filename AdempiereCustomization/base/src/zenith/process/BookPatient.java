@@ -21,6 +21,7 @@ import org.compiere.grid.ed.NewRequest;
 import org.compiere.grid.ed.NewVitals;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MProductCategory;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
@@ -33,7 +34,7 @@ import org.zenith.util.Price;
 import zenith.model.InsuranceCompany;
 import zenith.model.MBilling;
 import zenith.model.MTreatmentDoc;
-import zenith.util.DateUtil;
+import zenith.model.X_hms_mch_services;
 
 public class BookPatient extends SvrProcess
 {
@@ -65,8 +66,6 @@ public class BookPatient extends SvrProcess
 	private boolean self_request = false;
 
 	private boolean is_direct_sale = false;
-
-	int AD_Org_ID = 0;
 
 	int hms_billing_ID = 0;
 	/** Static Logger */
@@ -152,8 +151,6 @@ public class BookPatient extends SvrProcess
 			else if (name.equals("AD_User_ID"))
 				AD_User_ID = para[i].getParameterAsInt();
 			// AD_Org_ID
-			else if (name.equals("AD_Org_ID"))
-				AD_Org_ID = para[i].getParameterAsInt();
 			// copay
 			else if (name.equals("copay"))
 				copay = para[i].getParameterAsBigDecimal();
@@ -250,6 +247,8 @@ public class BookPatient extends SvrProcess
 	private String newSelfRequest()
 	{
 		newBooking();
+		doc.setlab_self_request(true);
+		doc.save();
 		NewRequest req = new NewRequest((Frame) null, doc, bp, get_TrxName());
 		AEnv.showCenterScreen(req);
 		return null;
@@ -315,20 +314,17 @@ public class BookPatient extends SvrProcess
 		if (visit_type.equalsIgnoreCase("N"))
 			getRegistrationFee();
 
-		if (HmsSetup.getSetup().istriage_before_consoltation())
+		if (HmsSetup.getSetup().istriage_before_consoltation() && 1 == 2)
 		{
 			// 1000005
-			if (AD_Org_ID == 1000005)
+			final int x = yesnocancel("Booked Successfully.....do you want to enter vital signs? ");
+			if (x == 0)
 			{
-				final int x = yesnocancel("Booked Successfully.....do you want to enter vital signs? ");
-				if (x == 0)
-				{
-					NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
-					AEnv.showCenterScreen(wewVitals);
-				} else
-				{
+				NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
+				AEnv.showCenterScreen(wewVitals);
+			} else
+			{
 
-				}
 			}
 		} else
 		{
@@ -455,8 +451,19 @@ public class BookPatient extends SvrProcess
 
 		// Ref ID
 		doc.settreat_ref_ID(doc.get_ID());
-		doc.save();
 
+		String docCode = doc.getdepartmentcode();
+		String code = getDepartmentCode();
+
+		String newCode = docCode + "," + code;
+		doc.setdepartmentcode(newCode);
+		doc.save();
+	}
+
+	private String getDepartmentCode()
+	{
+		MProductCategory code = new MProductCategory(getCtx(), M_Product_Category_ID, get_TrxName());
+		return code.getDescription();
 	}
 
 	private void updateBpartner()
@@ -466,9 +473,7 @@ public class BookPatient extends SvrProcess
 			MBPartner bp = new MBPartner(super.getCtx(), C_BPartner_ID, get_TrxName());
 			bp.setIsBooked(true);
 			bp.save();
-
 		}
-
 	}
 
 	private void getRegistrationFee()
@@ -484,90 +489,5 @@ public class BookPatient extends SvrProcess
 		MBilling billing = createBilling(HmsSetup.getRegistrationFee(), CreateHospitalDefaults.registrationFeeID, 4);
 		billing.setis_othercharges(true);
 		billing.save();
-	}
-
-	private void refreshVisitTypes12()
-	{
-		String sql = "SELECT * FROM adempiere.C_BPartner ";
-		PreparedStatement stm = null;
-		ResultSet rs = null;
-		try
-		{
-			int x = 1;
-			stm = DB.prepareStatement(sql, get_TrxName());
-			rs = stm.executeQuery();
-			while (rs.next())
-			{
-
-				MBPartner partner = new MBPartner(getCtx(), rs, get_TrxName());
-				System.out.println(partner.getName());
-			}
-
-		} catch (Exception e)
-		{
-
-		} finally
-		{
-			try
-			{
-				if (stm != null)
-				{
-					stm.close();
-					stm = null;
-				}
-				if (rs != null)
-				{
-					rs.close();
-					rs = null;
-				}
-
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private String getVisitType(int C_BPartner_ID)
-	{
-		String sql = "SELECT * FROM adempiere.hms_treatment_doc WHERE C_BPartner_ID =" + C_BPartner_ID
-				+ " ORDER BY created DESC ";
-		PreparedStatement stm = null;
-		ResultSet rs = null;
-		try
-		{
-			stm = DB.prepareStatement(sql, get_TrxName());
-			rs = stm.executeQuery();
-			if (rs.next())
-			{
-
-				MBPartner partner = new MBPartner(getCtx(), rs, get_TrxName());
-				System.out.println(partner.getName());
-			}
-
-		} catch (Exception e)
-		{
-
-		} finally
-		{
-			try
-			{
-				if (stm != null)
-				{
-					stm.close();
-					stm = null;
-				}
-				if (rs != null)
-				{
-					rs.close();
-					rs = null;
-				}
-
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return "N";
 	}
 }

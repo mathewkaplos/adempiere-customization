@@ -144,6 +144,10 @@ public class NewDrug extends JDialog implements ActionListener
 							price = null;
 							price = new Price(M_Product_ID, hms_treatment_doc_ID);
 							unitPrice = price.getPrice();
+							if (unitPrice == null)
+							{
+								return;
+							}
 
 							BigDecimal qty = new BigDecimal(textFieldDosage.getText()).stripTrailingZeros();
 							BigDecimal total = unitPrice.multiply(qty);
@@ -423,6 +427,15 @@ public class NewDrug extends JDialog implements ActionListener
 
 	private void prescribe()
 	{
+		if ((textFieldDosageDescription.getText() != null && !textFieldDosageDescription.getText().isEmpty()))
+		{
+
+		} else
+		{
+			JOptionPane.showMessageDialog(null, "Please Enter the Dosage first..", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		int M_Product_ID = (int) mProduct_ID.getValue();
 		int hms_treatment_doc_ID = Billing.getHms_treatment_doc_ID();
 		int C_BPartner_ID = Billing.getBPartner_ID();
@@ -560,8 +573,8 @@ public class NewDrug extends JDialog implements ActionListener
 			dialogPane.setPreferredSize(new Dimension(550, 450));
 
 			// JFormDesigner evaluation mark
-			dialogPane
-					.setBorder(new javax.swing.border.CompoundBorder(
+			dialogPane.setBorder(
+					new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

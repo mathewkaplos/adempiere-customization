@@ -250,24 +250,11 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 	{
 		if (!vitalsEntered())
 		{
-			final int x = yesnocancel("No vitals Entered. Do you want to continue?");
-			if (x == 0)
-			{
-
-			} else
-			{
-				JOptionPane.showMessageDialog(null, "Cancelled..!", "Information Message", 1);
-				return;
-			}
+			JOptionPane.showMessageDialog(null, "No vitals Entered. Please enter first..!", "Information Message", 1);
+			return;
 		}
 		NewDrug newDrug = new NewDrug((Frame) null);
 		AEnv.showCenterScreen(newDrug);
-	}
-
-	private static int yesnocancel(final String theMessage)
-	{
-		final int result = JOptionPane.showConfirmDialog(null, theMessage, "Alert", 1);
-		return result;
 	}
 
 	private boolean isDirectSale()
@@ -429,6 +416,10 @@ public class VBilling extends Billing implements FormPanel, ActionListener, Tabl
 	private boolean vitalsEntered()
 	{
 		// check if vitals is entered
+		if (!HmsSetup.getSetup().istriage_before_consoltation())
+		{
+			return true;
+		}
 
 		String sql = "SELECT * FROM adempiere.hms_vital_signss WHERE hms_treatment_doc_ID ="
 				+ ZEnv.getHms_treatment_doc_ID();

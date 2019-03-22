@@ -1088,8 +1088,11 @@ public class MInOut extends X_M_InOut implements DocAction
 			int no = DB.executeUpdate(sql, get_TrxName());
 			log.fine("Lines -> #" + no);
 		}
+		
 		return true;
 	} // afterSave
+
+
 
 	/**************************************************************************
 	 * Process document
@@ -1157,8 +1160,8 @@ public class MInOut extends X_M_InOut implements DocAction
 		// Std Period open?
 		if (!MPeriod.isOpen(getCtx(), getDateAcct(), dt.getDocBaseType(), getAD_Org_ID()))
 		{
-			//m_processMsg = "@PeriodClosed@";
-			//return DocAction.STATUS_Invalid;
+			// m_processMsg = "@PeriodClosed@";
+			// return DocAction.STATUS_Invalid;
 		}
 
 		// Credit Check
@@ -2113,7 +2116,7 @@ public class MInOut extends X_M_InOut implements DocAction
 		MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
 		if (!MPeriod.isOpen(getCtx(), getDateAcct(), dt.getDocBaseType(), getAD_Org_ID()))
 		{
-			//m_processMsg = "@PeriodClosed@";
+			// m_processMsg = "@PeriodClosed@";
 			// false;
 		}
 
@@ -2486,5 +2489,19 @@ public class MInOut extends X_M_InOut implements DocAction
 		}
 		return false;
 	}// is invoice first
+		// TotalAmt
+
+	public void setTotalAmt(BigDecimal totalAmt)
+	{
+		set_Value("TotalAmt", totalAmt);
+	}
+
+	public BigDecimal getTotalAmt()
+	{
+		BigDecimal bd = (BigDecimal) get_Value("TotalAmt");
+		if (bd == null)
+			return Env.ZERO;
+		return bd;
+	}
 
 } // MInOut

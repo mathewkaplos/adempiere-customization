@@ -97,10 +97,10 @@ public interface I_hms_lab_results
     /** Column name done */
     public static final String COLUMNNAME_done = "done";
 
-	/** Set done	  */
+	/** Set Done	  */
 	public void setdone (boolean done);
 
-	/** Get done	  */
+	/** Get Done	  */
 	public boolean isdone();
 
     /** Column name done_date */
@@ -141,6 +141,15 @@ public interface I_hms_lab_results
 	  * Final Results
 	  */
 	public String getfinal_results();
+
+    /** Column name flag */
+    public static final String COLUMNNAME_flag = "flag";
+
+	/** Set Flag	  */
+	public void setflag (String flag);
+
+	/** Get Flag	  */
+	public String getflag();
 
     /** Column name hms_lab_results_ID */
     public static final String COLUMNNAME_hms_lab_results_ID = "hms_lab_results_ID";
@@ -238,6 +247,32 @@ public interface I_hms_lab_results
 	  */
 	public boolean isActive();
 
+    /** Column name Level_Max */
+    public static final String COLUMNNAME_Level_Max = "Level_Max";
+
+	/** Set Maximum Level.
+	  * Maximum Inventory level for this product
+	  */
+	public void setLevel_Max (BigDecimal Level_Max);
+
+	/** Get Maximum Level.
+	  * Maximum Inventory level for this product
+	  */
+	public BigDecimal getLevel_Max();
+
+    /** Column name Level_Min */
+    public static final String COLUMNNAME_Level_Min = "Level_Min";
+
+	/** Set Minimum Level.
+	  * Minimum Inventory level for this product
+	  */
+	public void setLevel_Min (BigDecimal Level_Min);
+
+	/** Get Minimum Level.
+	  * Minimum Inventory level for this product
+	  */
+	public BigDecimal getLevel_Min();
+
     /** Column name range */
     public static final String COLUMNNAME_range = "range";
 
@@ -254,10 +289,10 @@ public interface I_hms_lab_results
     /** Column name results */
     public static final String COLUMNNAME_results = "results";
 
-	/** Set results	  */
+	/** Set Results	  */
 	public void setresults (String results);
 
-	/** Get results	  */
+	/** Get Results	  */
 	public String getresults();
 
     /** Column name units */

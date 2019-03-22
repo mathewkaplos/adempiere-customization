@@ -3,7 +3,6 @@ package org.compiere.apps.form;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,7 +19,6 @@ import java.beans.VetoableChangeListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -33,7 +31,6 @@ import javax.swing.table.TableColumn;
 import org.compiere.apps.AEnv;
 import org.compiere.apps.StatusBar;
 import org.compiere.grid.ed.VLookup;
-import org.compiere.grid.ed.ViewResults;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.MiniTable;
 import org.compiere.model.MLookup;
@@ -45,7 +42,6 @@ import org.compiere.util.Env;
 import org.zenith.util.HmsSetup;
 import org.zenith.util.ZEnv;
 import org.compiere.grid.ed.EnterRequestResults;
-import org.compiere.grid.ed.NewRequest;
 
 public class VDepartmentalResults extends DepartmentalResults
 		implements FormPanel, ActionListener, TableModelListener, VetoableChangeListener
@@ -86,6 +82,7 @@ public class VDepartmentalResults extends DepartmentalResults
 	{
 		m_WindowNo = WindowNo;
 		m_frame = frame;
+		System.out.println("result");
 
 		try
 		{

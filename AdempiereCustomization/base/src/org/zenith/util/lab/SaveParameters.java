@@ -32,7 +32,7 @@ public class SaveParameters
 	{
 		ctx = Env.getCtx();
 		this.trxName = trxName;
-		;
+
 		this.req = req;
 		// set patient age
 		MBPartner bp = new MBPartner(Env.getCtx(), req.getC_BPartner_ID(), trxName);
@@ -109,22 +109,29 @@ public class SaveParameters
 	private void newResult(MSpecimenRequestLine line)
 	{
 		MParameter[] params = getParameters(line.gethms_specimens_ID());
-
+		int x = 0;
 		for (int i = 0; i < params.length; i++)
 		{
 			MResult result = new MResult(ctx, 0, trxName);
 			result.setC_BPartner_ID(line.getC_BPartner_ID());
 			result.sethms_treatment_doc_ID(line.gethms_treatment_doc_ID());
-			result.sethms_test_ID(line.gethms_test_ID());
+			if (x == 0)
+				result.sethms_test_ID(line.gethms_test_ID());
 			result.sethms_specimens_ID(line.gethms_specimens_ID());
 			result.sethms_specimen_r_line_ID(line.gethms_specimen_r_line_ID());
 			result.sethms_specimen_requests_ID(line.gethms_specimen_requests_ID());
 			result.sethms_parameters_ID(params[i].gethms_parameters_ID());
 			result.setrange(getRange(params[i].get_ID()));
+			result.setLevel_Max(max);
+			result.setLevel_Min(min);
 			result.setunits(params[i].getunits());
 			result.save();
+			x++;
 		}
 	}
+
+	private BigDecimal max = Env.ZERO;
+	private BigDecimal min = Env.ZERO;
 
 	/**
 	 * Get Specimen Parameters
@@ -135,7 +142,7 @@ public class SaveParameters
 	private MParameter[] getParameters(int hms_specimens_id)
 	{
 		List<MParameter> list = new ArrayList<MParameter>();
-		String sql = "SELECT hms_parameters_id FROM hms_parameters WHERE hms_specimens_id=? "; // #1
+		String sql = "SELECT hms_parameters_id FROM hms_parameters WHERE hms_specimens_id=? ORDER BY hms_parameters_id"; // #1
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int x = 0;
@@ -198,7 +205,9 @@ public class SaveParameters
 						if (BigDecimal.valueOf(patient_age).compareTo(range.getage_from()) >= 0
 								&& BigDecimal.valueOf(patient_age).compareTo(range.getage_to()) < 0)
 						{
-							sb.append(range.getmin_value().setScale(2) + " --> " + range.getmax_value().setScale(2));
+							sb.append(range.getmin_value().setScale(2) + " - " + range.getmax_value().setScale(2));
+							min = range.getmin_value();
+							max = range.getmax_value();
 							if (range.ishas_power())
 							{
 								sb = new StringBuilder("(" + sb + ")");
@@ -208,7 +217,9 @@ public class SaveParameters
 						}
 					} else
 					{ // select only one
-						sb.append(range.getmin_value().setScale(2) + " --> " + range.getmax_value().setScale(2));
+						sb.append(range.getmin_value().setScale(2) + " - " + range.getmax_value().setScale(2));
+						min = range.getmin_value();
+						max = range.getmax_value();
 						if (range.ishas_power())
 						{
 							sb = new StringBuilder("(" + sb + ")");
@@ -216,6 +227,7 @@ public class SaveParameters
 						}
 						break;
 					}
+
 				}
 			} catch (Exception e)
 			{

@@ -73,7 +73,7 @@ public class AdjustStock extends SvrProcess
 		return null;
 	}
 
-	void newLine()
+	private void newLine()
 	{
 		StockAdjustmentLine line = new StockAdjustmentLine(getCtx(), 0, get_TrxName());
 		line.setM_Product_ID(M_Product_ID);
@@ -84,7 +84,7 @@ public class AdjustStock extends SvrProcess
 		line.setGuaranteeDate(GuaranteeDate);
 		line.setM_Locator_ID(M_Locator_ID);
 		line.setDescription(Description);
-		//line.save();  ///commented 
+		line.save();  ///commented 
 	}
 
 	void updateStorage()

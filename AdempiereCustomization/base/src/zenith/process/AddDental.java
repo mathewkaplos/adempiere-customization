@@ -57,7 +57,7 @@ public class AddDental extends SvrProcess
 		MProduct product = new MProduct(getCtx(), 0, getName());
 		product.setValue(Name);
 		product.setName(Name);
-		product.setM_Product_Category_ID(1000220);
+		product.setM_Product_Category_ID(1000340);
 		product.setC_TaxCategory_ID(1000000);
 		product.setC_UOM_ID(100);
 		product.setProductType("S");
@@ -73,6 +73,7 @@ public class AddDental extends SvrProcess
 		test.setName(Name);
 		test.setPrice(cash_price);
 		test.setAD_Org_ID(1000013);
+		test.sethms_department_ID(1000004);
 		test.setM_Product_ID(M_Product_ID);
 		test.save();
 

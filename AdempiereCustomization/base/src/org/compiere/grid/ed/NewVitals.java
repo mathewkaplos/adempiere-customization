@@ -118,9 +118,19 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		doc.save();
 		String message = "Vitals Saved Successfully...";
 		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.INFORMATION_MESSAGE);
+		updateDoc();
 		this.dispose();
 		VTriage vTriage = new VTriage();
 		vTriage.LoadBP();
+	}
+
+	private void updateDoc()
+	{
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), Hms_treatment_doc_ID, null);
+		doc.settriage_done(true);
+		doc.setvitals_done(true);
+		doc.save();
+
 	}
 
 	private void cancelButtonActionPerformed(ActionEvent e)

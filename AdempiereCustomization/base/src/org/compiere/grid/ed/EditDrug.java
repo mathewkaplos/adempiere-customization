@@ -438,6 +438,15 @@ public class EditDrug extends JDialog
 
 	private void prescribe()
 	{
+		if ((textFieldDosageDescription.getText() != null && !textFieldDosageDescription.getText().isEmpty()))
+		{
+
+		} else
+		{
+			JOptionPane.showMessageDialog(null, "Please Enter the Dosage first..", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		int M_Product_ID = (int) mProduct_ID.getValue();
 		int hms_treatment_doc_ID = Billing.getHms_treatment_doc_ID();
 		// int C_BPartner_ID = Billing.getBPartner_ID();
@@ -610,8 +619,8 @@ public class EditDrug extends JDialog
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane
-					.setBorder(new javax.swing.border.CompoundBorder(
+			dialogPane.setBorder(
+					new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

@@ -33,7 +33,7 @@ public class X_hms_lab_results extends PO implements I_hms_lab_results, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170713L;
+	private static final long serialVersionUID = 20190216L;
 
     /** Standard Constructor */
     public X_hms_lab_results (Properties ctx, int hms_lab_results_ID, String trxName)
@@ -102,15 +102,15 @@ public class X_hms_lab_results extends PO implements I_hms_lab_results, I_Persis
 		return ii.intValue();
 	}
 
-	/** Set done.
-		@param done done	  */
+	/** Set Done.
+		@param done Done	  */
 	public void setdone (boolean done)
 	{
 		set_Value (COLUMNNAME_done, Boolean.valueOf(done));
 	}
 
-	/** Get done.
-		@return done	  */
+	/** Get Done.
+		@return Done	  */
 	public boolean isdone () 
 	{
 		Object oo = get_Value(COLUMNNAME_done);
@@ -172,6 +172,20 @@ public class X_hms_lab_results extends PO implements I_hms_lab_results, I_Persis
 	public String getfinal_results () 
 	{
 		return (String)get_Value(COLUMNNAME_final_results);
+	}
+
+	/** Set Flag.
+		@param flag Flag	  */
+	public void setflag (String flag)
+	{
+		set_Value (COLUMNNAME_flag, flag);
+	}
+
+	/** Get Flag.
+		@return Flag	  */
+	public String getflag () 
+	{
+		return (String)get_Value(COLUMNNAME_flag);
 	}
 
 	/** Set hms_lab_results ID.
@@ -350,6 +364,46 @@ public class X_hms_lab_results extends PO implements I_hms_lab_results, I_Persis
 		return ii.intValue();
 	}
 
+	/** Set Maximum Level.
+		@param Level_Max 
+		Maximum Inventory level for this product
+	  */
+	public void setLevel_Max (BigDecimal Level_Max)
+	{
+		set_Value (COLUMNNAME_Level_Max, Level_Max);
+	}
+
+	/** Get Maximum Level.
+		@return Maximum Inventory level for this product
+	  */
+	public BigDecimal getLevel_Max () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_Level_Max);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Minimum Level.
+		@param Level_Min 
+		Minimum Inventory level for this product
+	  */
+	public void setLevel_Min (BigDecimal Level_Min)
+	{
+		set_Value (COLUMNNAME_Level_Min, Level_Min);
+	}
+
+	/** Get Minimum Level.
+		@return Minimum Inventory level for this product
+	  */
+	public BigDecimal getLevel_Min () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_Level_Min);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
 	/** Set Range.
 		@param range 
 		Normal Range
@@ -367,15 +421,15 @@ public class X_hms_lab_results extends PO implements I_hms_lab_results, I_Persis
 		return (String)get_Value(COLUMNNAME_range);
 	}
 
-	/** Set results.
-		@param results results	  */
+	/** Set Results.
+		@param results Results	  */
 	public void setresults (String results)
 	{
 		set_Value (COLUMNNAME_results, results);
 	}
 
-	/** Get results.
-		@return results	  */
+	/** Get Results.
+		@return Results	  */
 	public String getresults () 
 	{
 		return (String)get_Value(COLUMNNAME_results);

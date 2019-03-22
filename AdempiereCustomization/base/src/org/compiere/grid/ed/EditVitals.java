@@ -33,6 +33,7 @@ import org.compiere.swing.CDialog;
 import org.compiere.util.Env;
 
 import net.miginfocom.swing.*;
+import zenith.model.MTreatmentDoc;
 import zenith.model.MVital;
 
 /**
@@ -198,9 +199,20 @@ public class EditVitals extends CDialog implements FormPanel, ActionListener, Ta
 		mVital.save();
 		String message = "Vitals Updated Successfully...";
 		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.INFORMATION_MESSAGE);
+		updateDoc();
 		this.dispose();
+
 		VTriage vTriage = new VTriage();
 		vTriage.LoadBP();
+	}
+
+	private void updateDoc()
+	{
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), Hms_treatment_doc_ID, null);
+		doc.settriage_done(true);
+		doc.setvitals_done(true);
+		doc.save();
+
 	}
 
 	private void cancelButtonActionPerformed(ActionEvent e)

@@ -6,12 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
-import org.compiere.model.MInvoice;
-import org.compiere.model.MInvoiceBatch;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.process.SvrProcess;
@@ -23,6 +19,7 @@ import zenith.model.MRequestConsumable;
 import zenith.model.MResult;
 import zenith.model.MSpecimenRequest;
 import zenith.model.MSpecimenRequestLine;
+import zenith.model.MTreatmentDoc;
 
 public class Lab_done extends SvrProcess
 {
@@ -39,22 +36,12 @@ public class Lab_done extends SvrProcess
 	@Override
 	protected String doIt() throws Exception
 	{
+		megaResult = "";
 		updateResult();
 		saveConsumables(getRecord_ID());
 		updateRequest();
-		updateReference();
-		return null;
-	}
 
-	private void updateReference()
-	{
-		if (specimenRequest.getC_Invoice_ID() != 0)
-		{
-			MInvoice i = new MInvoice(getCtx(), specimenRequest.getC_Invoice_ID(), get_TrxName());
-			i.completeIt();
-			i.setDocStatus(MInvoice.DOCSTATUS_Completed);
-			i.save();
-		}
+		return null;
 	}
 
 	private void saveConsumables(int sr_ID)
@@ -183,10 +170,76 @@ public class Lab_done extends SvrProcess
 			specimenRequest.setedit(false);
 			specimenRequest.setdone_date(ff);
 			specimenRequest.setdone_time(ff);
+
+			if (specimenRequest.getresults() != null && !specimenRequest.getresults().isEmpty())
+			{
+
+			} else
+			{
+				specimenRequest.setresults(megaResult);
+
+			}
 			specimenRequest.saveEx();
+
+			updateDoc(specimenRequest.gethms_treatment_doc_ID());
 
 		}
 	}
+
+	private void updateDoc(int hms_treatment_doc_ID)
+	{
+		MTreatmentDoc doc = new MTreatmentDoc(getCtx(), hms_treatment_doc_ID, get_TrxName());
+
+		boolean allLabDone = labDone(hms_treatment_doc_ID);
+		doc.setlab_done(allLabDone);
+		doc.setlab_results_seen(false);
+		doc.save();
+	}
+
+	private boolean labDone(int hms_treatment_doc_ID)
+	{
+		String select = "SELECT count(*) FROM   hms_specimen_requests  WHERE hms_treatment_doc_ID ="
+				+ hms_treatment_doc_ID + " AND done='N'";
+		PreparedStatement stm = null;
+		ResultSet rs = null;
+		try
+		{
+			stm = DB.prepareStatement(select, get_TrxName());
+			rs = stm.executeQuery();
+
+			if (rs.next())
+			{
+				int done = rs.getInt(1);
+				if (done > 0)
+					return false;
+
+			}
+		} catch (Exception e)
+		{
+
+		} finally
+		{
+			try
+			{
+				if (stm != null)
+				{
+					stm.close();
+					stm = null;
+				}
+				if (rs != null)
+				{
+					rs.close();
+					rs = null;
+				}
+
+			} catch (Exception e2)
+			{
+				e2.printStackTrace();
+			}
+		}
+		return true;
+	}
+
 	/*
 	 * private void updateResult2() { MSpecimenRequestLine[] requestLines =
 	 * specimenRequest.getRequestLines123();
@@ -233,6 +286,8 @@ public class Lab_done extends SvrProcess
 		}
 	}
 
+	private static String megaResult = "";
+
 	private void getReqLine(Timestamp time, MSpecimenRequestLine line)
 	{
 		String sql2 = "SELECT * FROM hms_lab_results WHERE hms_specimen_r_line_id= " + line.get_ID();
@@ -253,14 +308,14 @@ public class Lab_done extends SvrProcess
 				result.save();
 
 				MParameter para = new MParameter(getCtx(), result.gethms_parameters_ID(), get_TrxName());
+
 				String r = "";
 				// range result
 				if (para.ishas_range())
 				{
 					if (result.getvalue1() != null && result.getvalue1().compareTo(Env.ZERO) != 0)
 					{
-						BigDecimal d = result.getvalue1().setScale(2, RoundingMode.HALF_UP)
-								.stripTrailingZeros();
+						BigDecimal d = result.getvalue1().setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 						String s = result.getrange();
 						if (s.contains(") X"))
 						{
@@ -285,8 +340,7 @@ public class Lab_done extends SvrProcess
 				{
 					if (result.getvalue1() != null && result.getvalue1().compareTo(Env.ZERO) != 0)
 					{
-						BigDecimal d = result.getvalue1().setScale(2, RoundingMode.HALF_UP)
-								.stripTrailingZeros();
+						BigDecimal d = result.getvalue1().setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 						if (result.getunits() != null && result.getunits().trim() != "")
 							r = d.toPlainString() + " " + result.getunits();
 						else
@@ -303,8 +357,9 @@ public class Lab_done extends SvrProcess
 					} else
 						r = "Not Provided";
 				}
-				System.out.println(r);
+				// System.out.println(r);
 				result.setfinal_results(r);
+				megaResult = megaResult + r + "\n";
 				result.save();
 			}
 

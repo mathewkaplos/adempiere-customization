@@ -36,11 +36,10 @@ public class CopyPatient extends SvrProcess
 		PreparedStatement stm = null;
 		try
 		{
-			stm = DB.prepareStatement(sql, get_TrxName());
+			stm  = DB.prepareStatement(sql, get_TrxName());
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 			{
-
 				int id = rs.getInt(1);
 				String patient_no = rs.getString(2);
 				String name = rs.getString(3);

@@ -25,6 +25,7 @@ public class TriageDone extends SvrProcess
 	{
 		MTreatmentDoc doc = new MTreatmentDoc(getCtx(), docID, get_TrxName());
 		doc.setvitals_done(true);
+		doc.settriage_done(true);
 		doc.save();
 	}
 

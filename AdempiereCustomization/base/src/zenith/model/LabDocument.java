@@ -105,6 +105,13 @@ public class LabDocument implements Serializable
 		doc.setdepartmentcode(docCode);
 		doc.setbooking_date(doc.getCreated());
 		doc.setstate2("h");
+
+		if (code.equals("lab"))
+		{
+			doc.setlab_done(false);
+			doc.setlab_results_seen(false);
+		}
+
 		doc.save();
 
 		int M_Product_ID = getProductID();

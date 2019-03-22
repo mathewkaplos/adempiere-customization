@@ -218,7 +218,7 @@ public final class VCellRenderer extends DefaultTableCellRenderer
 		return c;
 	} // getTableCellRendererComponent
 
-	//int num = 9;
+	// int num = 9;
 
 	/**
 	 * Fonts: 0 = Plain, 1 = Bold, 2 = Italic This can be combined with the
@@ -234,6 +234,11 @@ public final class VCellRenderer extends DefaultTableCellRenderer
 	 * @return VTableBackgrounds the bean containing attributes like color and
 	 *         fonts
 	 */
+	/*
+	 * state 1 consultation a1 dental a2, mch a3 vitals a4,
+	 * 
+	 * sate 2 lab
+	 */
 	private VTableBackgrounds setTableAndRow(JTable table, int row)
 	{
 		VTableBackgrounds vtbs = new VTableBackgrounds();
@@ -244,51 +249,36 @@ public final class VCellRenderer extends DefaultTableCellRenderer
 		if (table.getValueAt(row, 0) != null)
 		{
 			state1 = table.getValueAt(row, 0).toString();
+
 		}
 		String state2 = "";
 		if (table.getValueAt(row, 1) != null)
 		{
 			state2 = table.getValueAt(row, 1).toString();
 		}
-		if (state1.equals("d"))
+		String state3 = "";
+		if (table.getValueAt(row, 2) != null)
 		{
-			vtbs.setColor(new ColorUIResource(255, 0, 0));
-			vtbs.setRowNum(row);
-		} else if ((state1.equals("b")) || (state1.equals("c")))
-		{
-			vtbs.setColor(new ColorUIResource(0, 0, 0));
-			vtbs.setRowNum(row);
-		} else if (state1.equals("a"))
-		{
-			vtbs.setColor(new ColorUIResource(0, 0, 0));
-			vtbs.setRowNum(row);
-			if (state2.equals("g"))
-			{
-				vtbs.setColor(new ColorUIResource(255, 105, 180));
-				vtbs.setRowNum(row);
-			}
-		} else if (state2.equals("f"))
-		{
-			vtbs.setColor(new ColorUIResource(255, 105, 180));
-			vtbs.setRowNum(row);
-		} else if (state2.equals("g"))
-		{
-			vtbs.setColor(new ColorUIResource(0, 0, 0));
-			vtbs.setRowNum(row);
-			if (state1.equals("f"))
-			{
-				vtbs.setColor(new ColorUIResource(255, 105, 180));
-				vtbs.setRowNum(row);
-			}
-		} else if (state2.equals("h"))
-		{
-			vtbs.setColor(new ColorUIResource(255, 0, 0));
-			vtbs.setRowNum(row);
+			state3 = table.getValueAt(row, 2).toString();
 		}
-		if (state1.equals("e"))
+		if (state1.equals("false"))
 		{
-			vtbs.setColor(new ColorUIResource(0, 0, 255));
+			vtbs.setColor(new ColorUIResource(255, 0, 0));
 			vtbs.setRowNum(row);
+		} else if (state1.equals("true"))
+		{
+			vtbs.setColor(new ColorUIResource(0, 0, 0));
+			vtbs.setRowNum(row);
+			if (state2.equals("true"))
+			{
+				vtbs.setColor(new ColorUIResource(128, 0, 128));
+				vtbs.setRowNum(row);
+				if (state3.equals("true"))
+				{
+					vtbs.setColor(new ColorUIResource(0, 0, 0));
+					vtbs.setRowNum(row);
+				}
+			}
 		}
 		return vtbs;
 	}
