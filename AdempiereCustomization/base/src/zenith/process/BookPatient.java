@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.apps.AEnv;
+import org.compiere.grid.ed.NewOtherCharges;
 import org.compiere.grid.ed.NewRequest;
 import org.compiere.grid.ed.NewVitals;
 import org.compiere.model.MBPartner;
@@ -314,14 +315,16 @@ public class BookPatient extends SvrProcess
 		if (visit_type.equalsIgnoreCase("N"))
 			getRegistrationFee();
 
-		if (HmsSetup.getSetup().istriage_before_consoltation() && 1 == 2)
+		// if (HmsSetup.getSetup().istriage_before_consoltation() && 1 == 2)
+		if (1 == 1)
 		{
 			// 1000005
-			final int x = yesnocancel("Booked Successfully.....do you want to enter vital signs? ");
+			final int x = yesnocancel("Booked Successfully.....do you want to add other charges? ");
 			if (x == 0)
 			{
 				NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
-				AEnv.showCenterScreen(wewVitals);
+				NewOtherCharges newOtherCharges = new NewOtherCharges((Frame) null, doc, bp);
+				AEnv.showCenterScreen(newOtherCharges);
 			} else
 			{
 

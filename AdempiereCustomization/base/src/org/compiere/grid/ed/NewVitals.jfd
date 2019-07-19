@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_131" encoding: "UTF-8"
+JFDML JFormDesigner: "7.0.0.0.194" Java: "11.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -33,7 +33,7 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "insets dialog,hidemode 3"
 					"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]"
-					"$rowConstraints": "[][][][][][][][][]"
+					"$rowConstraints": "[][][][][][][][][][]"
 				} ) {
 					name: "contentPanel2"
 					add( new FormComponent( "javax.swing.JLabel" ) {
@@ -142,7 +142,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label1"
-						"text": "FHR (b/m)"
+						"text": "FHR (bpm)"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 7"
 					} )
@@ -151,6 +151,30 @@ new FormModel {
 						"columns": 10
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 7"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label12"
+						"text": "SPO2(%)"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 7"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textFieldSPO2"
+						"columns": 10
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 3 7"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Heart Rate(bpm)"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 8"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textFieldHeartRate"
+						"columns": 10
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 8"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "North"

@@ -1,6 +1,5 @@
 package org.compiere.apps.form;
 
-import java.awt.Frame;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import java.util.Date;
 import java.util.Vector;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.IMiniTable;
-import org.compiere.swing.CDialog;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
@@ -32,8 +30,8 @@ public class Triage // extends CDialog
 		Vector<Vector<Object>> data = new Vector();
 
 		String sql = "select  hms_vital_signss_id, v.created, u.name,bp_systolic,"
-				+ " bp_diastolic, ptemp,pulse, respiratory,  weight, height, bmi, fhr"
-				+ " from adempiere.hms_vital_signss v " + " inner join adempiere.hms_treatment_doc doc on "
+				+ " bp_diastolic, ptemp,pulse, respiratory,  weight, height, bmi, fhr,heart_rate,spo2 "
+				+ " from adempiere.hms_vital_signss v inner join adempiere.hms_treatment_doc doc on "
 				+ " doc.hms_treatment_doc_id =v.hms_treatment_doc_id "
 				+ " inner join adempiere.c_bpartner bp on bp.c_bpartner_id =doc.c_bpartner_id  "
 				+ " inner join adempiere.ad_user u on u.ad_user_id =v.createdby " + whereClause
@@ -59,6 +57,10 @@ public class Triage // extends CDialog
 				line.add(rs.getBigDecimal(10));
 				line.add(rs.getBigDecimal(11));
 				line.add(rs.getBigDecimal(12));
+				
+				line.add(rs.getBigDecimal(13));
+				line.add(rs.getBigDecimal(14));
+				
 				data.add(line);
 			}
 		} catch (Exception localException)
@@ -97,6 +99,8 @@ public class Triage // extends CDialog
 		columnNames.add("Height ");
 		columnNames.add("BMI ");
 		columnNames.add("FHR ");
+		columnNames.add("Heart Rate ");
+		columnNames.add("SPO2");
 
 		return columnNames;
 	}
@@ -117,6 +121,9 @@ public class Triage // extends CDialog
 		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
 		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
 		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
+		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
+		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
+		
 		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
 		orderTable.setColumnClass(i, BigDecimal.class, true, (String) names.get(i++));
 	}

@@ -16,8 +16,6 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -40,7 +38,6 @@ import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.plaf.CompiereColor;
 import org.compiere.swing.CPanel;
-import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.zenith.util.HmsSetup;
@@ -189,7 +186,7 @@ public class VTriage extends Triage implements FormPanel, ActionListener, TableM
 		infoPanel.add(orderPanel, JSplitPane.TOP);
 
 		infoPanel.setContinuousLayout(true);
-		infoPanel.setPreferredSize(new Dimension(900, 250));
+		infoPanel.setPreferredSize(new Dimension(1020, 250));
 		infoPanel.setDividerLocation(0);
 
 	}

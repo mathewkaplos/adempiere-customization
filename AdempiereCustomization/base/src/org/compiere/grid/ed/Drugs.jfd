@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_144" encoding: "UTF-8"
+JFDML JFormDesigner: "7.0.0.0.194" Java: "11.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -10,10 +10,18 @@ new FormModel {
 				name: "dialogPane"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "insets dialog,hidemode 3"
-					"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill]"
-					"$rowConstraints": "[][][][][]"
+					"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill]"
+					"$rowConstraints": "[][][][][][]"
 				} ) {
 					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "openTreatmentWindow"
+						"text": "Open Treatment Window"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openTreatmentWindowActionPerformed", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openTreatmentWindowActionPerformed", true ) )
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 6 1"
+					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
 						add( new FormComponent( "javax.swing.JTable" ) {
@@ -21,7 +29,7 @@ new FormModel {
 							"preferredScrollableViewportSize": new java.awt.Dimension( 450, 150 )
 						} )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 6 4"
+						"value": "cell 6 5"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"

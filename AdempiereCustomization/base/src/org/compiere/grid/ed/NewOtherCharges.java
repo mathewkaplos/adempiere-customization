@@ -5,7 +5,6 @@
 package org.compiere.grid.ed;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -15,36 +14,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import javax.swing.text.DocumentFilter.FilterBypass;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.plaf.AdempierePLAF;
-import org.compiere.apps.AEnv;
-import org.compiere.apps.form.Billing;
 import org.compiere.apps.form.OtherCharge;
-import org.compiere.apps.form.VBilling;
 import org.compiere.apps.form.VOtherCharge;
-import org.compiere.grid.ed.NewDrug.MyIntFilter;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MColumn;
-import org.compiere.model.MLookupFactory;
-import org.compiere.model.MOrg;
 import org.compiere.model.MProduct;
-import org.compiere.model.MStorage;
 import org.compiere.model.ZLookupFactory;
 import org.compiere.util.DB;
-import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
-import org.python.modules.synchronize;
-import org.zenith.util.HmsSetup;
-
 import net.miginfocom.swing.*;
 import zenith.model.MBilling;
 import zenith.model.MTreatmentDoc;
@@ -67,6 +52,8 @@ public class NewOtherCharges extends JDialog implements ActionListener
 	private VLookup mProduct_ID;
 	private VDate vDate;
 	private int treatID = 0;
+	private MTreatmentDoc doc= null;
+	private MBPartner bp;
 
 	/**
 	 * @param Frame
@@ -91,6 +78,17 @@ public class NewOtherCharges extends JDialog implements ActionListener
 		initComponents();
 		init();
 
+	}
+
+	public NewOtherCharges(Frame owner, MTreatmentDoc doc, MBPartner bp)
+	{
+		super(owner, true);
+		treatID = doc.get_ID();
+		initComponents();
+		this.setTitle(doc.getName());
+		validateFields();
+		this.doc = doc;
+		this.bp = bp;
 	}
 
 	private void init()

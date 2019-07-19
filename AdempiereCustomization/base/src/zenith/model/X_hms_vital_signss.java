@@ -33,7 +33,7 @@ public class X_hms_vital_signss extends PO implements I_hms_vital_signss, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20171018L;
+	private static final long serialVersionUID = 20190719L;
 
     /** Standard Constructor */
     public X_hms_vital_signss (Properties ctx, int hms_vital_signss_ID, String trxName)
@@ -192,6 +192,23 @@ public class X_hms_vital_signss extends PO implements I_hms_vital_signss, I_Pers
 		return ii.intValue();
 	}
 
+	/** Set Heart Rate.
+		@param heart_rate Heart Rate	  */
+	public void setheart_rate (int heart_rate)
+	{
+		set_Value (COLUMNNAME_heart_rate, Integer.valueOf(heart_rate));
+	}
+
+	/** Get Heart Rate.
+		@return Heart Rate	  */
+	public int getheart_rate () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_heart_rate);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Height.
 		@param height Height	  */
 	public void setheight (BigDecimal height)
@@ -335,6 +352,23 @@ public class X_hms_vital_signss extends PO implements I_hms_vital_signss, I_Pers
 	public int getrespiratory () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_respiratory);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set SPO2(%).
+		@param spo2 SPO2(%)	  */
+	public void setspo2 (int spo2)
+	{
+		set_Value (COLUMNNAME_spo2, Integer.valueOf(spo2));
+	}
+
+	/** Get SPO2(%).
+		@return SPO2(%)	  */
+	public int getspo2 () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_spo2);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

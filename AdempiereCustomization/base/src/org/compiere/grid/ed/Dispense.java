@@ -5,6 +5,7 @@
 package org.compiere.grid.ed;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -89,11 +90,16 @@ public class Dispense extends JDialog implements TableModelListener
 		initComponents();
 	}
 
+	private void btnCloseActionPerformed(ActionEvent e) {
+		this.dispose();
+	}
+
 	private void initComponents()
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew
+		// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
+		btnClose = new JButton();
 		label1 = new JLabel();
 		patientNameField = new JTextField();
 		label2 = new JLabel();
@@ -102,40 +108,67 @@ public class Dispense extends JDialog implements TableModelListener
 		scrollPane1 = new JScrollPane();
 		table1 = new JTable();
 
-		// ======== this ========
+		//======== this ========
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new MigLayout("hidemode 3",
-				// columns
-				"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-						+ "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]",
-				// rows
-				"[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+		contentPane.setLayout(new MigLayout(
+			"hidemode 3",
+			// columns
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]",
+			// rows
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]" +
+			"[]"));
 
-		// ---- label1 ----
+		//---- btnClose ----
+		btnClose.setText("Close");
+		btnClose.setForeground(Color.red);
+		btnClose.addActionListener(e -> btnCloseActionPerformed(e));
+		contentPane.add(btnClose, "cell 15 1");
+
+		//---- label1 ----
 		label1.setText("Patient Name:");
-		contentPane.add(label1, "cell 0 1 3 1");
+		contentPane.add(label1, "cell 0 2 3 1");
 
-		// ---- patientNameField ----
+		//---- patientNameField ----
 		patientNameField.setMaximumSize(new Dimension(200, 2147483647));
-		contentPane.add(patientNameField, "cell 3 1 5 1");
+		contentPane.add(patientNameField, "cell 3 2 5 1");
 
-		// ---- label2 ----
+		//---- label2 ----
 		label2.setText("Date:");
-		contentPane.add(label2, "cell 0 3 3 1");
+		contentPane.add(label2, "cell 0 4 3 1");
 
-		// ---- dateField ----
+		//---- dateField ----
 		dateField.setMaximumSize(new Dimension(200, 2147483647));
-		contentPane.add(dateField, "cell 3 3 5 1");
+		contentPane.add(dateField, "cell 3 4 5 1");
 
-		// ---- label_Locator ----
+		//---- label_Locator ----
 		label_Locator.setText("LOCATOR: Pharmacy");
-		contentPane.add(label_Locator, "cell 3 3 5 1");
+		contentPane.add(label_Locator, "cell 3 4 5 1");
 
-		// ======== scrollPane1 ========
+		//======== scrollPane1 ========
 		{
 			scrollPane1.setViewportView(table1);
 		}
-		contentPane.add(scrollPane1, "cell 0 5 8 1");
+		contentPane.add(scrollPane1, "cell 0 6 8 1");
 		pack();
 		setLocationRelativeTo(getOwner());
 		// //GEN-END:initComponents
@@ -143,7 +176,8 @@ public class Dispense extends JDialog implements TableModelListener
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
+	private JButton btnClose;
 	private JLabel label1;
 	private JTextField patientNameField;
 	private JLabel label2;

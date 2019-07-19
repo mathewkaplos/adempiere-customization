@@ -57,7 +57,6 @@ public class SelectPharmacy extends JDialog
 
 	private void init()
 	{
-
 		try
 		{
 			mLocator_ID = new VLookup("M_Locator_ID", true, false, true,
@@ -99,51 +98,63 @@ public class SelectPharmacy extends JDialog
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew
+		// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 		contentPanel = new JPanel();
 		label2 = new JLabel();
 		OkButton = new JButton();
 
-		// ======== this ========
+		//======== this ========
 		setTitle("s");
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new MigLayout("hidemode 3",
-				// columns
-				"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-						+ "[fill]",
-				// rows
-				"[]"));
+		contentPane.setLayout(new MigLayout(
+			"hidemode 3",
+			// columns
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]",
+			// rows
+			"[]"));
 
-		// ======== contentPanel ========
+		//======== contentPanel ========
 		{
 
 			// JFormDesigner evaluation mark
-			contentPanel
-					.setBorder(new javax.swing.border.CompoundBorder(
-							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-									javax.swing.border.TitledBorder.BOTTOM,
-									new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), java.awt.Color.red),
-							contentPanel.getBorder()));
-			contentPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-				public void propertyChange(java.beans.PropertyChangeEvent e)
-				{
-					if ("border".equals(e.getPropertyName()))
-						throw new RuntimeException();
-				}
-			});
+			contentPanel.setBorder(new javax.swing.border.CompoundBorder(
+				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+					java.awt.Color.red), contentPanel.getBorder())); contentPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-			contentPanel.setLayout(new MigLayout("hidemode 3",
-					// columns
-					"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]",
-					// rows
-					"[]" + "[]" + "[]" + "[]"));
+			contentPanel.setLayout(new MigLayout(
+				"hidemode 3",
+				// columns
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]" +
+				"[fill]",
+				// rows
+				"[]" +
+				"[]" +
+				"[]" +
+				"[]"));
 
-			// ---- label2 ----
+			//---- label2 ----
 			label2.setText("Locator:");
 			contentPanel.add(label2, "cell 0 0");
 
-			// ---- OkButton ----
+			//---- OkButton ----
 			OkButton.setText("OK");
 			OkButton.setPreferredSize(new Dimension(47, 30));
 			OkButton.addActionListener(e -> OkButtonActionPerformed(e));
@@ -157,7 +168,7 @@ public class SelectPharmacy extends JDialog
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 	private JPanel contentPanel;
 	private JLabel label2;
 	private JButton OkButton;

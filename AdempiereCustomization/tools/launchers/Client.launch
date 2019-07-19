@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
-<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/AdempiereCustomization/base/src/org/compiere/Adempiere.java"/>
-</listAttribute>
-<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-<listEntry value="1"/>
-</listAttribute>
-<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
-<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
-</listAttribute>
-<booleanAttribute key="org.eclipse.jdt.debug.ui.CONSIDER_INHERITED_MAIN" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.compiere.Adempiere"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="AdempiereCustomization"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-DPropertyFile=&quot;E:\380\adempiere-master\adempiere-master\ADempiere.properties&quot;&#13;&#10;-Xms1024m &#13;&#10;-Xmx1024m &#13;&#10;-Dorg.adempiere.server.embedded=true &#13;&#10;&#13;&#10;-DADEMPIERE_HOME=&quot;E:\380\adempiere-master\adempiere-master&quot;"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/AdempiereCustomization/base/src/org/compiere/Adempiere.java"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="1"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+        <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+        <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.jdt.debug.ui.CONSIDER_INHERITED_MAIN" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.compiere.Adempiere"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="AdempiereCustomization"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-DPropertyFile=&quot;/home/mat/380_sacco/adempiere/ADempiere.properties&quot;&#10;-Xms1024m&#10;-Xmx1024m&#10;-Dorg.adempiere.server.embedded=true &#10;-DADEMPIERE_HOME=&quot;/home/mat/380_sacco/adempiere&quot;"/>
 </launchConfiguration>

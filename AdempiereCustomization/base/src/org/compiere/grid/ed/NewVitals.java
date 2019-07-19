@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
@@ -28,11 +29,13 @@ import javax.swing.text.PlainDocument;
 import org.compiere.apps.form.VTriage;
 import org.compiere.model.MBPartner;
 import org.compiere.swing.CDialog;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 import net.miginfocom.swing.*;
 import zenith.model.MTreatmentDoc;
 import zenith.model.MVital;
+import zenith.model.VitalSignsSetup;
 
 /**
  * @author Mathew Kipchumba
@@ -55,6 +58,7 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		validateFields();
 		addBMIListeners();
 		doc = new MTreatmentDoc(Env.getCtx(), Hms_treatment_doc_ID, null);
+		bp = new MBPartner(Env.getCtx(), doc.getC_BPartner_ID(), null);
 	}
 
 	public NewVitals(Frame owner, MTreatmentDoc doc, MBPartner bp)
@@ -87,6 +91,130 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 
 	private void okButtonActionPerformed(ActionEvent e)
 	{
+		if (vitalsOk())
+		{
+			save();
+		}
+	}
+
+	private VitalSignsSetup vitalSignsSetup = null;
+
+	private boolean vitalsOk()
+	{
+		boolean validFields = true;
+		// systolic
+		if (!fieldOk(1000000, textFieldSystolic))
+		{
+			textFieldSystolic.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldSystolic.setBorder(new JTextField().getBorder());
+		}
+		// diastolic
+		if (!fieldOk(1000001, textFieldDiastolic))
+		{
+			textFieldDiastolic.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldDiastolic.setBorder(new JTextField().getBorder());
+		}
+		// pulse
+		if (!fieldOk(1000002, textFieldPulse))
+		{
+			textFieldPulse.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldPulse.setBorder(new JTextField().getBorder());
+		}
+		// temperature
+		if (!fieldOk(1000003, textFieldTemperature))
+		{
+			textFieldTemperature.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldTemperature.setBorder(new JTextField().getBorder());
+		}
+		// Respiratory
+		if (!fieldOk(1000004, textFieldRespiratory))
+		{
+			textFieldRespiratory.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldRespiratory.setBorder(new JTextField().getBorder());
+		}
+		// Weight
+		if (!fieldOk(1000005, textFieldWeight))
+		{
+			textFieldWeight.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldWeight.setBorder(new JTextField().getBorder());
+		}
+		// height
+		if (!fieldOk(1000006, textFieldHeight))
+		{
+			textFieldHeight.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldHeight.setBorder(new JTextField().getBorder());
+		}
+		// FHR
+		if (!fieldOk(1000007, textFieldFHR))
+		{
+			textFieldFHR.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldFHR.setBorder(new JTextField().getBorder());
+		}
+		// SPO2
+		if (!fieldOk(1000008, textFieldSPO2))
+		{
+			textFieldSPO2.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldSPO2.setBorder(new JTextField().getBorder());
+		}
+		// Heart Rate
+		if (!fieldOk(1000009, textFieldHeartRate))
+		{
+			textFieldHeartRate.setBorder(new LineBorder(Color.red));
+			validFields = false;
+		} else
+		{
+			textFieldHeartRate.setBorder(new JTextField().getBorder());
+		}
+
+		return validFields;
+	}
+
+	private boolean fieldOk(int vital_setup_id, JTextField textField)
+	{
+		vitalSignsSetup = new VitalSignsSetup(Env.getCtx(), vital_setup_id, null);
+		String mandatoryLogic = vitalSignsSetup.getMandatoryLogic();
+		String sql = "SELECT COUNT(*) FROM adempiere.C_BPartner bp WHERE bp.C_BPartner_ID=" + bp.get_ID() + "  AND "
+				+ mandatoryLogic;
+		int count = DB.getSQLValue(null, sql);
+		if (count == 1)// is mandatory
+		{
+			if (textField.getText().trim().isEmpty())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void save()
+	{
 		MVital mVital = new MVital(Env.getCtx(), 0, null);
 		mVital.sethms_treatment_doc_ID(Hms_treatment_doc_ID);
 		if (!textFieldSystolic.getText().trim().isEmpty())
@@ -107,6 +235,10 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 			mVital.setbmi(new BigDecimal(textFieldBMI.getText()));
 		if (!textFieldFHR.getText().trim().isEmpty())
 			mVital.setfhr(new Double(textFieldFHR.getText()).intValue());
+		if (!textFieldSPO2.getText().trim().isEmpty())
+			mVital.setspo2(new Double(textFieldSPO2.getText()).intValue());
+		if (!textFieldHeartRate.getText().trim().isEmpty())
+			mVital.setheart_rate(new Double(textFieldHeartRate.getText()).intValue());
 		mVital.save();
 		if (doc != null && bp != null && 1 == 2)
 		{
@@ -142,7 +274,8 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew Kipchumba
+		// Generated using JFormDesigner Evaluation license -
+		// mathew359722@gmail.com
 		dialogPane = new JPanel();
 		buttonBar = new JPanel();
 		okButton = new JButton();
@@ -167,6 +300,10 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		textFieldBMI = new JTextField();
 		label1 = new JLabel();
 		textFieldFHR = new JTextField();
+		label12 = new JLabel();
+		textFieldSPO2 = new JTextField();
+		label2 = new JLabel();
+		textFieldHeartRate = new JTextField();
 
 		// ======== this ========
 		Container contentPane = getContentPane();
@@ -176,8 +313,8 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,
@@ -221,7 +358,7 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 								+ "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
 								+ "[fill]" + "[fill]" + "[fill]",
 						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+						"[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
 
 				// ---- label3 ----
 				label3.setText("VITAL SIGNS:- New Record");
@@ -294,12 +431,28 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 				contentPanel2.add(textFieldBMI, "cell 3 6");
 
 				// ---- label1 ----
-				label1.setText("FHR (b/m)");
+				label1.setText("FHR (bpm)");
 				contentPanel2.add(label1, "cell 0 7");
 
 				// ---- textFieldFHR ----
 				textFieldFHR.setColumns(10);
 				contentPanel2.add(textFieldFHR, "cell 1 7");
+
+				// ---- label12 ----
+				label12.setText("SPO2(%)");
+				contentPanel2.add(label12, "cell 2 7");
+
+				// ---- textFieldSPO2 ----
+				textFieldSPO2.setColumns(10);
+				contentPanel2.add(textFieldSPO2, "cell 3 7");
+
+				// ---- label2 ----
+				label2.setText("Heart Rate(bpm)");
+				contentPanel2.add(label2, "cell 0 8");
+
+				// ---- textFieldHeartRate ----
+				textFieldHeartRate.setColumns(10);
+				contentPanel2.add(textFieldHeartRate, "cell 1 8");
 			}
 			dialogPane.add(contentPanel2, BorderLayout.NORTH);
 		}
@@ -312,7 +465,8 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 	private void validateFields()
 	{
 		JTextField[] jTextFields = { textFieldBMI, textFieldHeight, textFieldWeight, textFieldSystolic,
-				textFieldRespiratory, textFieldTemperature, textFieldPulse, textFieldDiastolic, textFieldFHR };
+				textFieldRespiratory, textFieldTemperature, textFieldPulse, textFieldDiastolic, textFieldFHR,
+				textFieldHeartRate, textFieldSPO2 };
 		for (int i = 0; i < jTextFields.length; i++)
 		{
 			PlainDocument doc = (PlainDocument) jTextFields[i].getDocument();
@@ -323,7 +477,7 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew Kipchumba
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 	private JPanel dialogPane;
 	private JPanel buttonBar;
 	private JButton okButton;
@@ -348,6 +502,10 @@ public class NewVitals extends CDialog implements ActionListener, TableModelList
 	private JTextField textFieldBMI;
 	private JLabel label1;
 	private JTextField textFieldFHR;
+	private JLabel label12;
+	private JTextField textFieldSPO2;
+	private JLabel label2;
+	private JTextField textFieldHeartRate;
 	// JFormDesigner - End of variables declaration //GEN-END:variables
 
 	/**

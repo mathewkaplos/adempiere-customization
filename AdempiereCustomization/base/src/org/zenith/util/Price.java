@@ -5,8 +5,6 @@ import java.math.RoundingMode;
 
 import javax.swing.JOptionPane;
 
-import org.adempiere.exceptions.AdempiereException;
-import org.compiere.model.MProduct;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
@@ -49,24 +47,26 @@ public class Price
 				BigDecimal price = getProductPrice(M_Product_ID, M_Pricelist_version_ID);
 				if (price == null)
 				{
-					returnNoPrice("( The Patient Group has no active Price for this product!. )");
+					// returnNoPrice("( The Patient Group has no active Price
+					// for this product!. )");
+					amount = getAnyPrice(M_Product_ID, "( The Pricelist has no active Pricelist Version. )");
+					return amount;
 				}
 				amount = price;
 
 			} else
 			{
-				// amount = getAnyPrice(M_Product_ID, "( The Pricelist has no
-				// active Pricelist Version. )");
-				returnNoPrice("( The Pricelist has no active Pricelist Version. )");
-				return null;
+				amount = getAnyPrice(M_Product_ID, "( The Pricelist has no active Pricelist Version. )");
+				// returnNoPrice("( The Pricelist has no active Pricelist
+				// Version. )");
+				return amount;
 			}
 
 		} else
 		{
-			returnNoPrice("( The Patient Group has no pricelist defined.. )");
-			// amount = getAnyPrice(M_Product_ID, "( The Patient Group has no
-			// pricelist defined. )");
-			return null;
+			//returnNoPrice("( The Patient Group has no pricelist defined.. )");
+			 amount = getAnyPrice(M_Product_ID, "( The Patient Group has no pricelist defined. )");
+			return amount;
 		}
 		return new BigDecimal(amount.stripTrailingZeros().toPlainString());
 	}

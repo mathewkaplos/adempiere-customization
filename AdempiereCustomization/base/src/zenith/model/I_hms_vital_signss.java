@@ -53,12 +53,12 @@ public interface I_hms_vital_signss
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
-	/** Set Department.
+	/** Set Organization.
 	  * Organizational entity within client
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
-	/** Get Department.
+	/** Get Organization.
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
@@ -154,6 +154,15 @@ public interface I_hms_vital_signss
 	/** Get FHR	  */
 	public int getfhr();
 
+    /** Column name heart_rate */
+    public static final String COLUMNNAME_heart_rate = "heart_rate";
+
+	/** Set Heart Rate	  */
+	public void setheart_rate (int heart_rate);
+
+	/** Get Heart Rate	  */
+	public int getheart_rate();
+
     /** Column name height */
     public static final String COLUMNNAME_height = "height";
 
@@ -240,6 +249,15 @@ public interface I_hms_vital_signss
 
 	/** Get Respiratory	  */
 	public int getrespiratory();
+
+    /** Column name spo2 */
+    public static final String COLUMNNAME_spo2 = "spo2";
+
+	/** Set SPO2(%)	  */
+	public void setspo2 (int spo2);
+
+	/** Get SPO2(%)	  */
+	public int getspo2();
 
     /** Column name taken_by_ID */
     public static final String COLUMNNAME_taken_by_ID = "taken_by_ID";

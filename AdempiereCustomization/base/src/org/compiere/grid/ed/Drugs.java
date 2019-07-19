@@ -26,10 +26,13 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import org.compiere.apps.AEnv;
+import org.compiere.apps.AWindow;
 import org.compiere.apps.form.VPharmacy;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MLocator;
+import org.compiere.model.MQuery;
 import org.compiere.model.MStorage;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -408,13 +411,41 @@ public class Drugs extends JDialog implements TableModelListener
 		MStorage.add(Env.getCtx(), M_Warehouse_ID, M_Locator_ID, M_Product_ID, asi, 0, Qty, Env.ZERO, Env.ZERO, null);
 	}
 
+	private void openTreatmentWindowActionPerformed(ActionEvent e)
+	{
+		this.dispose();
+		dispense.dispose();
+		openTreatmentWindow();
+		
+	}
+
+	private boolean openTreatmentWindow()
+	{
+		final int Treatment_WINDOW_ID = 1000004;
+		/** filter the data - needs to be generated for real use... */
+		String whereString = " hms_treatment_doc_ID=" + m_treatID;
+		final AWindow poFrame = new AWindow();
+		final MQuery query = new MQuery("hms_treatment_doc");
+		query.addRestriction(whereString);
+		final boolean ok = poFrame.initWindow(Treatment_WINDOW_ID, query);
+		if (!ok)
+		{
+			return false;
+		}
+		poFrame.pack();
+		AEnv.showCenterScreen(poFrame);
+		return true;
+	}
+
 	private void initComponents()
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew Kipchumba
+		// Generated using JFormDesigner Evaluation license -
+		// mathew359722@gmail.com
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
+		openTreatmentWindow = new JButton();
 		scrollPane1 = new JScrollPane();
 		table1 = new JTable();
 		buttonBar = new JPanel();
@@ -430,8 +461,8 @@ public class Drugs extends JDialog implements TableModelListener
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,
@@ -451,18 +482,26 @@ public class Drugs extends JDialog implements TableModelListener
 			{
 				contentPanel.setLayout(new MigLayout("insets dialog,hidemode 3",
 						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]",
+						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
+								+ "[fill]",
 						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]"));
+						"[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+
+				// ---- openTreatmentWindow ----
+				openTreatmentWindow.setText("Open Treatment Window");
+				openTreatmentWindow.addActionListener(e -> {
+					openTreatmentWindowActionPerformed(e);
+				});
+				contentPanel.add(openTreatmentWindow, "cell 6 1");
 
 				// ======== scrollPane1 ========
 				{
 
 					// ---- table1 ----
-					table1.setPreferredScrollableViewportSize(new Dimension(500, 150));
+					table1.setPreferredScrollableViewportSize(new Dimension(450, 150));
 					scrollPane1.setViewportView(table1);
 				}
-				contentPanel.add(scrollPane1, "cell 6 4");
+				contentPanel.add(scrollPane1, "cell 6 5");
 			}
 			dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -498,9 +537,10 @@ public class Drugs extends JDialog implements TableModelListener
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew Kipchumba
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 	private JPanel dialogPane;
 	private JPanel contentPanel;
+	private JButton openTreatmentWindow;
 	private JScrollPane scrollPane1;
 	private JTable table1;
 	private JPanel buttonBar;
