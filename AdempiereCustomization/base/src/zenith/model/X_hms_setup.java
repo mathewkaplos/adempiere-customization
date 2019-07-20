@@ -33,7 +33,7 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20181031L;
+	private static final long serialVersionUID = 20190719L;
 
     /** Standard Constructor */
     public X_hms_setup (Properties ctx, int hms_setup_ID, String trxName)
@@ -45,8 +45,8 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 			setallow_price_change (false);
 			setcalculate_rebate_automatically (false);
 // N
-			setdiagnosis_before_prescription (true);
-// Y
+			setdiagnosis_before_prescription (false);
+// N
 			setdisplay_all_patient_treatments (false);
 // N
 			setdrug_issued_once_prescribed (false);
@@ -61,13 +61,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 // N
 			setpharmacy_show_stock (false);
 // N
-			setrealtime_update_stock (false);
+			setrebooking_interval (0);
+// 24
+			setrequest_service_before_done (false);
 // N
-			setrequest_service_before_done (true);
-// Y
 			setreserve_drugs (false);
 // N
 			settriage_before_consoltation (false);
+			setzoom_from_pharmacy (false);
+// N
         } */
     }
 
@@ -218,15 +220,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_contact);
 	}
 
-	/** Set Enter Diagnosis Before Prescription.
-		@param diagnosis_before_prescription Enter Diagnosis Before Prescription	  */
+	/** Set Diagnosis Before Prescription.
+		@param diagnosis_before_prescription Diagnosis Before Prescription	  */
 	public void setdiagnosis_before_prescription (boolean diagnosis_before_prescription)
 	{
 		set_Value (COLUMNNAME_diagnosis_before_prescription, Boolean.valueOf(diagnosis_before_prescription));
 	}
 
-	/** Get Enter Diagnosis Before Prescription.
-		@return Enter Diagnosis Before Prescription	  */
+	/** Get Diagnosis Before Prescription.
+		@return Diagnosis Before Prescription	  */
 	public boolean isdiagnosis_before_prescription () 
 	{
 		Object oo = get_Value(COLUMNNAME_diagnosis_before_prescription);
@@ -349,15 +351,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_hospital_prefix);
 	}
 
-	/** Set Inpatient Real-time.
-		@param inpatient_realltime Inpatient Real-time	  */
+	/** Set Inpatient Real Time.
+		@param inpatient_realltime Inpatient Real Time	  */
 	public void setinpatient_realltime (boolean inpatient_realltime)
 	{
 		set_Value (COLUMNNAME_inpatient_realltime, Boolean.valueOf(inpatient_realltime));
 	}
 
-	/** Get Inpatient Real-time.
-		@return Inpatient Real-time	  */
+	/** Get Inpatient Real Time.
+		@return Inpatient Real Time	  */
 	public boolean isinpatient_realltime () 
 	{
 		Object oo = get_Value(COLUMNNAME_inpatient_realltime);
@@ -391,15 +393,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Issue Negative Stock.
-		@param issue_negative Issue Negative Stock	  */
+	/** Set Issue Negative Stock in Pharmacy.
+		@param issue_negative Issue Negative Stock in Pharmacy	  */
 	public void setissue_negative (boolean issue_negative)
 	{
 		set_Value (COLUMNNAME_issue_negative, Boolean.valueOf(issue_negative));
 	}
 
-	/** Get Issue Negative Stock.
-		@return Issue Negative Stock	  */
+	/** Get Issue Negative Stock in Pharmacy.
+		@return Issue Negative Stock in Pharmacy	  */
 	public boolean issue_negative () 
 	{
 		Object oo = get_Value(COLUMNNAME_issue_negative);
@@ -432,6 +434,30 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set Maximize Forms.
+		@param maximize_forms 
+		Maximize Forms in treatment windows
+	  */
+	public void setmaximize_forms (boolean maximize_forms)
+	{
+		set_Value (COLUMNNAME_maximize_forms, Boolean.valueOf(maximize_forms));
+	}
+
+	/** Get Maximize Forms.
+		@return Maximize Forms in treatment windows
+	  */
+	public boolean ismaximize_forms () 
+	{
+		Object oo = get_Value(COLUMNNAME_maximize_forms);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException
     {
 		return (org.compiere.model.I_M_Product)MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
@@ -458,30 +484,6 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set Maximize Forms.
-		@param maximize_forms 
-		Maximize User Forms in Treatment Windows
-	  */
-	public void setmaximize_forms (boolean maximize_forms)
-	{
-		set_Value (COLUMNNAME_maximize_forms, Boolean.valueOf(maximize_forms));
-	}
-
-	/** Get Maximize Forms.
-		@return Maximize User Forms in Treatment Windows
-	  */
-	public boolean ismaximize_forms () 
-	{
-		Object oo = get_Value(COLUMNNAME_maximize_forms);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
 	}
 
 	/** Set Name.
@@ -594,15 +596,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Pharmacy Show Stock.
-		@param pharmacy_show_stock Pharmacy Show Stock	  */
+	/** Set Pharmacy Show Stock Available.
+		@param pharmacy_show_stock Pharmacy Show Stock Available	  */
 	public void setpharmacy_show_stock (boolean pharmacy_show_stock)
 	{
 		set_Value (COLUMNNAME_pharmacy_show_stock, Boolean.valueOf(pharmacy_show_stock));
 	}
 
-	/** Get Pharmacy Show Stock.
-		@return Pharmacy Show Stock	  */
+	/** Get Pharmacy Show Stock Available.
+		@return Pharmacy Show Stock Available	  */
 	public boolean ispharmacy_show_stock () 
 	{
 		Object oo = get_Value(COLUMNNAME_pharmacy_show_stock);
@@ -643,15 +645,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return (String)get_Value(COLUMNNAME_postal_code);
 	}
 
-	/** Set Real Time Update Stock.
-		@param realtime_update_stock Real Time Update Stock	  */
+	/** Set Realtime Update Stock.
+		@param realtime_update_stock Realtime Update Stock	  */
 	public void setrealtime_update_stock (boolean realtime_update_stock)
 	{
 		set_Value (COLUMNNAME_realtime_update_stock, Boolean.valueOf(realtime_update_stock));
 	}
 
-	/** Get Real Time Update Stock.
-		@return Real Time Update Stock	  */
+	/** Get Realtime Update Stock.
+		@return Realtime Update Stock	  */
 	public boolean isrealtime_update_stock () 
 	{
 		Object oo = get_Value(COLUMNNAME_realtime_update_stock);
@@ -664,15 +666,15 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 		return false;
 	}
 
-	/** Set Normal Rebooking Interval(hours).
-		@param rebooking_interval Normal Rebooking Interval(hours)	  */
+	/** Set Normal Rebooking Interval.
+		@param rebooking_interval Normal Rebooking Interval	  */
 	public void setrebooking_interval (int rebooking_interval)
 	{
 		set_Value (COLUMNNAME_rebooking_interval, Integer.valueOf(rebooking_interval));
 	}
 
-	/** Get Normal Rebooking Interval(hours).
-		@return Normal Rebooking Interval(hours)	  */
+	/** Get Normal Rebooking Interval.
+		@return Normal Rebooking Interval	  */
 	public int getrebooking_interval () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_rebooking_interval);
@@ -815,5 +817,26 @@ public class X_hms_setup extends PO implements I_hms_setup, I_Persistent
 	public String getwebsite () 
 	{
 		return (String)get_Value(COLUMNNAME_website);
+	}
+
+	/** Set Zoom From From Pharmacy to Treatment.
+		@param zoom_from_pharmacy Zoom From From Pharmacy to Treatment	  */
+	public void setzoom_from_pharmacy (boolean zoom_from_pharmacy)
+	{
+		set_Value (COLUMNNAME_zoom_from_pharmacy, Boolean.valueOf(zoom_from_pharmacy));
+	}
+
+	/** Get Zoom From From Pharmacy to Treatment.
+		@return Zoom From From Pharmacy to Treatment	  */
+	public boolean iszoom_from_pharmacy () 
+	{
+		Object oo = get_Value(COLUMNNAME_zoom_from_pharmacy);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }

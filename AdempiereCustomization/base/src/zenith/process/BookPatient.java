@@ -279,7 +279,7 @@ public class BookPatient extends SvrProcess
 		// check if recently booked... to prevent double booking
 		if (bp.bookedRecently())
 		{
-			final int x = yesnocancel(bp.getName() + " was booked recently. Do you want to continue with booking?");
+			final int x = yesnocancel(bp.getName() + " was booked recently on "+bp.getLastVisit()	+ ". Do you want to continue with booking?");
 			if (x == 0)
 			{
 
@@ -315,16 +315,15 @@ public class BookPatient extends SvrProcess
 		if (visit_type.equalsIgnoreCase("N"))
 			getRegistrationFee();
 
-		// if (HmsSetup.getSetup().istriage_before_consoltation() && 1 == 2)
-		if (1 == 1)
+		if (HmsSetup.getSetup().istriage_before_consoltation() && 1 == 2)
+	
 		{
 			// 1000005
 			final int x = yesnocancel("Booked Successfully.....do you want to add other charges? ");
 			if (x == 0)
 			{
 				NewVitals wewVitals = new NewVitals((Frame) null, doc, bp);
-				NewOtherCharges newOtherCharges = new NewOtherCharges((Frame) null, doc, bp);
-				AEnv.showCenterScreen(newOtherCharges);
+				AEnv.showCenterScreen(wewVitals);
 			} else
 			{
 

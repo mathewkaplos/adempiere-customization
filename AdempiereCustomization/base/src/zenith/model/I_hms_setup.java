@@ -136,10 +136,10 @@ public interface I_hms_setup
     /** Column name diagnosis_before_prescription */
     public static final String COLUMNNAME_diagnosis_before_prescription = "diagnosis_before_prescription";
 
-	/** Set Enter Diagnosis Before Prescription	  */
+	/** Set Diagnosis Before Prescription	  */
 	public void setdiagnosis_before_prescription (boolean diagnosis_before_prescription);
 
-	/** Get Enter Diagnosis Before Prescription	  */
+	/** Get Diagnosis Before Prescription	  */
 	public boolean isdiagnosis_before_prescription();
 
     /** Column name display_all_patient_treatments */
@@ -207,20 +207,11 @@ public interface I_hms_setup
     /** Column name inpatient_realltime */
     public static final String COLUMNNAME_inpatient_realltime = "inpatient_realltime";
 
-	/** Set Inpatient Real-time	  */
+	/** Set Inpatient Real Time	  */
 	public void setinpatient_realltime (boolean inpatient_realltime);
 
-	/** Get Inpatient Real-time	  */
+	/** Get Inpatient Real Time	  */
 	public boolean isinpatient_realltime();
-
-    /** Column name is_get_alerts */
-    public static final String COLUMNNAME_is_get_alerts = "is_get_alerts";
-
-	/** Set is_get_alerts	  */
-	public void setis_get_alerts (boolean is_get_alerts);
-
-	/** Get is_get_alerts	  */
-	public boolean is_get_alerts();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
@@ -235,13 +226,22 @@ public interface I_hms_setup
 	  */
 	public boolean isActive();
 
+    /** Column name is_get_alerts */
+    public static final String COLUMNNAME_is_get_alerts = "is_get_alerts";
+
+	/** Set is_get_alerts	  */
+	public void setis_get_alerts (boolean is_get_alerts);
+
+	/** Get is_get_alerts	  */
+	public boolean is_get_alerts();
+
     /** Column name issue_negative */
     public static final String COLUMNNAME_issue_negative = "issue_negative";
 
-	/** Set Issue Negative Stock	  */
+	/** Set Issue Negative Stock in Pharmacy	  */
 	public void setissue_negative (boolean issue_negative);
 
-	/** Get Issue Negative Stock	  */
+	/** Get Issue Negative Stock in Pharmacy	  */
 	public boolean issue_negative();
 
     /** Column name Logo_ID */
@@ -252,6 +252,19 @@ public interface I_hms_setup
 
 	/** Get Logo	  */
 	public int getLogo_ID();
+
+    /** Column name maximize_forms */
+    public static final String COLUMNNAME_maximize_forms = "maximize_forms";
+
+	/** Set Maximize Forms.
+	  * Maximize Forms in treatment windows
+	  */
+	public void setmaximize_forms (boolean maximize_forms);
+
+	/** Get Maximize Forms.
+	  * Maximize Forms in treatment windows
+	  */
+	public boolean ismaximize_forms();
 
     /** Column name M_Product_ID */
     public static final String COLUMNNAME_M_Product_ID = "M_Product_ID";
@@ -267,19 +280,6 @@ public interface I_hms_setup
 	public int getM_Product_ID();
 
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException;
-
-    /** Column name maximize_forms */
-    public static final String COLUMNNAME_maximize_forms = "maximize_forms";
-
-	/** Set Maximize Forms.
-	  * Maximize User Forms in Treatment Windows
-	  */
-	public void setmaximize_forms (boolean maximize_forms);
-
-	/** Get Maximize Forms.
-	  * Maximize User Forms in Treatment Windows
-	  */
-	public boolean ismaximize_forms();
 
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
@@ -345,10 +345,10 @@ public interface I_hms_setup
     /** Column name pharmacy_show_stock */
     public static final String COLUMNNAME_pharmacy_show_stock = "pharmacy_show_stock";
 
-	/** Set Pharmacy Show Stock	  */
+	/** Set Pharmacy Show Stock Available	  */
 	public void setpharmacy_show_stock (boolean pharmacy_show_stock);
 
-	/** Get Pharmacy Show Stock	  */
+	/** Get Pharmacy Show Stock Available	  */
 	public boolean ispharmacy_show_stock();
 
     /** Column name postal_address */
@@ -372,19 +372,19 @@ public interface I_hms_setup
     /** Column name realtime_update_stock */
     public static final String COLUMNNAME_realtime_update_stock = "realtime_update_stock";
 
-	/** Set Real Time Update Stock	  */
+	/** Set Realtime Update Stock	  */
 	public void setrealtime_update_stock (boolean realtime_update_stock);
 
-	/** Get Real Time Update Stock	  */
+	/** Get Realtime Update Stock	  */
 	public boolean isrealtime_update_stock();
 
     /** Column name rebooking_interval */
     public static final String COLUMNNAME_rebooking_interval = "rebooking_interval";
 
-	/** Set Normal Rebooking Interval(hours)	  */
+	/** Set Normal Rebooking Interval	  */
 	public void setrebooking_interval (int rebooking_interval);
 
-	/** Get Normal Rebooking Interval(hours)	  */
+	/** Get Normal Rebooking Interval	  */
 	public int getrebooking_interval();
 
     /** Column name registration_fee */
@@ -474,4 +474,13 @@ public interface I_hms_setup
 
 	/** Get Website	  */
 	public String getwebsite();
+
+    /** Column name zoom_from_pharmacy */
+    public static final String COLUMNNAME_zoom_from_pharmacy = "zoom_from_pharmacy";
+
+	/** Set Zoom From From Pharmacy to Treatment	  */
+	public void setzoom_from_pharmacy (boolean zoom_from_pharmacy);
+
+	/** Get Zoom From From Pharmacy to Treatment	  */
+	public boolean iszoom_from_pharmacy();
 }

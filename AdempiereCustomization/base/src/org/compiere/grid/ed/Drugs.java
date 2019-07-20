@@ -144,6 +144,11 @@ public class Drugs extends JDialog implements TableModelListener
 	private void initData()
 	{
 
+		if (!HmsSetup.getSetup().iszoom_from_pharmacy())
+		{
+			openTreatmentWindow.setVisible(false);
+		}
+
 		Vector<Vector<Object>> data = getDrugsData();
 		Vector<String> columnNames = getDrugsColumnNames();
 
@@ -416,7 +421,7 @@ public class Drugs extends JDialog implements TableModelListener
 		this.dispose();
 		dispense.dispose();
 		openTreatmentWindow();
-		
+
 	}
 
 	private boolean openTreatmentWindow()

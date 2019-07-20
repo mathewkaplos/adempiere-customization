@@ -1381,7 +1381,7 @@ public class MBPartner extends X_C_BPartner
 	// Last Visit
 	public String getLastVisit()
 	{
-		String sql = "select to_char(doc.created,'dd-MM-yyyy') from adempiere.hms_treatment_doc  doc"
+		String sql = "select to_char(doc.created,'dd-MM-yyyy hh:mm pm')  from adempiere.hms_treatment_doc  doc"
 				+ " where doc.hms_treatment_doc_id = ( select max(d.hms_treatment_doc_id)     "
 				+ "from adempiere.hms_treatment_doc d where d.c_bpartner_id =?)";
 		return DB.getSQLValueString(get_TrxName(), sql, getC_BPartner_ID());
@@ -1516,6 +1516,7 @@ public class MBPartner extends X_C_BPartner
 			if (rs.next())
 			{
 				latestTime = rs.getTimestamp(1);
+			
 			} else
 			{
 				return false;

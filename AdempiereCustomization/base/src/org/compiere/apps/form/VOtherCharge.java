@@ -288,9 +288,9 @@ public class VOtherCharge extends OtherCharge
 		orderTable.setAutoResize(true);
 
 		String whereClause = "";
-		if (HmsSetup.getSetup().isdisplay_all_patient_treatments())
-			whereClause = " WHERE doc.C_BPartner_ID=" + ZEnv.getC_BPartner_ID();
-		else
+	//	if (HmsSetup.getSetup().isdisplay_all_patient_treatments())
+		//	whereClause = " WHERE doc.C_BPartner_ID=" + ZEnv.getC_BPartner_ID();
+	//	else
 			whereClause = " WHERE doc.hms_treatment_doc_ID=" + ZEnv.getHms_treatment_doc_ID();
 		Vector<Vector<Object>> data = getOtherChargesData(whereClause);
 		Vector<String> columnNames = getVitalsColumnNames();
