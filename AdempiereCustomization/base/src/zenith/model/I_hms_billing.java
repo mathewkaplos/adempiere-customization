@@ -50,6 +50,15 @@ public interface I_hms_billing
 	  */
 	public int getAD_Client_ID();
 
+    /** Column name admitted */
+    public static final String COLUMNNAME_admitted = "admitted";
+
+	/** Set Admitted	  */
+	public void setadmitted (boolean admitted);
+
+	/** Get Admitted	  */
+	public boolean isadmitted();
+
     /** Column name AD_Org_ID */
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
@@ -62,15 +71,6 @@ public interface I_hms_billing
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
-
-    /** Column name admitted */
-    public static final String COLUMNNAME_admitted = "admitted";
-
-	/** Set Admitted	  */
-	public void setadmitted (boolean admitted);
-
-	/** Get Admitted	  */
-	public boolean isadmitted();
 
     /** Column name Balance */
     public static final String COLUMNNAME_Balance = "Balance";
@@ -117,6 +117,19 @@ public interface I_hms_billing
 	/** Get EDIT	  */
 	public String getbtn_edit();
 
+    /** Column name cashAmt */
+    public static final String COLUMNNAME_cashAmt = "cashAmt";
+
+	/** Set Cash Amount.
+	  * Amount being paid
+	  */
+	public void setcashAmt (BigDecimal cashAmt);
+
+	/** Get Cash Amount.
+	  * Amount being paid
+	  */
+	public BigDecimal getcashAmt();
+
     /** Column name C_BPartner_ID */
     public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";
 
@@ -147,19 +160,6 @@ public interface I_hms_billing
 
 	public org.compiere.model.I_C_Order getC_Order() throws RuntimeException;
 
-    /** Column name cashAmt */
-    public static final String COLUMNNAME_cashAmt = "cashAmt";
-
-	/** Set Cash Amount.
-	  * Amount being paid
-	  */
-	public void setcashAmt (BigDecimal cashAmt);
-
-	/** Get Cash Amount.
-	  * Amount being paid
-	  */
-	public BigDecimal getcashAmt();
-
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -185,18 +185,14 @@ public interface I_hms_billing
 	/** Get Days	  */
 	public int getdays();
 
-    /** Column name DeductiontAmount */
-    public static final String COLUMNNAME_DeductiontAmount = "DeductiontAmount";
+    /** Column name deductiontamount */
+    public static final String COLUMNNAME_deductiontamount = "deductiontamount";
 
-	/** Set Deduction Amount.
-	  * Amount in a defined currency
-	  */
-	public void setDeductiontAmount (BigDecimal DeductiontAmount);
+	/** Set deductiontamount	  */
+	public void setdeductiontamount (BigDecimal deductiontamount);
 
-	/** Get Deduction Amount.
-	  * Amount in a defined currency
-	  */
-	public BigDecimal getDeductiontAmount();
+	/** Get deductiontamount	  */
+	public BigDecimal getdeductiontamount();
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
@@ -300,6 +296,19 @@ public interface I_hms_billing
 	/** Get Invoiced	  */
 	public boolean isinvoiced();
 
+    /** Column name IsActive */
+    public static final String COLUMNNAME_IsActive = "IsActive";
+
+	/** Set Active.
+	  * The record is active in the system
+	  */
+	public void setIsActive (boolean IsActive);
+
+	/** Get Active.
+	  * The record is active in the system
+	  */
+	public boolean isActive();
+
     /** Column name is_consultation */
     public static final String COLUMNNAME_is_consultation = "is_consultation";
 
@@ -363,18 +372,14 @@ public interface I_hms_billing
 	/** Get is_prescription	  */
 	public boolean is_prescription();
 
-    /** Column name IsActive */
-    public static final String COLUMNNAME_IsActive = "IsActive";
+    /** Column name issued */
+    public static final String COLUMNNAME_issued = "issued";
 
-	/** Set Active.
-	  * The record is active in the system
-	  */
-	public void setIsActive (boolean IsActive);
+	/** Set Issued	  */
+	public void setissued (boolean issued);
 
-	/** Get Active.
-	  * The record is active in the system
-	  */
-	public boolean isActive();
+	/** Get Issued	  */
+	public boolean issued();
 
     /** Column name issue_drugs */
     public static final String COLUMNNAME_issue_drugs = "issue_drugs";
@@ -384,15 +389,6 @@ public interface I_hms_billing
 
 	/** Get issue_drugs	  */
 	public boolean issue_drugs();
-
-    /** Column name issued */
-    public static final String COLUMNNAME_issued = "issued";
-
-	/** Set Issued	  */
-	public void setissued (boolean issued);
-
-	/** Get Issued	  */
-	public boolean issued();
 
     /** Column name item_type */
     public static final String COLUMNNAME_item_type = "item_type";
@@ -429,6 +425,19 @@ public interface I_hms_billing
 	  */
 	public BigDecimal getLineNetAmt();
 
+    /** Column name mpesaAmt */
+    public static final String COLUMNNAME_mpesaAmt = "mpesaAmt";
+
+	/** Set MPesa Amount.
+	  * Amount being paid
+	  */
+	public void setmpesaAmt (BigDecimal mpesaAmt);
+
+	/** Get MPesa Amount.
+	  * Amount being paid
+	  */
+	public BigDecimal getmpesaAmt();
+
     /** Column name M_Product_ID */
     public static final String COLUMNNAME_M_Product_ID = "M_Product_ID";
 
@@ -458,19 +467,6 @@ public interface I_hms_billing
 	public int getM_Warehouse_ID();
 
 	public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException;
-
-    /** Column name mpesaAmt */
-    public static final String COLUMNNAME_mpesaAmt = "mpesaAmt";
-
-	/** Set MPesa Amount.
-	  * Amount being paid
-	  */
-	public void setmpesaAmt (BigDecimal mpesaAmt);
-
-	/** Get MPesa Amount.
-	  * Amount being paid
-	  */
-	public BigDecimal getmpesaAmt();
 
     /** Column name paid */
     public static final String COLUMNNAME_paid = "paid";
@@ -520,10 +516,10 @@ public interface I_hms_billing
     /** Column name previous_balance */
     public static final String COLUMNNAME_previous_balance = "previous_balance";
 
-	/** Set Previous Balance	  */
+	/** Set previous_balance	  */
 	public void setprevious_balance (BigDecimal previous_balance);
 
-	/** Get Previous Balance	  */
+	/** Get previous_balance	  */
 	public BigDecimal getprevious_balance();
 
     /** Column name Price */
@@ -564,6 +560,32 @@ public interface I_hms_billing
 	  * Quantity
 	  */
 	public BigDecimal getQty();
+
+    /** Column name QtyEntered */
+    public static final String COLUMNNAME_QtyEntered = "QtyEntered";
+
+	/** Set Quantity.
+	  * The Quantity Entered is based on the selected UoM
+	  */
+	public void setQtyEntered (BigDecimal QtyEntered);
+
+	/** Get Quantity.
+	  * The Quantity Entered is based on the selected UoM
+	  */
+	public BigDecimal getQtyEntered();
+
+    /** Column name Remarks */
+    public static final String COLUMNNAME_Remarks = "Remarks";
+
+	/** Set Remarks.
+	  * Remarks
+	  */
+	public void setRemarks (String Remarks);
+
+	/** Get Remarks.
+	  * Remarks
+	  */
+	public String getRemarks();
 
     /** Column name rounded_lineamt */
     public static final String COLUMNNAME_rounded_lineamt = "rounded_lineamt";

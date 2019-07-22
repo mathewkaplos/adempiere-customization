@@ -31,6 +31,9 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.zenith.util.HmsSetup;
 
+import zenith.model.MTreatmentDoc;
+import zenith.process.TreatmentDone;
+
 /**
  * Business Partner Model
  *
@@ -1503,10 +1506,20 @@ public class MBPartner extends X_C_BPartner
 		return balance;
 	}
 
+	public MTreatmentDoc getLastVisitDoc()
+	{
+		String sql = "SELECT COALESCE(MAX(hms_treatment_doc_ID),0) FROM hms_treatment_doc where C_BPartner_ID ="
+				+ this.getC_BPartner_ID();
+		int hms_treatment_doc_ID = DB.getSQLValue(get_TrxName(), sql);
+		if (hms_treatment_doc_ID == 0)
+			return null;
+		return new MTreatmentDoc(getCtx(), hms_treatment_doc_ID, get_TrxName());
+	}
+
 	public boolean bookedRecently()
 	{
 		Timestamp latestTime = null;
-		String sql = "select MAX(created) from hms_treatment_doc where C_BPartner_ID =" + this.getC_BPartner_ID();
+		String sql = "SELECT MAX(created) FROM hms_treatment_doc WHERE C_BPartner_ID =" + this.getC_BPartner_ID();
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 		try
@@ -1516,7 +1529,7 @@ public class MBPartner extends X_C_BPartner
 			if (rs.next())
 			{
 				latestTime = rs.getTimestamp(1);
-			
+
 			} else
 			{
 				return false;

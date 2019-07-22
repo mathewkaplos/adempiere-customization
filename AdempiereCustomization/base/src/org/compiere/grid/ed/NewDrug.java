@@ -27,6 +27,7 @@ import org.compiere.model.MProduct;
 import org.compiere.model.ZLookupFactory;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
+import org.compiere.util.Trx;
 import org.zenith.util.HmsSetup;
 import org.zenith.util.Price;
 import org.zenith.util.Stock;
@@ -76,6 +77,7 @@ public class NewDrug extends JDialog implements ActionListener
 	public NewDrug(Frame owner)
 	{
 		super(owner, true);
+		set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -84,7 +86,7 @@ public class NewDrug extends JDialog implements ActionListener
 		addListeners();
 		addListeners2();
 
-		doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), null);
+		doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), get_TrxName());
 		MSetup setup = HmsSetup.getSetup();
 		allowNegativeStock = setup.isallow_negative_stock();
 		drugsIssuedOncePrescribed = setup.isdrug_issued_once_prescribed();
@@ -92,6 +94,7 @@ public class NewDrug extends JDialog implements ActionListener
 		inPatientReallTime = setup.isinpatient_realltime();
 		realtime_updateStock = setup.isrealtime_update_stock();
 		admitted = doc.isadmitted();
+
 	}
 
 	/**
@@ -101,6 +104,7 @@ public class NewDrug extends JDialog implements ActionListener
 	public NewDrug(Dialog owner)
 	{
 		super(owner, true);
+		set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -108,6 +112,18 @@ public class NewDrug extends JDialog implements ActionListener
 		validateFields();
 		addListeners();
 		addListeners2();
+	}
+
+	private String trxName = null;
+
+	private void set_TrxName(String name)
+	{
+		trxName = name;
+	}
+
+	private String get_TrxName()
+	{
+		return trxName;
 	}
 
 	private void init()
@@ -439,11 +455,12 @@ public class NewDrug extends JDialog implements ActionListener
 		int M_Product_ID = (int) mProduct_ID.getValue();
 		int hms_treatment_doc_ID = Billing.getHms_treatment_doc_ID();
 		int C_BPartner_ID = Billing.getBPartner_ID();
-		MBilling bill = new MBilling(Env.getCtx(), 0, null);
+		MBilling bill = new MBilling(Env.getCtx(), 0, get_TrxName());
 		bill.sethms_treatment_doc_ID(hms_treatment_doc_ID);
 		bill.setC_BPartner_ID(C_BPartner_ID);
 		bill.setM_Product_ID(M_Product_ID);
 		bill.setQty(new BigDecimal(textFieldDosage.getText()));
+		bill.setQtyEntered(new BigDecimal(textFieldDosage.getText()));
 		bill.setPrice(unitPrice);
 		bill.setPriceActual(unitPrice);
 		bill.setLineNetAmt((new BigDecimal(textFieldDosage.getText())).multiply(unitPrice));
@@ -573,8 +590,8 @@ public class NewDrug extends JDialog implements ActionListener
 			dialogPane.setPreferredSize(new Dimension(550, 450));
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,
@@ -830,11 +847,6 @@ public class NewDrug extends JDialog implements ActionListener
 			doc.setDocumentFilter(new MyIntFilter());
 		}
 
-	}
-
-	private String get_TrxName()
-	{
-		return null;
 	}
 
 }

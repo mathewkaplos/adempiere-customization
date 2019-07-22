@@ -29,16 +29,17 @@ import javax.swing.table.TableModel;
 import org.compiere.apps.AEnv;
 import org.compiere.apps.AWindow;
 import org.compiere.apps.form.VPharmacy;
-import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MLocator;
 import org.compiere.model.MQuery;
 import org.compiere.model.MStorage;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.zenith.util.HmsSetup;
 
 import net.miginfocom.swing.*;
+import zenith.model.HmsDrugs;
 import zenith.model.MBilling;
 import zenith.model.MTreatmentDoc;
 
@@ -64,6 +65,7 @@ public class Drugs extends JDialog implements TableModelListener
 	public Drugs(Frame owner, int treatID, Dispense _dispense)
 	{
 		super(owner, true);
+		set_TrxName(Trx.createTrxName());
 		m_treatID = treatID;
 		dispense = _dispense;
 		showStock = HmsSetup.getSetup().ispharmacy_show_stock();
@@ -74,12 +76,25 @@ public class Drugs extends JDialog implements TableModelListener
 		this.setTitle("Issue Drugs : " + getPatientName());
 		// addEscapeListener(this);
 		addEscapeListenerLamda(this);
+		// // //
 
+	}
+
+	private String trxName = null;
+
+	private void set_TrxName(String name)
+	{
+		trxName = name;
+	}
+
+	private String get_TrxName()
+	{
+		return trxName;
 	}
 
 	private void setIsPayAfter()
 	{
-		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, null);
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, get_TrxName());
 		int C_BP_Group_ID = doc.getC_BP_Group_ID();
 		String br = getBillingRule(C_BP_Group_ID);
 		if (br.equals("PA"))
@@ -89,7 +104,7 @@ public class Drugs extends JDialog implements TableModelListener
 	private String getBillingRule(int C_BP_Group_ID)
 	{
 		String sql = "SELECT billing_rule FROM adempiere.C_BP_Group WHERE C_BP_Group_ID=" + C_BP_Group_ID;
-		return DB.getSQLValueString(null, sql);
+		return DB.getSQLValueString(get_TrxName(), sql);
 	}
 
 	public Drugs(Dialog owner)
@@ -100,15 +115,15 @@ public class Drugs extends JDialog implements TableModelListener
 
 	private void setLocatorDetails()
 	{
-		MLocator locator = new MLocator(Env.getCtx(), dispense.getMLocator_ID(), null);
+		MLocator locator = new MLocator(Env.getCtx(), dispense.getMLocator_ID(), get_TrxName());
 		M_Locator_ID = locator.getM_Locator_ID();
 		M_Warehouse_ID = locator.getM_Warehouse_ID();
 	}
 
 	private String getPatientName()
 	{
-		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, null);
-		MBPartner bp = new MBPartner(Env.getCtx(), doc.getC_BPartner_ID(), null);
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, get_TrxName());
+		MBPartner bp = new MBPartner(Env.getCtx(), doc.getC_BPartner_ID(), get_TrxName());
 		return bp.getName();
 	}
 
@@ -157,7 +172,7 @@ public class Drugs extends JDialog implements TableModelListener
 
 			/**
 			 * 
-			 */
+			* */
 			private static final long serialVersionUID = 1L;
 			int issuedColumn = 7;
 
@@ -295,11 +310,18 @@ public class Drugs extends JDialog implements TableModelListener
 	{
 		for (Integer id : set)
 		{
-			MBilling bill = new MBilling(Env.getCtx(), id, null);
+			MBilling bill = new MBilling(Env.getCtx(), id, get_TrxName());
 			bill.setissued(true);
 			bill.save();
 			// update stock .... mathew 06.01.2018
 			updateStock(bill.getM_Product_ID(), bill.getQty().negate());
+			if (1 == 1)
+			{
+				HmsDrugs drugs = new HmsDrugs(Env.getCtx(), 0, null);
+				drugs.sethms_billing_ID(bill.gethms_billing_ID());
+				drugs.setQty(bill.getQty());
+				drugs.save();
+			}
 		}
 		if (set.size() > 0)
 		{
@@ -318,15 +340,15 @@ public class Drugs extends JDialog implements TableModelListener
 		set.removeAll(set);
 		// remove negatives
 		String deleteQuery = "UPDATE  adempiere.m_storage set qtyonhand=0 WHERE qtyonhand<0";
-		DB.executeUpdate(deleteQuery, null);
+		DB.executeUpdate(deleteQuery, get_TrxName());
 		// Remove decimals
 		String updateQuery = "UPDATE adempiere.m_storage  SET qtyonhand = CAST(to_char(qtyonhand, 'FM999999999990.999999') AS NUMERIC)";
-		DB.executeUpdate(updateQuery, null);
+		DB.executeUpdate(updateQuery, get_TrxName());
 	}
 
 	private void updateDoc()
 	{
-		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, null);
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), m_treatID, get_TrxName());
 		doc.setpharm_done(true);
 		doc.save();
 		doc.updateDrugStatus();
@@ -342,12 +364,12 @@ public class Drugs extends JDialog implements TableModelListener
 		ResultSet rs = null;
 		try
 		{
-			stm = DB.prepareStatement(sql, null);
+			stm = DB.prepareStatement(sql, get_TrxName());
 			rs = stm.executeQuery();
 			while (rs.next())
 			{
 				int treatID = rs.getInt(1);
-				MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), treatID, null);
+				MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), treatID, get_TrxName());
 				doc.updateDrugStatus(doc);
 			}
 
@@ -372,7 +394,7 @@ public class Drugs extends JDialog implements TableModelListener
 		PreparedStatement stm = null;
 		try
 		{
-			stm = DB.prepareStatement(sql, null);
+			stm = DB.prepareStatement(sql, get_TrxName());
 			ResultSet rs = stm.executeQuery();
 			while (rs.next())
 			{
@@ -487,17 +509,16 @@ public class Drugs extends JDialog implements TableModelListener
 			{
 				contentPanel.setLayout(new MigLayout("insets dialog,hidemode 3",
 						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[fill]",
+						"[fill]",
 						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]" + "[]"));
+						"[]" + "[]0" + "[]0" + "[]0" + "[]0" + "[]"));
 
 				// ---- openTreatmentWindow ----
 				openTreatmentWindow.setText("Open Treatment Window");
 				openTreatmentWindow.addActionListener(e -> {
 					openTreatmentWindowActionPerformed(e);
 				});
-				contentPanel.add(openTreatmentWindow, "cell 6 1");
+				contentPanel.add(openTreatmentWindow, "cell 0 1");
 
 				// ======== scrollPane1 ========
 				{
@@ -506,7 +527,7 @@ public class Drugs extends JDialog implements TableModelListener
 					table1.setPreferredScrollableViewportSize(new Dimension(450, 150));
 					scrollPane1.setViewportView(table1);
 				}
-				contentPanel.add(scrollPane1, "cell 6 5");
+				contentPanel.add(scrollPane1, "cell 0 5");
 			}
 			dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -611,11 +632,11 @@ public class Drugs extends JDialog implements TableModelListener
 
 	private int getM_ProductID(int hms_billing_ID)
 	{
-		MBilling billing = new MBilling(Env.getCtx(), hms_billing_ID, null);
+		MBilling billing = new MBilling(Env.getCtx(), hms_billing_ID, get_TrxName());
 		return billing.getM_Product_ID();
 	}
 
-	public static Vector<Vector<Object>> getDrugsData()
+	public Vector<Vector<Object>> getDrugsData()
 	{
 		Vector<Vector<Object>> data = new Vector();
 		StringBuilder sql = new StringBuilder();
@@ -633,7 +654,7 @@ public class Drugs extends JDialog implements TableModelListener
 		PreparedStatement pstmt = null;
 		try
 		{
-			pstmt = DB.prepareStatement(sql.toString(), null);
+			pstmt = DB.prepareStatement(sql.toString(), get_TrxName());
 			// pstmt.setInt(1, m_C_BPartner_ID);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next())
@@ -712,7 +733,6 @@ public class Drugs extends JDialog implements TableModelListener
 			} else
 			{
 				c.setForeground(new java.awt.Color(0, 0, 0));
-
 			}
 			if (!(Boolean) table.getValueAt(row, 5) && !(Boolean) table.getValueAt(row, 6))
 			{

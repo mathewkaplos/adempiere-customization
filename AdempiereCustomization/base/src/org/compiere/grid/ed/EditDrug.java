@@ -25,6 +25,7 @@ import org.compiere.model.MProduct;
 import org.compiere.model.ZLookupFactory;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.zenith.util.HmsSetup;
 import org.zenith.util.Price;
 import org.zenith.util.Stock;
@@ -73,6 +74,7 @@ public class EditDrug extends JDialog
 	public EditDrug(Frame owner, int billID)
 	{
 		super(owner, true);
+		set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -87,7 +89,7 @@ public class EditDrug extends JDialog
 		validateFields();
 		addListeners2();
 
-		doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), null);
+		doc = new MTreatmentDoc(Env.getCtx(), Billing.getHms_treatment_doc_ID(), get_TrxName());
 		MSetup setup = HmsSetup.getSetup();
 		allowNegativeStock = setup.isallow_negative_stock();
 		drugsIssuedOncePrescribed = setup.isdrug_issued_once_prescribed();
@@ -102,12 +104,13 @@ public class EditDrug extends JDialog
 	public EditDrug(Dialog owner, int billID)
 	{
 		super(owner, true);
+		set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
 		label9.setVisible(false);
 		m_billID = billID;
-		billing = new MBilling(Env.getCtx(), billID, null);
+		billing = new MBilling(Env.getCtx(), billID, get_TrxName());
 		currentQty = billing.getQty();
 		currentAmount = billing.getLineNetAmt();
 		M_Product_ID = billing.getM_Product_ID();
@@ -115,6 +118,19 @@ public class EditDrug extends JDialog
 		addListeners();
 		validateFields();
 		addListeners2();
+
+	}
+
+	private String trxName = null;
+
+	private void set_TrxName(String name)
+	{
+		trxName = name;
+	}
+
+	private String get_TrxName()
+	{
+		return trxName;
 	}
 
 	private void init()
@@ -450,11 +466,14 @@ public class EditDrug extends JDialog
 		int M_Product_ID = (int) mProduct_ID.getValue();
 		int hms_treatment_doc_ID = Billing.getHms_treatment_doc_ID();
 		// int C_BPartner_ID = Billing.getBPartner_ID();
-		MBilling bill = new MBilling(Env.getCtx(), m_billID, null);
+		MBilling bill = new MBilling(Env.getCtx(), m_billID, get_TrxName());
 		// bill.sethms_treatment_doc_ID(hms_treatment_doc_ID);
 		// bill.setC_BPartner_ID(C_BPartner_ID);
 		bill.setM_Product_ID(M_Product_ID);
 		bill.setQty(new BigDecimal(textFieldDosage.getText()));
+		if (Env.getAD_User_ID(Env.getCtx()) == bill.getCreatedBy())
+			bill.setQtyEntered(new BigDecimal(textFieldDosage.getText()));
+
 		bill.setPrice(unitPrice);
 		bill.setLineNetAmt((new BigDecimal(textFieldDosage.getText())).multiply(unitPrice));
 		bill.setTotalAmt((new BigDecimal(textFieldDosage.getText())).multiply(unitPrice));
@@ -521,7 +540,7 @@ public class EditDrug extends JDialog
 		if (x == 0)
 		{
 
-			MBilling bill = new MBilling(Env.getCtx(), m_billID, null);
+			MBilling bill = new MBilling(Env.getCtx(), m_billID, get_TrxName());
 			int treatID = bill.gethms_treatment_doc_ID();
 			bill.delete(true);
 			removeFromPharm(treatID);
@@ -559,7 +578,7 @@ public class EditDrug extends JDialog
 	private void removeFromPharm(int treatID)
 	{
 		boolean hasPrescription = false;
-		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), treatID, null);
+		MTreatmentDoc doc = new MTreatmentDoc(Env.getCtx(), treatID, get_TrxName());
 		MBilling[] bills = doc.getBills();
 		for (int i = 0; i < bills.length; i++)
 		{
@@ -619,8 +638,8 @@ public class EditDrug extends JDialog
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(
-					new javax.swing.border.CompoundBorder(
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
 							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
 									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
 									javax.swing.border.TitledBorder.BOTTOM,

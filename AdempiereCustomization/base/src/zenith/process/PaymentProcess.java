@@ -438,7 +438,7 @@ public class PaymentProcess extends SvrProcess
 				bill.sethms_payment_ID(payID);
 				if (amt.compareTo(balance) < 1)
 				{
-					bill.setDeductiontAmount((bill.getDeductiontAmount().add(amt)));
+					bill.setdeductiontamount((bill.getdeductiontamount().add(amt)));
 					bill.setBalance(bill.getBalance().subtract(amt));
 					/// bill.setPaidAmt(bill.getPaidAmt().add(amt));
 					// bill.setmpesaAmt(Env.ZERO);
@@ -461,7 +461,7 @@ public class PaymentProcess extends SvrProcess
 
 					/// bill.setcashAmt(bill.getcashAmt().add(bill.getBalance()));
 					// bill.setPaidAmt(bill.getPaidAmt().add(bill.getBalance()));
-					bill.setDeductiontAmount((bill.getDeductiontAmount().add(bill.getBalance())));
+					bill.setdeductiontamount((bill.getdeductiontamount().add(bill.getBalance())));
 					// bill.setmpesaAmt(Env.ZERO);
 					bill.save();
 
@@ -612,11 +612,11 @@ public class PaymentProcess extends SvrProcess
 		ResultSet rs = null;
 		try
 		{
-			stm = DB.prepareStatement(sql, null);
+			stm = DB.prepareStatement(sql, get_TrxName());
 			rs = stm.executeQuery();
 			while (rs.next())
 			{
-				HMSPayment payment = new HMSPayment(Env.getCtx(), rs, null);
+				HMSPayment payment = new HMSPayment(Env.getCtx(), rs, get_TrxName());
 
 				total = total.add(payment.getPayAmt());
 				prepays.add(payment);
