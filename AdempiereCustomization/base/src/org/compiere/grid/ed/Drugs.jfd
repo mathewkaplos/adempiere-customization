@@ -49,7 +49,8 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "cancelButton"
-						"text": "Cancel"
+						"text": "Close"
+						"foreground": new java.awt.Color( 255, 0, 0, 255 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelButtonActionPerformed", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"

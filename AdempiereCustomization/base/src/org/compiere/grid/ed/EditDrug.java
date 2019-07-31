@@ -74,7 +74,7 @@ public class EditDrug extends JDialog
 	public EditDrug(Frame owner, int billID)
 	{
 		super(owner, true);
-		set_TrxName(Trx.createTrxName());
+		//set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -104,7 +104,7 @@ public class EditDrug extends JDialog
 	public EditDrug(Dialog owner, int billID)
 	{
 		super(owner, true);
-		set_TrxName(Trx.createTrxName());
+		//set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -217,6 +217,8 @@ public class EditDrug extends JDialog
 		if (bill.getdosage_description() != null && !bill.getdosage_description().trim().equals(""))
 			textFieldDosageDescription.setText(bill.getdosage_description());
 		checkBoxDischargeDrug.setSelected(bill.is_discharge_drug());
+		if (bill.getRemarks() != null && !bill.getRemarks().trim().equals(""))
+			textFieldRemarks.setText(bill.getRemarks());
 		vDate.setValue(bill.getCreated());
 	}
 
@@ -484,6 +486,9 @@ public class EditDrug extends JDialog
 		bill.setdosage(Integer.parseInt(textFieldDosage.getText()));
 		bill.setDescription(textFieldUnits.getText());
 		bill.setdosage_description(textFieldDosageDescription.getText());
+		bill.setRemarks(textFieldRemarks.getText());
+
+		bill.setRemarks(textFieldRemarks.getText());
 		if (!isService)// not service
 		{
 			bill.setto_pharm(true);
@@ -600,7 +605,8 @@ public class EditDrug extends JDialog
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew
+		// Generated using JFormDesigner Evaluation license -
+		// mathew359722@gmail.com
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		textFieldUnits = new JTextField();
@@ -625,6 +631,8 @@ public class EditDrug extends JDialog
 		textAreaInfo = new JTextArea();
 		checkBoxDischargeDrug = new JCheckBox();
 		label12 = new JLabel();
+		label13 = new JLabel();
+		textFieldRemarks = new JTextField();
 		buttonBar = new JPanel();
 		deleteButton = new JButton();
 		okButton = new JButton();
@@ -661,7 +669,8 @@ public class EditDrug extends JDialog
 						// columns
 						"[fill]" + "[fill]",
 						// rows
-						"[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]0" + "[]" + "[]"));
+						"[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]0" + "[]" + "[]" + "[]"
+								+ "[]"));
 
 				// ---- textFieldUnits ----
 				textFieldUnits.setColumns(10);
@@ -755,6 +764,11 @@ public class EditDrug extends JDialog
 				// ---- label12 ----
 				label12.setText("Bill Date:");
 				contentPanel.add(label12, "cell 0 11");
+
+				// ---- label13 ----
+				label13.setText("Remarks");
+				contentPanel.add(label13, "cell 0 12");
+				contentPanel.add(textFieldRemarks, "cell 1 12");
 			}
 			dialogPane.add(contentPanel, BorderLayout.WEST);
 
@@ -861,7 +875,7 @@ public class EditDrug extends JDialog
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JTextField textFieldUnits;
@@ -886,6 +900,8 @@ public class EditDrug extends JDialog
 	private JTextArea textAreaInfo;
 	private JCheckBox checkBoxDischargeDrug;
 	private JLabel label12;
+	private JLabel label13;
+	private JTextField textFieldRemarks;
 	private JPanel buttonBar;
 	private JButton deleteButton;
 	private JButton okButton;

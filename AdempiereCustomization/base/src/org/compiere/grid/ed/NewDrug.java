@@ -77,7 +77,7 @@ public class NewDrug extends JDialog implements ActionListener
 	public NewDrug(Frame owner)
 	{
 		super(owner, true);
-		set_TrxName(Trx.createTrxName());
+		//set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -104,7 +104,7 @@ public class NewDrug extends JDialog implements ActionListener
 	public NewDrug(Dialog owner)
 	{
 		super(owner, true);
-		set_TrxName(Trx.createTrxName());
+		//set_TrxName(Trx.createTrxName());
 		initComponents();
 		init();
 		textFieldDescription.setVisible(false);
@@ -472,6 +472,8 @@ public class NewDrug extends JDialog implements ActionListener
 		bill.setdosage(Integer.parseInt(textFieldDosage.getText()));
 		bill.setDescription(textFieldUnits.getText());
 		bill.setdosage_description(textFieldDosageDescription.getText());
+		
+		//bill.setRemarks(textFieldRemarks.getText());
 		if (!isService)// not service
 		{
 			bill.setto_pharm(true);
@@ -551,7 +553,7 @@ public class NewDrug extends JDialog implements ActionListener
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Mathew
+		// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		label1 = new JLabel();
@@ -573,164 +575,220 @@ public class NewDrug extends JDialog implements ActionListener
 		textFieldTotal = new JTextField();
 		scrollPane1 = new JScrollPane();
 		textAreaInfo = new JTextArea();
+		label10 = new JLabel();
 		label13 = new JLabel();
-		checkBoxDischargeDrug = new JCheckBox();
 		label12 = new JLabel();
+		checkBoxDischargeDrug = new JCheckBox();
 		buttonBar = new JPanel();
 		okButton = new JButton();
 		cancelButton = new JButton();
 
-		// ======== this ========
+		//======== this ========
 		setMinimumSize(new Dimension(16, 30));
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
-		// ======== dialogPane ========
+		//======== dialogPane ========
 		{
 			dialogPane.setPreferredSize(new Dimension(550, 450));
 
 			// JFormDesigner evaluation mark
-			dialogPane
-					.setBorder(new javax.swing.border.CompoundBorder(
-							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-									javax.swing.border.TitledBorder.BOTTOM,
-									new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), java.awt.Color.red),
-							dialogPane.getBorder()));
-			dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-				public void propertyChange(java.beans.PropertyChangeEvent e)
-				{
-					if ("border".equals(e.getPropertyName()))
-						throw new RuntimeException();
-				}
-			});
+			dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+					java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			dialogPane.setLayout(new BorderLayout());
 
-			// ======== contentPanel ========
+			//======== contentPanel ========
 			{
 				contentPanel.setMinimumSize(new Dimension(523, 50));
 				contentPanel.setPreferredSize(new Dimension(550, 400));
-				contentPanel.setLayout(new MigLayout("insets dialog,hidemode 3",
-						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[fill]" + "[fill]0" + "[fill]0",
-						// rows
-						"[]0" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]" + "[]0"
-								+ "[4]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0"
-								+ "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0" + "[]0"
-								+ "[]0" + "[]0" + "[]0" + "[]0" + "[]"));
+				contentPanel.setLayout(new MigLayout(
+					"insets dialog,hidemode 3",
+					// columns
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]0" +
+					"[fill]0",
+					// rows
+					"[]0" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]" +
+					"[]0" +
+					"[4]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]0" +
+					"[]"));
 
-				// ---- label1 ----
+				//---- label1 ----
 				label1.setText("Product Name:");
 				contentPanel.add(label1, "cell 0 1 2 1");
 
-				// ---- label2 ----
+				//---- label2 ----
 				label2.setText("Units Per Freq:");
 				contentPanel.add(label2, "cell 0 2 2 1");
 
-				// ---- textFieldUnits ----
+				//---- textFieldUnits ----
 				textFieldUnits.setColumns(10);
 				textFieldUnits.setText("1");
 				contentPanel.add(textFieldUnits, "cell 3 2 9 1,alignx left,growx 0,wmin 150");
 
-				// ---- label3 ----
+				//---- label3 ----
 				label3.setText("Frequency");
 				contentPanel.add(label3, "cell 0 4 2 1");
 
-				// ---- textFieldFrequency ----
+				//---- textFieldFrequency ----
 				textFieldFrequency.setColumns(10);
 				textFieldFrequency.setText("1");
 				contentPanel.add(textFieldFrequency, "cell 3 4 9 1,alignx left,growx 0,wmin 150");
 
-				// ---- label4 ----
+				//---- label4 ----
 				label4.setText("Days:");
 				contentPanel.add(label4, "cell 0 5 2 1");
 
-				// ---- textFieldDays ----
+				//---- textFieldDays ----
 				textFieldDays.setColumns(10);
 				textFieldDays.setText("1");
 				contentPanel.add(textFieldDays, "cell 3 5 9 1,alignx left,growx 0,wmin 150");
 
-				// ---- label6 ----
+				//---- label6 ----
 				label6.setText("Quantity");
 				contentPanel.add(label6, "cell 0 6");
 
-				// ---- textFieldDosage ----
+				//---- textFieldDosage ----
 				textFieldDosage.setColumns(10);
 				textFieldDosage.setText("1");
 				textFieldDosage.setBackground(Color.pink);
 				contentPanel.add(textFieldDosage, "cell 3 6 8 1,alignx left,growx 0,wmin 150");
 
-				// ---- label5 ----
+				//---- label5 ----
 				label5.setText("Dosage");
 				contentPanel.add(label5, "cell 0 7 2 1");
 				contentPanel.add(textFieldDosageDescription, "cell 3 7 8 1");
 
-				// ---- label9 ----
+				//---- label9 ----
 				label9.setText("Description");
 				contentPanel.add(label9, "cell 0 8");
 
-				// ---- textFieldDescription ----
+				//---- textFieldDescription ----
 				textFieldDescription.setColumns(10);
 				contentPanel.add(textFieldDescription, "cell 3 8 8 1,alignx left,growx 0,wmin 400");
 
-				// ---- label7 ----
+				//---- label7 ----
 				label7.setText("Unit Price");
 				contentPanel.add(label7, "cell 0 9");
 
-				// ---- textFieldPrice ----
+				//---- textFieldPrice ----
 				textFieldPrice.setEditable(false);
 				contentPanel.add(textFieldPrice, "cell 3 9 8 1,wmin 150");
 
-				// ---- label8 ----
+				//---- label8 ----
 				label8.setText("Total Amount");
 				contentPanel.add(label8, "cell 0 10 2 1");
 
-				// ---- textFieldTotal ----
+				//---- textFieldTotal ----
 				textFieldTotal.setEditable(false);
 				contentPanel.add(textFieldTotal, "cell 3 10 8 1,wmin 150");
 
-				// ======== scrollPane1 ========
+				//======== scrollPane1 ========
 				{
 
-					// ---- textAreaInfo ----
+					//---- textAreaInfo ----
 					textAreaInfo.setRows(5);
 					textAreaInfo.setBackground(new Color(228, 228, 249));
 					textAreaInfo.setEditable(false);
 					scrollPane1.setViewportView(textAreaInfo);
 				}
-				contentPanel.add(scrollPane1, "cell 3 11 9 2");
+				contentPanel.add(scrollPane1, "cell 3 11 9 4");
 
-				// ---- label13 ----
+				//---- label10 ----
+				label10.setText("Total Amount");
+				contentPanel.add(label10, "cell 0 12 2 1");
+
+				//---- label13 ----
 				label13.setText("Stock Information");
-				contentPanel.add(label13, "cell 0 12");
+				contentPanel.add(label13, "cell 0 14");
 
-				// ---- checkBoxDischargeDrug ----
-				checkBoxDischargeDrug.setText("Is Discharge Drug");
-				contentPanel.add(checkBoxDischargeDrug, "cell 3 14");
-
-				// ---- label12 ----
+				//---- label12 ----
 				label12.setText("Bill Date:");
-				contentPanel.add(label12, "cell 0 15");
+				contentPanel.add(label12, "cell 0 17");
+
+				//---- checkBoxDischargeDrug ----
+				checkBoxDischargeDrug.setText("Is Discharge Drug");
+				contentPanel.add(checkBoxDischargeDrug, "cell 3 19");
 			}
 			dialogPane.add(contentPanel, BorderLayout.WEST);
 
-			// ======== buttonBar ========
+			//======== buttonBar ========
 			{
-				buttonBar.setLayout(new MigLayout("insets dialog,alignx right",
-						// columns
-						"[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]" + "[fill]"
-								+ "[fill]" + "[button,fill]" + "[button,fill]",
-						// rows
-						"[]"));
+				buttonBar.setLayout(new MigLayout(
+					"insets dialog,alignx right",
+					// columns
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[fill]" +
+					"[button,fill]" +
+					"[button,fill]",
+					// rows
+					"[]"));
 
-				// ---- okButton ----
+				//---- okButton ----
 				okButton.setText("OK");
 				okButton.addActionListener(e -> okButtonActionPerformed(e));
 				buttonBar.add(okButton, "cell 10 0");
 
-				// ---- cancelButton ----
+				//---- cancelButton ----
 				cancelButton.setText("Cancel");
 				cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 				buttonBar.add(cancelButton, "cell 11 0");
@@ -745,7 +803,7 @@ public class NewDrug extends JDialog implements ActionListener
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Mathew
+	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	private JLabel label1;
@@ -767,9 +825,10 @@ public class NewDrug extends JDialog implements ActionListener
 	private JTextField textFieldTotal;
 	private JScrollPane scrollPane1;
 	private JTextArea textAreaInfo;
+	private JLabel label10;
 	private JLabel label13;
-	private JCheckBox checkBoxDischargeDrug;
 	private JLabel label12;
+	private JCheckBox checkBoxDischargeDrug;
 	private JPanel buttonBar;
 	private JButton okButton;
 	private JButton cancelButton;
