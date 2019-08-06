@@ -65,7 +65,7 @@ public class Drugs extends JDialog implements TableModelListener
 	public Drugs(Frame owner, int treatID, Dispense _dispense)
 	{
 		super(owner, true);
-		
+
 		m_treatID = treatID;
 		dispense = _dispense;
 		showStock = HmsSetup.getSetup().ispharmacy_show_stock();
@@ -77,16 +77,12 @@ public class Drugs extends JDialog implements TableModelListener
 		// addEscapeListener(this);
 		addEscapeListenerLamda(this);
 		// // //
-		set_TrxName(Trx.createTrxName());
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
-	private String trxName = null;
+	String trxName = null;
 
-	private void set_TrxName(String name)
-	{
-		trxName = name;
-	}
-
+	
 	private String get_TrxName()
 	{
 		return trxName;
@@ -144,8 +140,6 @@ public class Drugs extends JDialog implements TableModelListener
 	// java 8
 	public void addEscapeListenerLamda(final JDialog dialog)
 	{
-		if (trxName != null)
-			Trx.get(trxName, false).close();
 		dialog.getRootPane().registerKeyboardAction(e -> {
 			dialog.dispose();
 		}, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -153,7 +147,6 @@ public class Drugs extends JDialog implements TableModelListener
 
 	private void anotherLambdaTest(final JDialog dialog)
 	{
-		Trx.get(trxName, false).close();
 		dialog.getRootPane().registerKeyboardAction(e -> {
 			dialog.dispose();
 		}, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -306,8 +299,6 @@ public class Drugs extends JDialog implements TableModelListener
 
 	private void cancelButtonActionPerformed(ActionEvent e)
 	{
-		if (trxName != null)
-			Trx.get(trxName, false).close();
 		this.dispose();
 	}
 
@@ -473,7 +464,8 @@ public class Drugs extends JDialog implements TableModelListener
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
+		// Generated using JFormDesigner Evaluation license -
+		// mathew359722@gmail.com
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		openTreatmentWindow = new JButton();
@@ -484,48 +476,51 @@ public class Drugs extends JDialog implements TableModelListener
 		cancelButton = new JButton();
 		helpButton = new JButton();
 
-		//======== this ========
+		// ======== this ========
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
-		//======== dialogPane ========
+		// ======== dialogPane ========
 		{
 
 			// JFormDesigner evaluation mark
-			dialogPane.setBorder(new javax.swing.border.CompoundBorder(
-				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-					java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+			dialogPane
+					.setBorder(new javax.swing.border.CompoundBorder(
+							new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+									"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+									javax.swing.border.TitledBorder.BOTTOM,
+									new java.awt.Font("Dialog", java.awt.Font.BOLD, 12), java.awt.Color.red),
+							dialogPane.getBorder()));
+			dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+				public void propertyChange(java.beans.PropertyChangeEvent e)
+				{
+					if ("border".equals(e.getPropertyName()))
+						throw new RuntimeException();
+				}
+			});
 
 			dialogPane.setLayout(new BorderLayout());
 
-			//======== contentPanel ========
+			// ======== contentPanel ========
 			{
-				contentPanel.setLayout(new MigLayout(
-					"insets dialog,hidemode 3",
-					// columns
-					"[fill]",
-					// rows
-					"[]" +
-					"[]0" +
-					"[]0" +
-					"[]0" +
-					"[]0" +
-					"[]"));
+				contentPanel.setLayout(new MigLayout("insets dialog,hidemode 3",
+						// columns
+						"[fill]",
+						// rows
+						"[]" + "[]0" + "[]0" + "[]0" + "[]0" + "[]"));
 
-				//---- openTreatmentWindow ----
+				// ---- openTreatmentWindow ----
 				openTreatmentWindow.setText("Open Treatment Window");
 				openTreatmentWindow.addActionListener(e -> {
-			openTreatmentWindowActionPerformed(e);
-			openTreatmentWindowActionPerformed(e);
-		});
+					openTreatmentWindowActionPerformed(e);
+					openTreatmentWindowActionPerformed(e);
+				});
 				contentPanel.add(openTreatmentWindow, "cell 0 1");
 
-				//======== scrollPane1 ========
+				// ======== scrollPane1 ========
 				{
 
-					//---- table1 ----
+					// ---- table1 ----
 					table1.setPreferredScrollableViewportSize(new Dimension(450, 150));
 					scrollPane1.setViewportView(table1);
 				}
@@ -533,29 +528,26 @@ public class Drugs extends JDialog implements TableModelListener
 			}
 			dialogPane.add(contentPanel, BorderLayout.CENTER);
 
-			//======== buttonBar ========
+			// ======== buttonBar ========
 			{
-				buttonBar.setLayout(new MigLayout(
-					"insets dialog,alignx right",
-					// columns
-					"[button,fill]" +
-					"[button,fill]" +
-					"[button,fill]",
-					// rows
-					null));
+				buttonBar.setLayout(new MigLayout("insets dialog,alignx right",
+						// columns
+						"[button,fill]" + "[button,fill]" + "[button,fill]",
+						// rows
+						null));
 
-				//---- okButton ----
+				// ---- okButton ----
 				okButton.setText("OK");
 				okButton.addActionListener(e -> okButtonActionPerformed(e));
 				buttonBar.add(okButton, "cell 0 0");
 
-				//---- cancelButton ----
+				// ---- cancelButton ----
 				cancelButton.setText("Close");
 				cancelButton.setForeground(Color.red);
 				cancelButton.addActionListener(e -> cancelButtonActionPerformed(e));
 				buttonBar.add(cancelButton, "cell 1 0");
 
-				//---- helpButton ----
+				// ---- helpButton ----
 				helpButton.setText("Help");
 				buttonBar.add(helpButton, "cell 2 0");
 			}
@@ -611,13 +603,13 @@ public class Drugs extends JDialog implements TableModelListener
 
 					int M_Product_ID = getM_ProductID(hms_billing_ID);
 					BigDecimal qtyAvailable = getQuantity(M_Product_ID);
-					if (qtyAvailable.compareTo(qty) < 0) {
+					if (qtyAvailable.compareTo(qty) < 0)
+					{
 						JOptionPane.showMessageDialog(null,
 								new JLabel("<html><h1><font color='red'>Stock not available!</font></h1></html>"),
 								"Not Issued!", JOptionPane.ERROR_MESSAGE);
-						
-					}
-					else
+
+					} else
 					{
 						set.add(id);
 					}

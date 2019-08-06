@@ -128,8 +128,8 @@ public class VPharmacy extends Pharmacy implements FormPanel, ActionListener, Ta
 		parameterPanel.setLayout(parameterLayout);
 
 		btnOpenDispense.setText("OPEN DISPENSE WINDOW");
-		btnOpenDispenseOutpatient.setText("OUTPATIENT DISPENSE WINDOW");
-		btnOpenDispenseInpatient.setText("INPATIENT DISPENSE WINDOW");
+		btnOpenDispenseOutpatient.setText("PHARMACY DISPENSE WINDOW");
+		btnOpenDispenseInpatient.setText("NURSES DISPENSE WINDOW");
 
 		Font font = new Font("Courier", Font.BOLD, 22);
 		btnOpenDispense.setFont(font);
@@ -215,7 +215,7 @@ public class VPharmacy extends Pharmacy implements FormPanel, ActionListener, Ta
 		}
 		if (e.getSource().equals(btnOpenDispenseInpatient))
 		{
-			SelectPharmacy selectPharmacy = new SelectPharmacy((Frame) null, "Inpatient dispensing window",
+			SelectPharmacy selectPharmacy = new SelectPharmacy((Frame) null, "Select dispensing window",
 					" AND doc.admitted ='Y' ");
 			AEnv.showCenterScreen(selectPharmacy);
 		}

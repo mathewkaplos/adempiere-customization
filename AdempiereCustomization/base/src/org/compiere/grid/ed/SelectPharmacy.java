@@ -94,11 +94,17 @@ public class SelectPharmacy extends JDialog
 		contentPanel.add(mLocator_ID, "cell 3 0 5 1,alignx left,growx 0,width 200::200");
 	}
 
+	private void btnCloseActionPerformed(ActionEvent e)
+	{
+		this.dispose();
+	}
+
 	private void initComponents()
 	{
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
+		btnClose = new JButton();
 		contentPanel = new JPanel();
 		label2 = new JLabel();
 		OkButton = new JButton();
@@ -118,9 +124,23 @@ public class SelectPharmacy extends JDialog
 			"[fill]" +
 			"[fill]" +
 			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
+			"[fill]" +
 			"[fill]",
 			// rows
+			"[]" +
+			"[]" +
 			"[]"));
+
+		//---- btnClose ----
+		btnClose.setText("Close");
+		btnClose.setForeground(Color.red);
+		btnClose.addActionListener(e -> btnCloseActionPerformed(e));
+		contentPane.add(btnClose, "cell 15 0 1 2");
 
 		//======== contentPanel ========
 		{
@@ -160,7 +180,7 @@ public class SelectPharmacy extends JDialog
 			OkButton.addActionListener(e -> OkButtonActionPerformed(e));
 			contentPanel.add(OkButton, "cell 8 3");
 		}
-		contentPane.add(contentPanel, "cell 0 0 10 1");
+		contentPane.add(contentPanel, "cell 0 2 10 1");
 		pack();
 		setLocationRelativeTo(getOwner());
 		// //GEN-END:initComponents
@@ -169,6 +189,7 @@ public class SelectPharmacy extends JDialog
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
 	// Generated using JFormDesigner Evaluation license - mathew359722@gmail.com
+	private JButton btnClose;
 	private JPanel contentPanel;
 	private JLabel label2;
 	private JButton OkButton;
